@@ -167,13 +167,10 @@ const StackedCards = () => {
                   </div>
                 </div>
 
-                {/* Heart + Save top-right */}
-                <div className="absolute top-3 right-3 flex flex-col items-center gap-1.5">
+                {/* Heart top-right */}
+                <div className="absolute top-3 right-3">
                   <button className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center active:scale-90 transition-transform duration-150">
                     <Heart size={16} className="text-rose-400 fill-rose-400" />
-                  </button>
-                  <button className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center active:scale-90 transition-transform duration-150">
-                    <Bookmark size={16} className="text-white/80" />
                   </button>
                 </div>
 
