@@ -137,16 +137,16 @@ const VendorRow = () => {
           <div
             key={vendor.id}
             onClick={() => navigate(`/vendor/${vendor.id}`)}
-            className="shrink-0 w-[170px] h-[200px] rounded-[20px] overflow-hidden relative cursor-pointer active:scale-95 transition-transform"
+            className="shrink-0 w-[150px] h-[180px] rounded-[18px] overflow-hidden relative cursor-pointer active:scale-95 transition-transform"
           >
             <img src={vendor.img} alt="" className="absolute inset-0 w-full h-full object-cover scale-125 blur-xl opacity-90 saturate-200" loading="lazy" />
             <div className="absolute inset-0 bg-[hsl(var(--foreground)/0.05)]" />
             <div className="absolute top-3 left-3 right-3 z-10">
-              <p className="text-[hsl(var(--background))] text-base font-bold truncate drop-shadow-md">{vendor.name}</p>
+              <p className="text-[hsl(var(--background))] text-sm font-bold truncate drop-shadow-md">{vendor.name}</p>
               <p className="text-[hsl(var(--background)/0.6)] text-[10px] font-medium">{vendor.category}</p>
             </div>
             <div className="absolute inset-0 flex items-center justify-center z-10">
-              <img src={vendor.img} alt={vendor.name} className="w-[90px] h-[90px] rounded-full object-cover border-[3px] border-[hsl(var(--background)/0.3)] shadow-xl" loading="lazy" />
+              <img src={vendor.img} alt={vendor.name} className="w-[80px] h-[80px] rounded-full object-cover border-[3px] border-[hsl(var(--background)/0.3)] shadow-xl" loading="lazy" />
             </div>
             <div className="absolute bottom-2.5 left-3 right-3 z-10">
               <button type="button" className="w-full py-1.5 rounded-full bg-[hsl(var(--background)/0.15)] backdrop-blur-xl text-[hsl(var(--background))] text-xs font-semibold border border-[hsl(var(--background)/0.2)] hover:bg-[hsl(var(--background)/0.25)] transition-colors">

@@ -81,34 +81,7 @@ const PostDetailDialog = ({ open, onClose, post }: PostDetailProps) => {
           </button>
         </div>
 
-        {/* Fixed engagement panel */}
-        <div className="fixed right-3 top-20 flex flex-col items-center gap-1 bg-white/10 backdrop-blur-xl border border-white/15 rounded-[18px] px-2.5 py-3 z-50">
-            <button
-              onClick={(e) => { e.stopPropagation(); setLiked(!liked); setLikeCount(c => liked ? c - 1 : c + 1); }}
-              className="flex flex-col items-center gap-0.5 py-1.5"
-            >
-              <Heart size={22} className={liked ? "text-rose-400 fill-rose-400 transition-all scale-110" : "text-white/80 transition-all"} />
-              <span className="text-[10px] text-white font-semibold">{formatCount(likeCount)}</span>
-            </button>
-            <div className="w-6 h-px bg-white/15" />
-            <button className="flex flex-col items-center gap-0.5 py-1.5">
-              <MessageCircle size={22} className="text-white/80" />
-              <span className="text-[10px] text-white font-semibold">{commentCount}</span>
-            </button>
-            <div className="w-6 h-px bg-white/15" />
-            <button
-              onClick={(e) => { e.stopPropagation(); setSaved(!saved); }}
-              className="flex flex-col items-center gap-0.5 py-1.5"
-            >
-              <Bookmark size={22} className={saved ? "text-amber-400 fill-amber-400" : "text-white/80"} />
-              <span className="text-[10px] text-white/60">{saved ? "saved" : "save"}</span>
-            </button>
-            <div className="w-6 h-px bg-white/15" />
-            <button className="flex flex-col items-center gap-0.5 py-1.5">
-              <Send size={22} className="text-white/80" />
-              <span className="text-[10px] text-white font-semibold">{formatCount(shareCount)}</span>
-            </button>
-          </div>
+        {/* Inline engagement panel — scrolls with content */}
 
         {/* Post image — full width, 3:4 */}
         <div className="relative w-full aspect-[3/4]">
