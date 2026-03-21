@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from "react";
-import { ChevronLeft, ChevronRight, Heart, Bookmark } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
 
 const cards = [
   {
