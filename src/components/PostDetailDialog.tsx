@@ -81,8 +81,13 @@ const PostDetailDialog = ({ open, onClose, post }: PostDetailProps) => {
           </button>
         </div>
 
-        {/* Fixed engagement panel */}
-        <div className="fixed right-3 top-20 flex flex-col items-center gap-1 bg-white/10 backdrop-blur-xl border border-white/15 rounded-[18px] px-2.5 py-3 z-50">
+        {/* Post image — full width, 3:4 */}
+        <div className="relative w-full aspect-[3/4]">
+          <img src={post.image} alt={post.name} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+
+          {/* Engagement panel — positioned inside image, scrolls with content */}
+          <div className="absolute right-3 top-16 flex flex-col items-center gap-1 bg-white/10 backdrop-blur-xl border border-white/15 rounded-[18px] px-2.5 py-3 z-20">
             <button
               onClick={(e) => { e.stopPropagation(); setLiked(!liked); setLikeCount(c => liked ? c - 1 : c + 1); }}
               className="flex flex-col items-center gap-0.5 py-1.5"
@@ -109,11 +114,6 @@ const PostDetailDialog = ({ open, onClose, post }: PostDetailProps) => {
               <span className="text-[10px] text-white font-semibold">{formatCount(shareCount)}</span>
             </button>
           </div>
-
-        {/* Post image — full width, 3:4 */}
-        <div className="relative w-full aspect-[3/4]">
-          <img src={post.image} alt={post.name} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
 
           {/* Bottom info — vendor + caption */}
           <div className="absolute bottom-0 left-0 right-0 p-5 pr-16 z-10">
