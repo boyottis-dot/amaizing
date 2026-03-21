@@ -178,10 +178,7 @@ const StackedCards = () => {
                 </div>
 
                 {/* Bottom content — title is the hero element */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 p-4 transition-all duration-500"
-                  style={{ opacity: front ? 1 : 0, transform: front ? "translateY(0)" : "translateY(8px)" }}
-                >
+                <div className="absolute bottom-0 left-0 right-0 p-4">
                   <div className="bg-white/10 backdrop-blur-xl rounded-[12px] px-3.5 py-2.5 border border-white/15">
                     <div className="flex items-center justify-between">
                       <span className="text-white text-[14px] font-bold">{card.title}</span>

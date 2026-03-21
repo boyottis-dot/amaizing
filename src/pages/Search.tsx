@@ -192,7 +192,7 @@ const Search = () => {
     <div className="min-h-screen bg-background max-w-md mx-auto relative">
       <h1 className="sr-only">Shop</h1>
 
-      <header className="sticky top-0 z-50 px-4 pt-4 pb-3 bg-background/80 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 px-4 pt-4 pb-3">
         <div className="flex items-center gap-2 bg-background/50 backdrop-blur-xl shadow-[0_2px_12px_-2px_hsl(var(--foreground)/0.08)] rounded-2xl h-12 px-2 border border-border/30 w-full">
           <SearchIcon size={15} className="text-muted-foreground shrink-0 ml-2" />
           <input
