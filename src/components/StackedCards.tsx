@@ -153,10 +153,7 @@ const StackedCards = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
                 {/* Stacked vendor avatars — top-left */}
-                <div
-                  className="absolute top-3 left-3 flex items-center transition-all duration-500"
-                  style={{ opacity: front ? 1 : 0, transform: front ? "translateY(0)" : "translateY(-6px)" }}
-                >
+                <div className="absolute top-3 left-3 flex items-center">
                   <div className="flex items-center -space-x-2">
                     {card.avatars.map((av, idx) => (
                       <img
