@@ -153,10 +153,7 @@ const StackedCards = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
                 {/* Stacked vendor avatars — top-left */}
-                <div
-                  className="absolute top-3 left-3 flex items-center transition-all duration-500"
-                  style={{ opacity: front ? 1 : 0, transform: front ? "translateY(0)" : "translateY(-6px)" }}
-                >
+                <div className="absolute top-3 left-3 flex items-center">
                   <div className="flex items-center -space-x-2">
                     {card.avatars.map((av, idx) => (
                       <img
@@ -171,10 +168,7 @@ const StackedCards = () => {
                 </div>
 
                 {/* Heart + Save top-right */}
-                <div
-                  className="absolute top-3 right-3 flex flex-col items-center gap-1.5 transition-all duration-500"
-                  style={{ opacity: front ? 1 : 0, transform: front ? "translateY(0)" : "translateY(-6px)" }}
-                >
+                <div className="absolute top-3 right-3 flex flex-col items-center gap-1.5">
                   <button className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center active:scale-90 transition-transform duration-150">
                     <Heart size={16} className="text-rose-400 fill-rose-400" />
                   </button>
@@ -184,10 +178,7 @@ const StackedCards = () => {
                 </div>
 
                 {/* Bottom content — title is the hero element */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 p-4 transition-all duration-500"
-                  style={{ opacity: front ? 1 : 0, transform: front ? "translateY(0)" : "translateY(8px)" }}
-                >
+                <div className="absolute bottom-0 left-0 right-0 p-4">
                   <div className="bg-white/10 backdrop-blur-xl rounded-[12px] px-3.5 py-2.5 border border-white/15">
                     <div className="flex items-center justify-between">
                       <span className="text-white text-[14px] font-bold">{card.title}</span>

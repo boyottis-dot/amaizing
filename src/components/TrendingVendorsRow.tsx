@@ -19,7 +19,7 @@ const TrendingVendorsRow = () => {
           <div
             key={v.id}
             onClick={() => navigate(`/vendor/${v.id}`)}
-            className="shrink-0 w-[170px] h-[200px] rounded-[20px] overflow-hidden relative cursor-pointer active:scale-95 transition-transform"
+            className="shrink-0 w-[150px] h-[180px] rounded-[18px] overflow-hidden relative cursor-pointer active:scale-95 transition-transform"
           >
             <img
               src={v.img}
