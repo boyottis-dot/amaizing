@@ -87,7 +87,7 @@ const CollectionsRow = () => (
               <span className="text-sm font-bold text-white truncate mr-2">
                 {col.title}
               </span>
-              <button className="flex items-center gap-2 bg-white/10 backdrop-blur-xl rounded-full px-4 py-2 border border-white/20 hover:bg-white/25 transition-colors">
+              <button className="flex items-center gap-2 bg-white/10 backdrop-blur-xl rounded-full px-4 py-2 border border-white/20 hover:bg-white/25 transition-all duration-300 ease-out">
                 <Heart size={20} className="text-rose-400 fill-rose-400" />
                 <span className="text-sm text-white font-semibold">
                   {formatCount(col.likes)}
