@@ -178,10 +178,10 @@ const StackedCards = () => {
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <div className="bg-white/10 backdrop-blur-xl rounded-[12px] px-3.5 py-2.5 border border-white/15">
                     <div className="flex items-center justify-between">
-                      <span className="text-white text-[14px] font-bold">{card.title}</span>
+                      <span className="text-white text-sm font-bold">{card.title}</span>
                       <div className="flex items-center gap-1">
                         <Heart size={12} className="text-rose-400 fill-rose-400" />
-                        <span className="text-white/70 text-[10px] font-semibold">{formatCount(card.likes)}</span>
+                        <span className="text-white/70 text-sm font-semibold">{formatCount(card.likes)}</span>
                       </div>
                     </div>
                   </div>
