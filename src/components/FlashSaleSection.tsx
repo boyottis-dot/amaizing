@@ -64,7 +64,7 @@ const FlashSaleSection = () => {
 
       {/* Cards */}
       <div
-        className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory overscroll-x-contain pl-4 pr-4 pb-1"
+        className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory overscroll-x-contain pb-1"
         style={{ WebkitOverflowScrolling: "touch" }}
       >
         {flashItems.map((item) => (
