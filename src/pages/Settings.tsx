@@ -19,33 +19,32 @@ const settingSections = [
   {
     title: "Account",
     items: [
-      { label: "Personal Details", desc: "Name, email, phone, photo", icon: User, route: "" },
-      { label: "Saved Addresses", desc: "Manage delivery addresses", icon: MapPin, route: "" },
+      { label: "Personal Details", desc: "Name, email, phone, photo", icon: User, route: "/settings/personal-details" },
+      { label: "Saved Addresses", desc: "Manage delivery addresses", icon: MapPin, route: "/settings/saved-addresses" },
     ],
   },
   {
     title: "Preferences",
     items: [
-      { label: "Location Mode", desc: "Switch between Local & International", icon: Globe, route: "" },
-      { label: "Notification Preferences", desc: "Manage notification types", icon: Bell, route: "" },
+      { label: "Location Mode", desc: "Switch between Local & International", icon: Globe, route: "/settings/location-mode" },
+      { label: "Notification Preferences", desc: "Manage notification types", icon: Bell, route: "/settings/notifications" },
     ],
   },
   {
     title: "Payments",
     items: [
-      { label: "Payment Methods", desc: "Cards & mobile money", icon: CreditCard, route: "" },
-      { label: "Gift Cards & Promos", desc: "Redeem codes, view balance", icon: Gift, route: "" },
+      { label: "Payment Methods", desc: "Cards & mobile money", icon: CreditCard, route: "/settings/payment-methods" },
+      { label: "Gift Cards & Promos", desc: "Redeem codes, view balance", icon: Gift, route: "/settings/gift-cards" },
     ],
   },
   {
     title: "Privacy & Support",
     items: [
-      { label: "Privacy Settings", desc: "Delete account, export data", icon: Shield, route: "" },
-      { label: "Help & Support", desc: "FAQ, contact, report a problem", icon: HelpCircle, route: "" },
+      { label: "Privacy Settings", desc: "Delete account, export data", icon: Shield, route: "/settings/privacy" },
+      { label: "Help & Support", desc: "FAQ, contact, report a problem", icon: HelpCircle, route: "/settings/help" },
     ],
   },
 ];
-
 const Settings = () => {
   const navigate = useNavigate();
 
