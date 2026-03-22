@@ -1,13 +1,19 @@
 import { ArrowLeft, Search, Heart, Bookmark, MessageCircle, Send } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import BottomNav from "@/components/BottomNav";
 import PostDetailDialog, { PostDetailData } from "@/components/PostDetailDialog";
 
-const stats = [
-  { label: "Followers", value: "567 K" },
-  { label: "Posts", value: "166" },
-];
+const vendorMap: Record<string, { name: string; handle: string; avatar: string; bio: string; followers: string; posts: string }> = {
+  amara: { name: "Amara Okafor", handle: "@amara.style", avatar: "https://i.pravatar.cc/400?img=32", bio: "West African silk & textile designer 🧵✨", followers: "2.3 K", posts: "89" },
+  kofi: { name: "Kofi Mensah", handle: "@kofi.craft", avatar: "https://i.pravatar.cc/400?img=15", bio: "Hand-stitched leather goods, made to last a lifetime 🧵", followers: "1.8 K", posts: "54" },
+  "1": { name: "Sienna James", handle: "@sienna.james", avatar: "https://i.pravatar.cc/400?img=32", bio: "Vintage fashion curator 👗", followers: "2.1 K", posts: "166" },
+  "2": { name: "Maya Carter", handle: "@maya.carter", avatar: "https://i.pravatar.cc/400?img=25", bio: "Beauty & skincare enthusiast 💄", followers: "1.8 K", posts: "93" },
+  "3": { name: "Liam Chen", handle: "@liam.chen", avatar: "https://i.pravatar.cc/400?img=11", bio: "Home decor & modern living 🏠", followers: "3.4 K", posts: "127" },
+  "4": { name: "Tadala Mbewe", handle: "@tadala.crafts", avatar: "https://i.pravatar.cc/400?img=15", bio: "Local crafts & handmade treasures ✋", followers: "1.2 K", posts: "78" },
+};
+
+const defaultVendor = { name: "Katty Abrahams", handle: "@kattyabrahams", avatar: "https://i.pravatar.cc/400?img=32", bio: "I'm delighted to introduce myself as a professional model 🥳", followers: "567 K", posts: "166" };
 
 const tabs = ["Videos", "Posts", "Collections", "Saved"];
 
@@ -21,39 +27,9 @@ const products = [
 ];
 
 const collections = [
-  {
-    id: 1,
-    title: "Summer Essentials",
-    likes: 1240,
-    main: "https://picsum.photos/seed/vcol1/600/600",
-    thumbs: [
-      "https://picsum.photos/seed/vcol1a/200/200",
-      "https://picsum.photos/seed/vcol1b/200/200",
-      "https://picsum.photos/seed/vcol1c/200/200",
-    ],
-  },
-  {
-    id: 2,
-    title: "Handmade Picks",
-    likes: 876,
-    main: "https://picsum.photos/seed/vcol2/600/600",
-    thumbs: [
-      "https://picsum.photos/seed/vcol2a/200/200",
-      "https://picsum.photos/seed/vcol2b/200/200",
-      "https://picsum.photos/seed/vcol2c/200/200",
-    ],
-  },
-  {
-    id: 3,
-    title: "Street Style",
-    likes: 2100,
-    main: "https://picsum.photos/seed/vcol3/600/600",
-    thumbs: [
-      "https://picsum.photos/seed/vcol3a/200/200",
-      "https://picsum.photos/seed/vcol3b/200/200",
-      "https://picsum.photos/seed/vcol3c/200/200",
-    ],
-  },
+  { id: 1, title: "Summer Essentials", likes: 1240, main: "https://picsum.photos/seed/vcol1/600/600", thumbs: ["https://picsum.photos/seed/vcol1a/200/200", "https://picsum.photos/seed/vcol1b/200/200", "https://picsum.photos/seed/vcol1c/200/200"] },
+  { id: 2, title: "Handmade Picks", likes: 876, main: "https://picsum.photos/seed/vcol2/600/600", thumbs: ["https://picsum.photos/seed/vcol2a/200/200", "https://picsum.photos/seed/vcol2b/200/200", "https://picsum.photos/seed/vcol2c/200/200"] },
+  { id: 3, title: "Street Style", likes: 2100, main: "https://picsum.photos/seed/vcol3/600/600", thumbs: ["https://picsum.photos/seed/vcol3a/200/200", "https://picsum.photos/seed/vcol3b/200/200", "https://picsum.photos/seed/vcol3c/200/200"] },
 ];
 
 const savedItems = [
@@ -63,8 +39,7 @@ const savedItems = [
   { id: 4, name: "Wool Scarf", price: "$42", image: "https://picsum.photos/seed/saved4/400/400" },
 ];
 
-const formatCount = (n: number) =>
-  n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
+const formatCount = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
 
 const ProductCard = ({ item, onOpen }: { item: { id: number; name: string; price: string; image: string }; onOpen?: () => void }) => (
   <div onClick={onOpen} className="aspect-square rounded-[20px] overflow-hidden relative cursor-pointer active:scale-[0.97] transition-transform">
@@ -90,30 +65,23 @@ const ProductCard = ({ item, onOpen }: { item: { id: number; name: string; price
 
 const VendorProfile = () => {
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const vendor = vendorMap[id || ""] || defaultVendor;
   const [activeTab, setActiveTab] = useState("Videos");
   const [selectedPost, setSelectedPost] = useState<PostDetailData | null>(null);
 
+  const stats = [
+    { label: "Followers", value: vendor.followers },
+    { label: "Posts", value: vendor.posts },
+  ];
+
   return (
     <div className="max-w-md mx-auto min-h-screen bg-background pb-28">
-      <div
-        className="relative overflow-hidden mx-1"
-        style={{
-          borderBottomLeftRadius: 32,
-          borderBottomRightRadius: 32,
-          height: 200,
-        }}
-      >
-        <img
-          src="https://picsum.photos/seed/vendorbanner/800/400"
-          alt="Banner"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+      <div className="relative overflow-hidden mx-1" style={{ borderBottomLeftRadius: 32, borderBottomRightRadius: 32, height: 200 }}>
+        <img src="https://picsum.photos/seed/vendorbanner/800/400" alt="Banner" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/30" />
         <div className="relative z-10 flex items-center justify-between px-5 pt-6">
-          <button
-            onClick={() => navigate(-1)}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20"
-          >
+          <button onClick={() => navigate(-1)} className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20">
             <ArrowLeft size={20} className="text-white" />
           </button>
           <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20">
@@ -124,19 +92,13 @@ const VendorProfile = () => {
 
       <div className="relative z-10 -mt-16 flex justify-center">
         <div className="w-32 h-32 rounded-full border-4 border-background bg-secondary shadow-sm overflow-hidden">
-          <img
-            src="https://i.pravatar.cc/400?img=32"
-            alt="Katty Abrahams"
-            className="w-full h-full object-cover"
-          />
+          <img src={vendor.avatar} alt={vendor.name} className="w-full h-full object-cover" />
         </div>
       </div>
 
       <div className="mt-4 px-6 text-center">
-        <h1 className="text-2xl font-bold text-foreground">Katty Abrahams</h1>
-        <p className="mt-1 text-sm font-light text-muted-foreground">
-          I'm delighted to introduce myself as a professional model 🥳
-        </p>
+        <h1 className="text-2xl font-bold text-foreground">{vendor.name}</h1>
+        <p className="mt-1 text-sm font-light text-muted-foreground">{vendor.bio}</p>
       </div>
 
       <div className="mt-6 flex items-center justify-center gap-8">
@@ -153,10 +115,7 @@ const VendorProfile = () => {
 
       <div className="mt-6 flex items-center justify-between gap-2 px-4">
         {["Follow", "Message", "Insight"].map((label) => (
-          <button
-            key={label}
-            className="flex-1 rounded-2xl bg-secondary px-4 py-2.5 text-sm font-semibold text-secondary-foreground"
-          >
+          <button key={label} className="flex-1 rounded-2xl bg-secondary px-4 py-2.5 text-sm font-semibold text-secondary-foreground">
             {label}
           </button>
         ))}
@@ -164,20 +123,8 @@ const VendorProfile = () => {
 
       <nav className="mt-8 flex items-center justify-around border-b border-border/50 px-4">
         {tabs.map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`flex-1 flex flex-col items-center pb-3 ${
-              activeTab === tab ? "border-b-2 border-foreground" : ""
-            }`}
-          >
-            <span
-              className={`text-sm font-semibold ${
-                activeTab === tab ? "text-foreground" : "text-muted-foreground"
-              }`}
-            >
-              {tab}
-            </span>
+          <button key={tab} onClick={() => setActiveTab(tab)} className={`flex-1 flex flex-col items-center pb-3 ${activeTab === tab ? "border-b-2 border-foreground" : ""}`}>
+            <span className={`text-sm font-semibold ${activeTab === tab ? "text-foreground" : "text-muted-foreground"}`}>{tab}</span>
           </button>
         ))}
       </nav>
@@ -185,9 +132,7 @@ const VendorProfile = () => {
       {activeTab === "Videos" && (
         <section className="py-4 px-3">
           <div className="grid grid-cols-2 gap-3">
-            {products.map((item) => (
-              <ProductCard key={item.id} item={item} />
-            ))}
+            {products.map((item) => <ProductCard key={item.id} item={item} />)}
           </div>
         </section>
       )}
@@ -196,36 +141,22 @@ const VendorProfile = () => {
         <section className="py-4 px-3">
           <div className="flex flex-col gap-4">
             {collections.map((col) => (
-              <div
-                key={col.id}
-                className="w-full aspect-square rounded-[20px] overflow-hidden relative"
-              >
-                <img
-                  src={col.main}
-                  alt={col.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+              <div key={col.id} className="w-full aspect-square rounded-[20px] overflow-hidden relative">
+                <img src={col.main} alt={col.title} className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
                   <div className="flex gap-1.5 mb-3">
                     {col.thumbs.map((thumb, i) => (
-                      <div
-                        key={i}
-                        className="w-11 h-11 rounded-[10px] overflow-hidden border-2 border-white/30"
-                      >
+                      <div key={i} className="w-11 h-11 rounded-[10px] overflow-hidden border-2 border-white/30">
                         <img src={thumb} alt="" className="w-full h-full object-cover" />
                       </div>
                     ))}
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-white truncate mr-2">
-                      {col.title}
-                    </span>
+                    <span className="text-sm font-bold text-white truncate mr-2">{col.title}</span>
                     <button className="flex items-center gap-2 bg-white/10 backdrop-blur-xl rounded-full px-4 py-2 border border-white/20 hover:bg-white/25 transition-colors">
                       <Heart size={20} className="text-rose-400 fill-rose-400" />
-                      <span className="text-sm text-white font-semibold">
-                        {formatCount(col.likes)}
-                      </span>
+                      <span className="text-sm text-white font-semibold">{formatCount(col.likes)}</span>
                     </button>
                   </div>
                 </div>
@@ -238,29 +169,11 @@ const VendorProfile = () => {
       {activeTab === "Posts" && (
         <section className="py-4 px-3 flex flex-col gap-4">
           {[
-            {
-              image: "https://picsum.photos/seed/post1/600/600",
-              caption: "New collection dropping this weekend! Stay tuned 🔥",
-              likes: 2340,
-              comments: 128,
-              shares: 45,
-            },
-            {
-              image: "https://picsum.photos/seed/post2/600/600",
-              caption: "Behind the scenes of our latest photoshoot ✨",
-              likes: 1890,
-              comments: 96,
-              shares: 32,
-            },
-            {
-              image: "https://picsum.photos/seed/post3/600/600",
-              caption: "Summer vibes with our best-selling pieces 🌊",
-              likes: 3100,
-              comments: 215,
-              shares: 78,
-            },
+            { image: "https://picsum.photos/seed/post1/600/600", caption: "New collection dropping this weekend! Stay tuned 🔥", likes: 2340, comments: 128, shares: 45 },
+            { image: "https://picsum.photos/seed/post2/600/600", caption: "Behind the scenes of our latest photoshoot ✨", likes: 1890, comments: 96, shares: 32 },
+            { image: "https://picsum.photos/seed/post3/600/600", caption: "Summer vibes with our best-selling pieces 🌊", likes: 3100, comments: 215, shares: 78 },
           ].map((post, i) => (
-            <div key={i} onClick={() => setSelectedPost({ image: post.image, name: "Katty Abrahams", caption: post.caption, likes: post.likes, comments: post.comments, shares: post.shares, vendorName: "Katty Abrahams", vendorAvatar: "https://i.pravatar.cc/400?img=32", vendorHandle: "@kattyabrahams" })} className="rounded-[20px] overflow-hidden relative aspect-square shadow-2xl cursor-pointer active:scale-[0.97] transition-transform">
+            <div key={i} onClick={() => setSelectedPost({ image: post.image, name: vendor.name, caption: post.caption, likes: post.likes, comments: post.comments, shares: post.shares, vendorName: vendor.name, vendorAvatar: vendor.avatar, vendorHandle: vendor.handle })} className="rounded-[20px] overflow-hidden relative aspect-square shadow-2xl cursor-pointer active:scale-[0.97] transition-transform">
               <img src={post.image} alt="Post" className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
               <button className="absolute top-4 left-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full px-5 py-2 z-10">
@@ -289,10 +202,10 @@ const VendorProfile = () => {
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
                 <div className="flex items-center gap-2.5 mb-2">
-                  <img src="https://i.pravatar.cc/400?img=32" alt="Katty" className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
+                  <img src={vendor.avatar} alt={vendor.name} className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
                   <div className="flex flex-col">
-                    <span className="text-sm font-bold text-white">Katty Abrahams</span>
-                    <span className="text-[11px] text-white/50">@kattyabrahams</span>
+                    <span className="text-sm font-bold text-white">{vendor.name}</span>
+                    <span className="text-[11px] text-white/50">{vendor.handle}</span>
                   </div>
                 </div>
                 <p className="text-[12px] text-white/70 leading-relaxed line-clamp-2 pr-14">{post.caption}</p>
