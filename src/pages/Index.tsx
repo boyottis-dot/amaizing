@@ -147,7 +147,7 @@ const Index = () => {
         </div>
       </div>
 
-      <NearYouRow />
+      
       <StackedCards />
 
       <div className="mt-4" onClick={() => setSelectedPost(featuredPosts[3])}>
