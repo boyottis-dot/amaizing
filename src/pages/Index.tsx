@@ -51,6 +51,7 @@ const featuredPosts: PostDetailData[] = [
     comments: 7,
     shares: 3,
     caption: "Absolutely in love with this silk dress from @amara.style! The quality is incredible and it fits perfectly. Highly recommend 💕",
+    price: "$89",
   },
   {
     image: "https://picsum.photos/seed/rev2/600/600",
