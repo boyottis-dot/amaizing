@@ -21,6 +21,14 @@ import Notifications from "./pages/Notifications.tsx";
 import Returns from "./pages/Returns.tsx";
 import Settings from "./pages/Settings.tsx";
 import CreateReview from "./pages/CreateReview.tsx";
+import PersonalDetails from "./pages/settings/PersonalDetails.tsx";
+import SavedAddresses from "./pages/settings/SavedAddresses.tsx";
+import LocationMode from "./pages/settings/LocationMode.tsx";
+import NotificationPreferences from "./pages/settings/NotificationPreferences.tsx";
+import PaymentMethods from "./pages/settings/PaymentMethods.tsx";
+import GiftCards from "./pages/settings/GiftCards.tsx";
+import PrivacySettings from "./pages/settings/PrivacySettings.tsx";
+import HelpSupport from "./pages/settings/HelpSupport.tsx";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +55,14 @@ const App = () => (
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/returns" element={<Returns />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/settings/personal-details" element={<PersonalDetails />} />
+          <Route path="/settings/saved-addresses" element={<SavedAddresses />} />
+          <Route path="/settings/location-mode" element={<LocationMode />} />
+          <Route path="/settings/notifications" element={<NotificationPreferences />} />
+          <Route path="/settings/payment-methods" element={<PaymentMethods />} />
+          <Route path="/settings/gift-cards" element={<GiftCards />} />
+          <Route path="/settings/privacy" element={<PrivacySettings />} />
+          <Route path="/settings/help" element={<HelpSupport />} />
           <Route path="/create-review/:orderId" element={<CreateReview />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
