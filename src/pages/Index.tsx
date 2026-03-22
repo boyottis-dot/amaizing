@@ -63,6 +63,7 @@ const featuredPosts: PostDetailData[] = [
     comments: 14,
     shares: 6,
     caption: "Best ramen I've had outside of Japan! @liam.eats is a genius. The broth is SO rich. Already ordering again for next weekend 🙌",
+    price: "$32",
   },
   {
     image: "https://picsum.photos/seed/feat4/600/600",
