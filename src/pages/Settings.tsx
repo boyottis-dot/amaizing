@@ -70,6 +70,7 @@ const Settings = () => {
               {section.items.map((item) => (
                 <button
                   key={item.label}
+                  onClick={() => navigate(item.route)}
                   className="w-full flex items-center gap-3 rounded-[18px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-sm px-4 py-3.5 text-left active:scale-[0.97] transition-transform duration-150"
                 >
                   <div className="w-9 h-9 rounded-full bg-secondary/80 flex items-center justify-center shrink-0">

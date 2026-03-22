@@ -55,6 +55,14 @@ const App = () => (
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/returns" element={<Returns />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/settings/personal-details" element={<PersonalDetails />} />
+          <Route path="/settings/saved-addresses" element={<SavedAddresses />} />
+          <Route path="/settings/location-mode" element={<LocationMode />} />
+          <Route path="/settings/notifications" element={<NotificationPreferences />} />
+          <Route path="/settings/payment-methods" element={<PaymentMethods />} />
+          <Route path="/settings/gift-cards" element={<GiftCards />} />
+          <Route path="/settings/privacy" element={<PrivacySettings />} />
+          <Route path="/settings/help" element={<HelpSupport />} />
           <Route path="/create-review/:orderId" element={<CreateReview />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
