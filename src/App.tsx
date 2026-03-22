@@ -1,8 +1,10 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import PageTransition from "@/components/PageTransition";
 import Index from "./pages/Index.tsx";
 import VendorProfile from "./pages/VendorProfile.tsx";
 import StoryViewer from "./pages/StoryViewer.tsx";
@@ -32,41 +34,55 @@ import HelpSupport from "./pages/settings/HelpSupport.tsx";
 
 const queryClient = new QueryClient();
 
+const P = ({ children }: { children: React.ReactNode }) => (
+  <PageTransition>{children}</PageTransition>
+);
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<P><Index /></P>} />
+        <Route path="/vendor/:id" element={<P><VendorProfile /></P>} />
+        <Route path="/search" element={<P><Search /></P>} />
+        <Route path="/cart" element={<P><Cart /></P>} />
+        <Route path="/messages" element={<P><Messages /></P>} />
+        <Route path="/story/:id" element={<P><StoryViewer /></P>} />
+        <Route path="/profile" element={<P><Profile /></P>} />
+        <Route path="/wishlist" element={<P><Wishlist /></P>} />
+        <Route path="/create-post" element={<P><CreatePost /></P>} />
+        <Route path="/customer/:id" element={<P><CustomerProfile /></P>} />
+        <Route path="/my-orders" element={<P><MyOrders /></P>} />
+        <Route path="/order-tracking/:id" element={<P><OrderTracking /></P>} />
+        <Route path="/following" element={<P><Following /></P>} />
+        <Route path="/notifications" element={<P><Notifications /></P>} />
+        <Route path="/returns" element={<P><Returns /></P>} />
+        <Route path="/settings" element={<P><Settings /></P>} />
+        <Route path="/settings/personal-details" element={<P><PersonalDetails /></P>} />
+        <Route path="/settings/saved-addresses" element={<P><SavedAddresses /></P>} />
+        <Route path="/settings/location-mode" element={<P><LocationMode /></P>} />
+        <Route path="/settings/notifications" element={<P><NotificationPreferences /></P>} />
+        <Route path="/settings/payment-methods" element={<P><PaymentMethods /></P>} />
+        <Route path="/settings/gift-cards" element={<P><GiftCards /></P>} />
+        <Route path="/settings/privacy" element={<P><PrivacySettings /></P>} />
+        <Route path="/settings/help" element={<P><HelpSupport /></P>} />
+        <Route path="/create-review/:orderId" element={<P><CreateReview /></P>} />
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<P><NotFound /></P>} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/vendor/:id" element={<VendorProfile />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/messages" element={<Messages />} />
-          <Route path="/story/:id" element={<StoryViewer />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/create-post" element={<CreatePost />} />
-          <Route path="/customer/:id" element={<CustomerProfile />} />
-          <Route path="/my-orders" element={<MyOrders />} />
-          <Route path="/order-tracking/:id" element={<OrderTracking />} />
-          <Route path="/following" element={<Following />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/returns" element={<Returns />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/settings/personal-details" element={<PersonalDetails />} />
-          <Route path="/settings/saved-addresses" element={<SavedAddresses />} />
-          <Route path="/settings/location-mode" element={<LocationMode />} />
-          <Route path="/settings/notifications" element={<NotificationPreferences />} />
-          <Route path="/settings/payment-methods" element={<PaymentMethods />} />
-          <Route path="/settings/gift-cards" element={<GiftCards />} />
-          <Route path="/settings/privacy" element={<PrivacySettings />} />
-          <Route path="/settings/help" element={<HelpSupport />} />
-          <Route path="/create-review/:orderId" element={<CreateReview />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AnimatedRoutes />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
