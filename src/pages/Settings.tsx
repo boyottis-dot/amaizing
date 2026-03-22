@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -9,11 +8,13 @@ import {
   Globe,
   HelpCircle,
   MapPin,
+  Moon,
   Shield,
-  Trash2,
+  Sun,
   User,
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const settingSections = [
   {
@@ -45,8 +46,18 @@ const settingSections = [
     ],
   },
 ];
+
+type ThemeOption = "light" | "dark" | "system";
+
+const themeOptions: { value: ThemeOption; label: string; icon: typeof Sun }[] = [
+  { value: "light", label: "Light", icon: Sun },
+  { value: "dark", label: "Dark", icon: Moon },
+  { value: "system", label: "Auto", icon: Globe },
+];
+
 const Settings = () => {
   const navigate = useNavigate();
+  const { theme, setTheme } = useTheme();
 
   return (
     <div className="min-h-screen bg-background max-w-md mx-auto relative pb-28">
@@ -63,7 +74,7 @@ const Settings = () => {
       </header>
 
       <main className="px-4 space-y-5">
-        {settingSections.map((section) => (
+        {settingSections.map((section, sectionIdx) => (
           <div key={section.title}>
             <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2 px-1">{section.title}</h2>
             <div className="space-y-2">
@@ -83,6 +94,40 @@ const Settings = () => {
                   <ChevronRight size={16} className="text-muted-foreground/50 shrink-0" />
                 </button>
               ))}
+
+              {/* Appearance toggle — injected after the Preferences section */}
+              {sectionIdx === 1 && (
+                <div className="w-full rounded-[18px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-sm px-4 py-3.5">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-9 h-9 rounded-full bg-secondary/80 flex items-center justify-center shrink-0">
+                      <Sun size={16} className="text-foreground" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-foreground">Appearance</p>
+                      <p className="text-[10px] text-muted-foreground">Choose your theme</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    {themeOptions.map((opt) => {
+                      const isActive = theme === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => setTheme(opt.value)}
+                          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-full text-xs font-semibold transition-all duration-200 active:scale-95 ${
+                            isActive
+                              ? "bg-foreground text-background shadow-md"
+                              : "bg-secondary/80 text-muted-foreground hover:bg-secondary"
+                          }`}
+                        >
+                          <opt.icon size={13} strokeWidth={2} />
+                          {opt.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         ))}

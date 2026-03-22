@@ -69,6 +69,11 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --story-ring: 0 58% 40%;
+    --post-bg: 0 0% 10%;
+    --post-foreground: 0 0% 98%;
+    --pill-bg: 0 0% 100% / 0.08;
+    --pill-border: 0 0% 100% / 0.15;
   }
 }
 
