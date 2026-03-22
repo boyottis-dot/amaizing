@@ -43,7 +43,7 @@ const FlashSaleSection = () => {
   return (
     <section className="py-5">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 pb-3">
+      <div className="flex items-center justify-between pb-3">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full bg-[hsl(0,75%,35%)]/10 flex items-center justify-center">
             <Zap size={14} className="text-[hsl(0,75%,35%)] fill-[hsl(0,75%,35%)]" />
