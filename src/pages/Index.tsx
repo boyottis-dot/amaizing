@@ -7,7 +7,7 @@ import StoriesRow from "@/components/StoriesRow";
 import CategoryPills from "@/components/CategoryPills";
 import TrendingVendorsRow from "@/components/TrendingVendorsRow";
 import ProductGrid from "@/components/ProductGrid";
-import NearYouRow from "@/components/NearYouRow";
+
 import CollectionsRow from "@/components/CollectionsRow";
 import FlashSaleSection from "@/components/FlashSaleSection";
 

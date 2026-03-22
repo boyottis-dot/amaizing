@@ -45,21 +45,16 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen bg-background max-w-md mx-auto relative">
-      <header className="sticky top-0 z-50 flex items-center gap-3 px-4 py-4 bg-background/80 backdrop-blur-xl">
+      <div className="px-4 pt-4 pb-2 flex items-center gap-3">
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="flex items-center justify-center h-9 w-9 rounded-full bg-background/60 backdrop-blur-xl shadow-[0_2px_12px_-2px_hsl(var(--foreground)/0.08)] border border-border/30 transition-all duration-150 hover:bg-background active:scale-90"
+          className="sticky top-4 z-50 flex items-center justify-center h-9 w-9 rounded-full bg-background/60 backdrop-blur-xl shadow-[0_2px_12px_-2px_hsl(var(--foreground)/0.08)] border border-border/30 transition-all duration-150 hover:bg-background active:scale-90"
         >
           <ArrowLeft size={16} className="text-foreground" />
         </button>
-        <div className="flex-1 flex justify-center">
-          <div className="rounded-full bg-background/50 backdrop-blur-xl border border-border/30 shadow-[0_2px_12px_-2px_hsl(var(--foreground)/0.08)] px-5 py-2">
-            <span className="text-sm font-bold text-foreground">Cart · {items.reduce((s, i) => s + i.qty, 0)}</span>
-          </div>
-        </div>
-        <div className="w-9" />
-      </header>
+        <span className="text-lg font-bold text-foreground">Cart · {items.reduce((s, i) => s + i.qty, 0)}</span>
+      </div>
 
       <main className="flex-1 px-4 space-y-3 pb-72">
         <AnimatePresence mode="popLayout">

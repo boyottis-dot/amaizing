@@ -50,7 +50,7 @@ const StoriesRow = () => {
                     <img
                       src={s.img}
                       alt={s.name}
-                      className="w-6 h-6 rounded-full object-cover border-2 border-background"
+                      className="w-6 h-6 rounded-full object-cover border-2 border-white/30 backdrop-blur-sm"
                     />
                   </div>
                 </>

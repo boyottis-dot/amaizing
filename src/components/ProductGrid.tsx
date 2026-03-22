@@ -42,7 +42,7 @@ const ProductGrid = ({ title, count, products, onOpenProduct }: ProductGridProps
             className="rounded-[20px] overflow-hidden bg-secondary relative aspect-square cursor-pointer active:scale-[0.97] transition-transform"
           >
             <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
-            <img src={p.avatar} alt="" className="absolute top-2.5 left-2.5 w-7 h-7 rounded-full border-2 border-white object-cover" />
+            <img src={p.avatar} alt="" className="absolute top-2.5 left-2.5 w-7 h-7 rounded-full border-2 border-white/30 backdrop-blur-sm object-cover" />
             <button className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-black/30 backdrop-blur-md flex items-center justify-center active:scale-90 transition-transform duration-150">
               <Heart size={14} className="text-white" strokeWidth={1.5} />
             </button>

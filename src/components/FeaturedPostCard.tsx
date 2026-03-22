@@ -42,7 +42,7 @@ const FeaturedPostCard = ({
 
       {/* Buy button top-left with price */}
       <button className="absolute top-4 left-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full px-5 py-2.5 z-10 flex items-center gap-1.5 active:scale-95 transition-transform duration-150">
-        <span className="text-white text-xs font-semibold">Buy Now</span>
+        <span className="text-white text-xs font-semibold">{price ? "Buy Now" : "Buy Now"}</span>
         {price && <span className="text-white/70 text-xs font-bold">· {price}</span>}
       </button>
 
