@@ -27,7 +27,7 @@ const TrendingVendorsRow = () => {
           <div
             key={v.id}
             onClick={() => navigate(`/vendor/${v.id}`)}
-            className="shrink-0 w-[150px] h-[200px] rounded-[18px] overflow-hidden relative cursor-pointer active:scale-95 transition-transform"
+            className="shrink-0 w-[150px] h-[180px] rounded-[18px] overflow-hidden relative cursor-pointer active:scale-95 transition-transform"
           >
             <img src={v.img} alt="" className="absolute inset-0 w-full h-full object-cover scale-125 blur-xl opacity-90 saturate-200" />
             <div className="absolute inset-0 bg-black/5" />
@@ -35,8 +35,8 @@ const TrendingVendorsRow = () => {
               <p className="text-white text-sm font-bold truncate drop-shadow-md">{v.name}</p>
               <p className="text-white/60 text-[10px] font-medium mt-0.5">{v.followers} followers</p>
             </div>
-            <div className="absolute top-[70px] left-0 right-0 flex items-center justify-center z-10">
-              <img src={v.img} alt={v.name} className="w-[72px] h-[72px] rounded-full object-cover border-[3px] border-white/30 shadow-xl" />
+            <div className="absolute top-[58px] left-0 right-0 flex items-center justify-center z-10">
+              <img src={v.img} alt={v.name} className="w-[64px] h-[64px] rounded-full object-cover border-[3px] border-white/30 shadow-xl" />
             </div>
             <div className="absolute bottom-2.5 left-3 right-3 z-10">
               <button className="w-full py-1.5 rounded-full bg-white/15 backdrop-blur-xl text-white text-xs font-semibold border border-white/20 hover:bg-white/25 transition-colors">
