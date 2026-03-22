@@ -21,6 +21,14 @@ import Notifications from "./pages/Notifications.tsx";
 import Returns from "./pages/Returns.tsx";
 import Settings from "./pages/Settings.tsx";
 import CreateReview from "./pages/CreateReview.tsx";
+import PersonalDetails from "./pages/settings/PersonalDetails.tsx";
+import SavedAddresses from "./pages/settings/SavedAddresses.tsx";
+import LocationMode from "./pages/settings/LocationMode.tsx";
+import NotificationPreferences from "./pages/settings/NotificationPreferences.tsx";
+import PaymentMethods from "./pages/settings/PaymentMethods.tsx";
+import GiftCards from "./pages/settings/GiftCards.tsx";
+import PrivacySettings from "./pages/settings/PrivacySettings.tsx";
+import HelpSupport from "./pages/settings/HelpSupport.tsx";
 
 const queryClient = new QueryClient();
 
