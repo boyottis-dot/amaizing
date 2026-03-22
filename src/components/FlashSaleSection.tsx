@@ -41,9 +41,9 @@ const FlashSaleSection = () => {
   const { h, m, s } = useCountdown(12);
 
   return (
-    <section className="py-5 -mx-4">
+    <section className="py-5">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 pb-3">
+      <div className="flex items-center justify-between pb-3">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full bg-[hsl(0,75%,35%)]/10 flex items-center justify-center">
             <Zap size={14} className="text-[hsl(0,75%,35%)] fill-[hsl(0,75%,35%)]" />
@@ -64,7 +64,7 @@ const FlashSaleSection = () => {
 
       {/* Cards */}
       <div
-        className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory overscroll-x-contain pl-4 pr-4 pb-1"
+        className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory overscroll-x-contain pb-1"
         style={{ WebkitOverflowScrolling: "touch" }}
       >
         {flashItems.map((item) => (
