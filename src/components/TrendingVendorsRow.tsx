@@ -35,8 +35,8 @@ const TrendingVendorsRow = () => {
               <p className="text-white text-sm font-bold truncate drop-shadow-md">{v.name}</p>
               <p className="text-white/60 text-[10px] font-medium mt-0.5">{v.followers} followers</p>
             </div>
-            <div className="absolute top-[58px] left-0 right-0 flex items-center justify-center z-10">
-              <img src={v.img} alt={v.name} className="w-[64px] h-[64px] rounded-full object-cover border-[3px] border-white/30 shadow-xl" />
+            <div className="absolute top-[50px] left-0 right-0 flex items-center justify-center z-10">
+              <img src={v.img} alt={v.name} className="w-[76px] h-[76px] rounded-full object-cover border-[3px] border-white/30 shadow-xl" />
             </div>
             <div className="absolute bottom-2.5 left-3 right-3 z-10">
               <button className="w-full py-1.5 rounded-full bg-white/15 backdrop-blur-xl text-white text-xs font-semibold border border-white/20 hover:bg-white/25 transition-colors">

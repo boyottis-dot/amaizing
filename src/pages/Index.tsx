@@ -7,7 +7,7 @@ import StoriesRow from "@/components/StoriesRow";
 import CategoryPills from "@/components/CategoryPills";
 import TrendingVendorsRow from "@/components/TrendingVendorsRow";
 import ProductGrid from "@/components/ProductGrid";
-import NearYouRow from "@/components/NearYouRow";
+
 import CollectionsRow from "@/components/CollectionsRow";
 import FlashSaleSection from "@/components/FlashSaleSection";
 
@@ -51,6 +51,7 @@ const featuredPosts: PostDetailData[] = [
     comments: 7,
     shares: 3,
     caption: "Absolutely in love with this silk dress from @amara.style! The quality is incredible and it fits perfectly. Highly recommend 💕",
+    price: "$89",
   },
   {
     image: "https://picsum.photos/seed/rev2/600/600",
@@ -62,6 +63,7 @@ const featuredPosts: PostDetailData[] = [
     comments: 14,
     shares: 6,
     caption: "Best ramen I've had outside of Japan! @liam.eats is a genius. The broth is SO rich. Already ordering again for next weekend 🙌",
+    price: "$32",
   },
   {
     image: "https://picsum.photos/seed/feat4/600/600",
@@ -147,7 +149,7 @@ const Index = () => {
         </div>
       </div>
 
-      <NearYouRow />
+      
       <StackedCards />
 
       <div className="mt-4" onClick={() => setSelectedPost(featuredPosts[3])}>
