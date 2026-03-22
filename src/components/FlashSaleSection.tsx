@@ -70,7 +70,7 @@ const FlashSaleSection = () => {
         {flashItems.map((item) => (
           <div
             key={item.id}
-            className="shrink-0 w-[200px] snap-start cursor-pointer active:scale-[0.97] transition-all duration-200 flex flex-col"
+            className="shrink-0 w-[180px] snap-start cursor-pointer active:scale-[0.97] transition-all duration-200 flex flex-col"
           >
             {/* Image area */}
             <div className="relative aspect-square rounded-[20px] overflow-hidden mb-2.5">
