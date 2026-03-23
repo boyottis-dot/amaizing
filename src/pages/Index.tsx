@@ -145,6 +145,7 @@ const Index = () => {
             caption="Best ramen I've had outside of Japan! @liam.eats is a genius. The broth is SO rich. Already ordering again for next weekend 🙌"
             isReview
             rating={4}
+            price="$32"
             onAvatarClick={() => navigate("/customer/david")}
           />
         </div>
