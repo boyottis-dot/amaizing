@@ -10,6 +10,8 @@ import {
   Users,
   ChevronRight,
   Edit3,
+  CreditCard,
+  Star,
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 
@@ -22,17 +24,14 @@ const profileData = {
   totalOrders: 12,
   wishlistCount: 6,
   following: 8,
+  memberSince: "Jan 2025",
+  reviews: 9,
 };
 
-const recentOrder = {
-  id: 1001,
-  product: "Silk Dress",
-  vendor: "Amara Okafor",
-  image: "https://picsum.photos/seed/ord1/200/200",
-  status: "Shipped" as const,
-  date: "Mar 15, 2026",
-  total: "$209.00",
-};
+const recentOrders = [
+  { id: 1001, product: "Silk Dress", vendor: "Amara Okafor", image: "https://picsum.photos/seed/ord1/200/200", status: "Shipped" as const, date: "Mar 15", total: "$209" },
+  { id: 1002, product: "Leather Bag", vendor: "Kofi Craft", image: "https://picsum.photos/seed/ord2/200/200", status: "Delivered" as const, date: "Mar 10", total: "$145" },
+];
 
 const defaultAddress = {
   label: "Home",
@@ -47,98 +46,107 @@ const statusColor: Record<string, string> = {
   Delivered: "bg-emerald-500/15 text-emerald-600",
 };
 
-const quickActions = [
-  { label: "My Orders", icon: Package, route: "/my-orders" },
-  { label: "Wishlist", icon: Heart, route: "/wishlist" },
-  { label: "Following", icon: Users, route: "/following" },
-  { label: "Settings", icon: Settings, route: "/settings" },
-];
-
 const Profile = () => {
   const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-background max-w-md mx-auto relative pb-28">
-      {/* Banner with back button */}
-      <div className="relative px-4 pt-4">
-        <div className="rounded-[24px] overflow-hidden relative" style={{ height: 200 }}>
+      {/* Banner */}
+      <div className="relative">
+        <div className="h-[180px] overflow-hidden">
           <img
             src={profileData.banner}
             alt="Banner"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/50" />
-
-          {/* Back button */}
-          <div className="relative z-10 flex items-center justify-between px-4 pt-4">
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-xl border border-white/20 active:scale-90 transition-transform duration-150"
-            >
-              <ArrowLeft size={18} className="text-white" />
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate("/settings/personal-details")}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-xl border border-white/20 active:scale-90 transition-transform duration-150"
-            >
-              <Edit3 size={16} className="text-white" />
-            </button>
-          </div>
-
-          {/* Stats overlay on banner */}
-          <div className="absolute bottom-3 left-3 right-3 z-10 flex items-center justify-around rounded-[16px] bg-white/10 backdrop-blur-xl border border-white/20 py-3">
-            <button onClick={() => navigate("/my-orders")} className="text-center">
-              <div className="text-lg font-bold text-white">{profileData.totalOrders}</div>
-              <div className="text-[10px] text-white/60 font-medium">Orders</div>
-            </button>
-            <div className="w-px h-8 bg-white/20" />
-            <button onClick={() => navigate("/wishlist")} className="text-center">
-              <div className="text-lg font-bold text-white">{profileData.wishlistCount}</div>
-              <div className="text-[10px] text-white/60 font-medium">Wishlist</div>
-            </button>
-            <div className="w-px h-8 bg-white/20" />
-            <button onClick={() => navigate("/following")} className="text-center">
-              <div className="text-lg font-bold text-white">{profileData.following}</div>
-              <div className="text-[10px] text-white/60 font-medium">Following</div>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Avatar overlapping banner */}
-      <div className="relative z-10 -mt-14 flex justify-center">
-        <div className="w-24 h-24 rounded-full border-4 border-background overflow-hidden shadow-[0_4px_20px_-4px_hsl(var(--foreground)/0.15)]">
-          <img
-            src={profileData.avatar}
-            alt={profileData.name}
             className="w-full h-full object-cover"
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60" />
+        </div>
+
+        {/* Top nav on banner */}
+        <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-4 pt-4">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-xl border border-white/20 active:scale-90 transition-transform duration-150"
+          >
+            <ArrowLeft size={18} className="text-white" />
+          </button>
+          <div className="rounded-full bg-white/10 backdrop-blur-xl border border-white/20 px-4 py-2">
+            <span className="text-sm font-bold text-white">Profile</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => navigate("/settings/personal-details")}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-xl border border-white/20 active:scale-90 transition-transform duration-150"
+          >
+            <Edit3 size={16} className="text-white" />
+          </button>
+        </div>
+
+        {/* Profile info card overlapping banner bottom */}
+        <div className="absolute -bottom-16 left-4 right-4 z-10">
+          <div className="rounded-[22px] bg-background/70 backdrop-blur-xl border border-border/30 shadow-[0_8px_32px_-8px_hsl(var(--foreground)/0.15)] p-4">
+            <div className="flex items-center gap-3.5">
+              <div className="w-16 h-16 rounded-full overflow-hidden shrink-0 ring-2 ring-white/30 shadow-lg">
+                <img src={profileData.avatar} alt={profileData.name} className="w-full h-full object-cover" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h1 className="text-lg font-bold text-foreground truncate">{profileData.name}</h1>
+                <p className="text-xs text-muted-foreground">{profileData.handle}</p>
+                <div className="flex items-center gap-1 mt-0.5 text-xs text-muted-foreground">
+                  <MapPin size={10} />
+                  <span>{profileData.location}</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Name + handle + location */}
-      <div className="mt-2 px-6 text-center">
-        <h1 className="text-xl font-bold text-foreground">{profileData.name}</h1>
-        <p className="text-xs text-muted-foreground mt-0.5">{profileData.handle}</p>
-        <div className="flex items-center justify-center gap-1 mt-1 text-xs text-muted-foreground">
-          <MapPin size={12} />
-          {profileData.location}
+      {/* Spacer for overlapping card */}
+      <div className="h-20" />
+
+      {/* Stats row */}
+      <div className="px-4 pt-3 pb-1">
+        <div className="flex items-center justify-around rounded-[18px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.06)] py-3.5">
+          <button onClick={() => navigate("/my-orders")} className="text-center flex-1">
+            <div className="text-lg font-bold text-foreground">{profileData.totalOrders}</div>
+            <div className="text-[10px] text-muted-foreground font-medium">Orders</div>
+          </button>
+          <div className="w-px h-8 bg-border/40" />
+          <button onClick={() => navigate("/wishlist")} className="text-center flex-1">
+            <div className="text-lg font-bold text-foreground">{profileData.wishlistCount}</div>
+            <div className="text-[10px] text-muted-foreground font-medium">Wishlist</div>
+          </button>
+          <div className="w-px h-8 bg-border/40" />
+          <button onClick={() => navigate("/following")} className="text-center flex-1">
+            <div className="text-lg font-bold text-foreground">{profileData.following}</div>
+            <div className="text-[10px] text-muted-foreground font-medium">Following</div>
+          </button>
+          <div className="w-px h-8 bg-border/40" />
+          <div className="text-center flex-1">
+            <div className="text-lg font-bold text-foreground">{profileData.reviews}</div>
+            <div className="text-[10px] text-muted-foreground font-medium">Reviews</div>
+          </div>
         </div>
       </div>
 
       {/* Quick actions */}
-      <div className="px-4 pt-5 pb-3">
+      <div className="px-4 pt-3 pb-2">
         <div className="grid grid-cols-4 gap-2">
-          {quickActions.map((action) => (
+          {[
+            { label: "Orders", icon: Package, route: "/my-orders" },
+            { label: "Wishlist", icon: Heart, route: "/wishlist" },
+            { label: "Following", icon: Users, route: "/following" },
+            { label: "Settings", icon: Settings, route: "/settings" },
+          ].map((action) => (
             <button
               key={action.label}
               onClick={() => navigate(action.route)}
-              className="flex flex-col items-center gap-2 py-3.5 rounded-[18px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.06)] active:scale-95 transition-transform duration-150"
+              className="flex flex-col items-center gap-1.5 py-3 rounded-[16px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.06)] active:scale-95 transition-transform duration-150"
             >
-              <div className="w-11 h-11 rounded-full bg-secondary/80 flex items-center justify-center">
-                <action.icon size={18} className="text-foreground" />
+              <div className="w-10 h-10 rounded-full bg-secondary/80 flex items-center justify-center">
+                <action.icon size={17} className="text-foreground" />
               </div>
               <span className="text-[10px] font-semibold text-foreground">{action.label}</span>
             </button>
@@ -146,10 +154,10 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* Recent order */}
-      <div className="px-4 pb-3">
+      {/* Recent orders */}
+      <div className="px-4 pt-2 pb-2">
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-sm font-bold text-foreground">Recent Order</h2>
+          <h2 className="text-sm font-bold text-foreground">Recent Orders</h2>
           <button
             onClick={() => navigate("/my-orders")}
             className="flex items-center gap-0.5 text-xs font-semibold text-muted-foreground"
@@ -157,69 +165,83 @@ const Profile = () => {
             View All <ChevronRight size={14} />
           </button>
         </div>
-        <div
-          onClick={() => navigate("/order-tracking/1001")}
-          className="rounded-[20px] overflow-hidden relative cursor-pointer active:scale-[0.98] transition-transform duration-150 shadow-[0_4px_20px_-6px_hsl(var(--foreground)/0.1)]"
-        >
-          {/* Blurred product image background */}
-          <div className="absolute inset-0">
-            <img src={recentOrder.image} alt="" className="w-full h-full object-cover blur-2xl scale-125 opacity-20" />
-            <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
-          </div>
-
-          <div className="relative p-3.5 flex gap-3">
-            <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border border-border/20 shadow-sm">
-              <img src={recentOrder.image} alt={recentOrder.product} className="w-full h-full object-cover" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0">
-                  <p className="text-sm font-bold text-foreground truncate">{recentOrder.product}</p>
-                  <p className="text-[11px] text-muted-foreground">{recentOrder.vendor} · {recentOrder.date}</p>
+        <div className="space-y-2">
+          {recentOrders.map((order) => (
+            <div
+              key={order.id}
+              onClick={() => navigate(`/order-tracking/${order.id}`)}
+              className="rounded-[18px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.06)] p-3 flex gap-3 cursor-pointer active:scale-[0.98] transition-transform duration-150"
+            >
+              <div className="w-14 h-14 rounded-2xl overflow-hidden shrink-0 border border-border/20">
+                <img src={order.image} alt={order.product} className="w-full h-full object-cover" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold text-foreground truncate">{order.product}</p>
+                    <p className="text-[11px] text-muted-foreground">{order.vendor} · {order.date}</p>
+                  </div>
+                  <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold ${statusColor[order.status]}`}>
+                    {order.status}
+                  </span>
                 </div>
-                <span className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-bold ${statusColor[recentOrder.status]}`}>
-                  {recentOrder.status}
-                </span>
-              </div>
-              <div className="flex items-center justify-between mt-2">
-                <span className="text-sm font-bold text-foreground">{recentOrder.total}</span>
-                <button className="flex items-center gap-1 rounded-full bg-foreground text-background px-3 py-1.5 text-[10px] font-semibold active:scale-95 transition-transform">
-                  <Truck size={12} /> Track
-                </button>
+                <div className="flex items-center justify-between mt-1.5">
+                  <span className="text-sm font-bold text-foreground">{order.total}</span>
+                  <button className="flex items-center gap-1 rounded-full bg-foreground text-background px-2.5 py-1 text-[10px] font-semibold active:scale-95 transition-transform">
+                    <Truck size={11} /> Track
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* Saved address */}
-      <div className="px-4 pb-3">
-        <div className="flex items-center justify-between mb-2">
-          <h2 className="text-sm font-bold text-foreground">Saved Address</h2>
+      {/* Saved address + Payment row */}
+      <div className="px-4 pt-2 pb-2 grid grid-cols-2 gap-2">
+        <div className="rounded-[18px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.06)] p-3.5">
+          <div className="w-9 h-9 rounded-full bg-secondary/80 flex items-center justify-center mb-2">
+            <MapPin size={15} className="text-foreground" />
+          </div>
+          <p className="text-xs font-bold text-foreground">{defaultAddress.label}</p>
+          <p className="text-[10px] text-muted-foreground mt-0.5 leading-relaxed">{defaultAddress.line1}</p>
           <button
             onClick={() => navigate("/settings/saved-addresses")}
-            className="text-xs font-semibold text-muted-foreground"
+            className="mt-2 text-[10px] font-semibold text-muted-foreground underline underline-offset-2"
           >
             Edit
           </button>
         </div>
-        <div className="rounded-[20px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.06)] p-4">
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-full bg-secondary/80 flex items-center justify-center shrink-0">
-              <MapPin size={16} className="text-foreground" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-foreground">{defaultAddress.label}</p>
-              <p className="text-xs text-muted-foreground mt-0.5">{defaultAddress.line1}</p>
-              <p className="text-xs text-muted-foreground">{defaultAddress.line2}</p>
-              <p className="text-xs text-muted-foreground mt-1">{defaultAddress.phone}</p>
-            </div>
+        <div className="rounded-[18px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.06)] p-3.5">
+          <div className="w-9 h-9 rounded-full bg-secondary/80 flex items-center justify-center mb-2">
+            <CreditCard size={15} className="text-foreground" />
+          </div>
+          <p className="text-xs font-bold text-foreground">Payment</p>
+          <p className="text-[10px] text-muted-foreground mt-0.5 leading-relaxed">•••• 4567</p>
+          <button
+            onClick={() => navigate("/settings/payment-methods")}
+            className="mt-2 text-[10px] font-semibold text-muted-foreground underline underline-offset-2"
+          >
+            Manage
+          </button>
+        </div>
+      </div>
+
+      {/* Member badge */}
+      <div className="px-4 pt-2 pb-2">
+        <div className="rounded-[18px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.06)] p-4 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-amber-500/15 flex items-center justify-center shrink-0">
+            <Star size={16} className="text-amber-500" />
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-bold text-foreground">Loyal Member</p>
+            <p className="text-[10px] text-muted-foreground">Member since {profileData.memberSince} · {profileData.totalOrders} orders completed</p>
           </div>
         </div>
       </div>
 
       {/* Logout */}
-      <div className="px-4 pb-8">
+      <div className="px-4 pt-2 pb-8">
         <button className="w-full flex items-center justify-center gap-2 rounded-full bg-destructive/10 py-3.5 text-sm font-semibold text-destructive active:scale-95 transition-transform duration-150">
           <LogOut size={16} />
           Log Out
