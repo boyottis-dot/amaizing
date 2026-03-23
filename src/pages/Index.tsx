@@ -121,6 +121,7 @@ const Index = () => {
             caption="Absolutely in love with this silk dress from @amara.style! The quality is incredible and it fits perfectly. Highly recommend 💕"
             isReview
             rating={5}
+            price="$89"
             onAvatarClick={() => navigate("/customer/jessica")}
           />
         </div>
