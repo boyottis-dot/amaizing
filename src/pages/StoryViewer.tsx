@@ -538,7 +538,7 @@ const StorySlide = ({
           <span className="font-bold text-white text-sm">
             {slide.product.price}
           </span>
-          <button className="bg-white text-foreground px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
+          <button className="bg-white text-black px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
             View
           </button>
         </div>
