@@ -45,14 +45,14 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen bg-background max-w-md mx-auto relative">
-      <div className="px-4 pt-4 pb-2 flex items-center gap-3">
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="sticky top-4 z-50 flex items-center justify-center h-9 w-9 rounded-full bg-background/60 backdrop-blur-xl shadow-[0_2px_12px_-2px_hsl(var(--foreground)/0.08)] border border-border/30 transition-all duration-150 hover:bg-background active:scale-90"
-        >
-          <ArrowLeft size={16} className="text-foreground" />
-        </button>
+      <button
+        type="button"
+        onClick={() => navigate(-1)}
+        className="sticky top-4 z-50 ml-4 mt-4 flex items-center justify-center h-9 w-9 rounded-full bg-background/60 backdrop-blur-xl shadow-[0_2px_12px_-2px_hsl(var(--foreground)/0.08)] border border-border/30 transition-all duration-150 hover:bg-background active:scale-90"
+      >
+        <ArrowLeft size={16} className="text-foreground" />
+      </button>
+      <div className="px-4 pt-2 pb-2">
         <span className="text-lg font-bold text-foreground">Cart · {items.reduce((s, i) => s + i.qty, 0)}</span>
       </div>
 

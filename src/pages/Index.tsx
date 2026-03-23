@@ -121,6 +121,7 @@ const Index = () => {
             caption="Absolutely in love with this silk dress from @amara.style! The quality is incredible and it fits perfectly. Highly recommend 💕"
             isReview
             rating={5}
+            price="$89"
             onAvatarClick={() => navigate("/customer/jessica")}
           />
         </div>
@@ -144,6 +145,7 @@ const Index = () => {
             caption="Best ramen I've had outside of Japan! @liam.eats is a genius. The broth is SO rich. Already ordering again for next weekend 🙌"
             isReview
             rating={4}
+            price="$32"
             onAvatarClick={() => navigate("/customer/david")}
           />
         </div>

@@ -59,22 +59,19 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-background max-w-md mx-auto relative pb-28">
-      {/* Header */}
-      <header className="sticky top-0 z-50 flex items-center gap-3 px-4 py-4 bg-background/80 backdrop-blur-xl">
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="flex items-center justify-center h-9 w-9 rounded-full bg-background/60 backdrop-blur-xl shadow-[0_2px_12px_-2px_hsl(var(--foreground)/0.08)] border border-border/30 active:scale-90 transition-transform duration-150"
-        >
-          <ArrowLeft size={16} className="text-foreground" />
-        </button>
-        <div className="flex-1 flex justify-center">
-          <div className="rounded-full bg-background/50 backdrop-blur-xl border border-border/30 shadow-[0_2px_12px_-2px_hsl(var(--foreground)/0.08)] px-5 py-2">
-            <span className="text-sm font-bold text-foreground">Profile</span>
-          </div>
-        </div>
-        <div className="w-9" />
-      </header>
+      {/* Sticky back button */}
+      <button
+        type="button"
+        onClick={() => navigate(-1)}
+        className="sticky top-4 z-50 ml-4 mt-4 flex items-center justify-center h-9 w-9 rounded-full bg-background/60 backdrop-blur-xl shadow-[0_2px_12px_-2px_hsl(var(--foreground)/0.08)] border border-border/30 active:scale-90 transition-transform duration-150"
+      >
+        <ArrowLeft size={16} className="text-foreground" />
+      </button>
+
+      {/* Page title */}
+      <div className="flex justify-center -mt-7 mb-2">
+        <span className="text-sm font-bold text-foreground">Profile</span>
+      </div>
 
       {/* Profile card */}
       <div className="px-4 pb-4">
