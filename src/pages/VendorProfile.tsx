@@ -131,7 +131,7 @@ const VendorProfile = () => {
       </div>
 
       <div className="mt-6 flex items-center justify-between gap-2 px-4">
-        {["Follow", "Message", "Insight"].map((label) => (
+        {["Follow", "Message", "Reviews"].map((label) => (
           <button key={label} className="flex-1 rounded-2xl bg-secondary px-4 py-2.5 text-sm font-semibold text-secondary-foreground">
             {label}
           </button>
