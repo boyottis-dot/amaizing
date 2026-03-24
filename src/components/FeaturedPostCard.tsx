@@ -105,5 +105,6 @@ const FeaturedPostCard = ({
     <CommentBar />
   </div>
 );
+};
 
 export default FeaturedPostCard;
