@@ -15,15 +15,32 @@ const vendorMap: Record<string, { name: string; handle: string; avatar: string; 
 
 const defaultVendor = { name: "Katty Abrahams", handle: "@kattyabrahams", avatar: "https://i.pravatar.cc/400?img=32", bio: "I'm delighted to introduce myself as a professional model 🥳", followers: "567 K", posts: "166" };
 
-const tabs = ["Videos", "Posts", "Collections", "Saved"];
+const tabs = ["Products", "Posts", "Collections", "Saved"];
 
-const products = [
-  { id: 1, name: "Handmade Earrings", price: "$24", image: "https://picsum.photos/seed/near1/400/400" },
-  { id: 2, name: "Organic Soap Set", price: "$18", image: "https://picsum.photos/seed/near2/400/400" },
-  { id: 3, name: "Ceramic Mug", price: "$32", image: "https://picsum.photos/seed/near3/400/400" },
-  { id: 4, name: "Woven Basket", price: "$45", image: "https://picsum.photos/seed/near4/400/400" },
-  { id: 5, name: "Gold Necklace", price: "$120", image: "https://picsum.photos/seed/p2/400/400" },
-  { id: 6, name: "Silk Dress", price: "$89", image: "https://picsum.photos/seed/p1/400/400" },
+const productCategories = [
+  {
+    name: "Electronics",
+    items: [
+      { id: 1, name: "Handmade Earrings", price: "$24", image: "https://picsum.photos/seed/near1/400/400" },
+      { id: 2, name: "Organic Soap Set", price: "$18", image: "https://picsum.photos/seed/near2/400/400" },
+      { id: 3, name: "Ceramic Mug", price: "$32", image: "https://picsum.photos/seed/near3/400/400" },
+      { id: 4, name: "Woven Basket", price: "$45", image: "https://picsum.photos/seed/near4/400/400" },
+    ],
+  },
+  {
+    name: "Fashion",
+    items: [
+      { id: 5, name: "Gold Necklace", price: "$120", image: "https://picsum.photos/seed/p2/400/400" },
+      { id: 6, name: "Silk Dress", price: "$89", image: "https://picsum.photos/seed/p1/400/400" },
+    ],
+  },
+  {
+    name: "Home & Living",
+    items: [
+      { id: 7, name: "Scented Candle", price: "$22", image: "https://picsum.photos/seed/p10/400/400" },
+      { id: 8, name: "Art Print", price: "$28", image: "https://picsum.photos/seed/p7/400/400" },
+    ],
+  },
 ];
 
 const collections = [
