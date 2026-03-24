@@ -455,7 +455,7 @@ const StorySlide = ({
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="flex flex-col items-center gap-0.5 py-1.5"
+          className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200"
           onClick={() => setLiked(!liked)}
         >
           <Heart
@@ -468,7 +468,7 @@ const StorySlide = ({
         </button>
         <div className="w-6 h-px bg-white/15" />
         <button
-          className="flex flex-col items-center gap-0.5 py-1.5"
+          className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200"
           onClick={() => setCommentsOpen(true)}
         >
           <MessageCircle size={22} className="text-white/80" />
@@ -477,12 +477,12 @@ const StorySlide = ({
           </span>
         </button>
         <div className="w-6 h-px bg-white/15" />
-        <button className="flex flex-col items-center gap-0.5 py-1.5">
+        <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
           <Bookmark size={22} className="text-white/80" />
           <span className="text-[10px] text-white/60">save</span>
         </button>
         <div className="w-6 h-px bg-white/15" />
-        <button className="flex flex-col items-center gap-0.5 py-1.5">
+        <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
           <Send size={22} className="text-white/80" />
           <span className="text-[10px] text-white font-semibold">share</span>
         </button>
