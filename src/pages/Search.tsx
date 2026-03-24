@@ -70,15 +70,15 @@ const filterProducts = (items: ReadonlyArray<ProductItem>, filter: string | null
 const ProductCard = ({ item }: { item: ProductItem }) => (
   <div className="aspect-square rounded-[20px] overflow-hidden relative shrink-0 w-[175px] snap-start cursor-pointer active:scale-[0.97] transition-transform">
     <img src={item.image} alt={item.name} className="w-full h-full object-cover" loading="lazy" />
-    <button type="button" aria-label={`Save ${item.name}`} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-[hsl(var(--background)/0.15)] backdrop-blur-xl flex items-center justify-center border border-[hsl(var(--background)/0.15)]">
-      <Heart size={16} className="text-[hsl(var(--background))]" strokeWidth={1.5} />
+    <button type="button" aria-label={`Save ${item.name}`} className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/15 backdrop-blur-xl flex items-center justify-center border border-white/15">
+      <Heart size={16} className="text-white" strokeWidth={1.5} />
     </button>
     <div className="absolute bottom-3 left-3 right-3">
-      <div className="bg-[hsl(var(--background)/0.15)] backdrop-blur-xl rounded-[12px] px-3 py-2 border border-[hsl(var(--background)/0.15)]">
+      <div className="bg-white/15 backdrop-blur-xl rounded-[12px] px-3 py-2 border border-white/15">
         <div className="flex items-center justify-between">
           <div className="flex flex-col min-w-0">
-            <span className="text-[hsl(var(--background))] text-[11px] font-semibold truncate">{item.name}</span>
-            <span className="text-[hsl(var(--background)/0.7)] text-[10px] font-bold">{item.price}</span>
+            <span className="text-white text-[11px] font-semibold truncate">{item.name}</span>
+            <span className="text-white/70 text-[10px] font-bold">{item.price}</span>
           </div>
           <button type="button" aria-label={`Add ${item.name}`} className="shrink-0 w-7 h-7 rounded-full bg-background flex items-center justify-center ml-2">
             <span className="text-foreground text-sm font-bold leading-none">+</span>

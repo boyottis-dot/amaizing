@@ -104,26 +104,26 @@ const PostDetailDialog = ({ open, onClose, post }: PostDetailProps) => {
             <div className="absolute right-3 top-16 flex flex-col items-center gap-1 bg-white/10 backdrop-blur-xl border border-white/15 rounded-[18px] px-2.5 py-3 z-20">
               <button
                 onClick={(e) => { e.stopPropagation(); setLiked(!liked); setLikeCount(c => liked ? c - 1 : c + 1); }}
-                className="flex flex-col items-center gap-0.5 py-1.5"
+                className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200"
               >
                 <Heart size={22} className={liked ? "text-rose-400 fill-rose-400 transition-all scale-110" : "text-white/80 transition-all"} />
                 <span className="text-[10px] text-white font-semibold">{formatCount(likeCount)}</span>
               </button>
               <div className="w-6 h-px bg-white/15" />
-              <button className="flex flex-col items-center gap-0.5 py-1.5">
+              <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
                 <MessageCircle size={22} className="text-white/80" />
                 <span className="text-[10px] text-white font-semibold">{commentCount}</span>
               </button>
               <div className="w-6 h-px bg-white/15" />
               <button
                 onClick={(e) => { e.stopPropagation(); setSaved(!saved); }}
-                className="flex flex-col items-center gap-0.5 py-1.5"
+                className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200"
               >
                 <Bookmark size={22} className={saved ? "text-amber-400 fill-amber-400" : "text-white/80"} />
                 <span className="text-[10px] text-white/60">{saved ? "saved" : "save"}</span>
               </button>
               <div className="w-6 h-px bg-white/15" />
-              <button className="flex flex-col items-center gap-0.5 py-1.5">
+              <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
                 <Send size={22} className="text-white/80" />
                 <span className="text-[10px] text-white font-semibold">{formatCount(shareCount)}</span>
               </button>
