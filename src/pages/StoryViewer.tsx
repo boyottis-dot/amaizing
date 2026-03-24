@@ -356,6 +356,20 @@ const AnimatedComment = ({
   );
 };
 
+/* ─── Save button with toggle ─── */
+const SaveButton = () => {
+  const [saved, setSaved] = useState(false);
+  return (
+    <button
+      className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200"
+      onClick={() => setSaved(!saved)}
+    >
+      <Bookmark size={22} className={saved ? "text-rose-400 fill-rose-400" : "text-white/80"} />
+      <span className={`text-[10px] font-semibold ${saved ? "text-rose-400" : "text-white/60"}`}>{saved ? "saved" : "save"}</span>
+    </button>
+  );
+};
+
 /* ─── Single story slide ─── */
 const StorySlide = ({
   story,

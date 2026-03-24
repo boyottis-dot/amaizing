@@ -169,6 +169,11 @@ const VendorProfile = () => {
               <div key={col.id} className="w-full aspect-square rounded-[20px] overflow-hidden relative">
                 <img src={col.main} alt={col.title} className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute top-3 left-3 flex items-center -space-x-2 z-10">
+                  {col.vendors.map((av, idx) => (
+                    <img key={idx} src={av} alt="" className="w-8 h-8 rounded-full object-cover border-2 border-white/40" style={{ zIndex: col.vendors.length - idx }} />
+                  ))}
+                </div>
                 <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
                   <div className="flex gap-1.5 mb-3">
                     {col.thumbs.map((thumb, i) => (
