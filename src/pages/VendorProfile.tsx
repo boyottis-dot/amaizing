@@ -44,9 +44,9 @@ const productCategories = [
 ];
 
 const collections = [
-  { id: 1, title: "Summer Essentials", likes: 1240, main: "https://picsum.photos/seed/vcol1/600/600", thumbs: ["https://picsum.photos/seed/vcol1a/200/200", "https://picsum.photos/seed/vcol1b/200/200", "https://picsum.photos/seed/vcol1c/200/200"] },
-  { id: 2, title: "Handmade Picks", likes: 876, main: "https://picsum.photos/seed/vcol2/600/600", thumbs: ["https://picsum.photos/seed/vcol2a/200/200", "https://picsum.photos/seed/vcol2b/200/200", "https://picsum.photos/seed/vcol2c/200/200"] },
-  { id: 3, title: "Street Style", likes: 2100, main: "https://picsum.photos/seed/vcol3/600/600", thumbs: ["https://picsum.photos/seed/vcol3a/200/200", "https://picsum.photos/seed/vcol3b/200/200", "https://picsum.photos/seed/vcol3c/200/200"] },
+  { id: 1, title: "Summer Essentials", likes: 1240, main: "https://picsum.photos/seed/vcol1/600/600", thumbs: ["https://picsum.photos/seed/vcol1a/200/200", "https://picsum.photos/seed/vcol1b/200/200", "https://picsum.photos/seed/vcol1c/200/200"], vendors: ["https://i.pravatar.cc/40?img=32", "https://i.pravatar.cc/40?img=9", "https://i.pravatar.cc/40?img=15"] },
+  { id: 2, title: "Handmade Picks", likes: 876, main: "https://picsum.photos/seed/vcol2/600/600", thumbs: ["https://picsum.photos/seed/vcol2a/200/200", "https://picsum.photos/seed/vcol2b/200/200", "https://picsum.photos/seed/vcol2c/200/200"], vendors: ["https://i.pravatar.cc/40?img=15"] },
+  { id: 3, title: "Street Style", likes: 2100, main: "https://picsum.photos/seed/vcol3/600/600", thumbs: ["https://picsum.photos/seed/vcol3a/200/200", "https://picsum.photos/seed/vcol3b/200/200", "https://picsum.photos/seed/vcol3c/200/200"], vendors: ["https://i.pravatar.cc/40?img=25", "https://i.pravatar.cc/40?img=44"] },
 ];
 
 const savedItems = [
@@ -150,9 +150,9 @@ const VendorProfile = () => {
         <section className="py-4 px-3">
           {productCategories.map((category) => (
             <div key={category.name} className="mb-6">
-              <div className="flex items-center gap-2 mb-3 px-1">
-                <h3 className="text-sm font-bold text-foreground">{category.name}</h3>
-                <span className="text-[10px] font-semibold text-muted-foreground bg-secondary/80 rounded-full px-2 py-0.5">{category.items.length}</span>
+              <div className="flex items-baseline gap-1 mb-3 px-1">
+                <span className="text-lg font-bold text-foreground">{category.name}</span>
+                <span className="text-[10px] text-muted-foreground align-super">{category.items.length}</span>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 {category.items.map((item) => <ProductCard key={item.id} item={item} />)}
@@ -169,6 +169,11 @@ const VendorProfile = () => {
               <div key={col.id} className="w-full aspect-square rounded-[20px] overflow-hidden relative">
                 <img src={col.main} alt={col.title} className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute top-3 left-3 flex items-center -space-x-2 z-10">
+                  {col.vendors.map((av, idx) => (
+                    <img key={idx} src={av} alt="" className="w-8 h-8 rounded-full object-cover border-2 border-white/40" style={{ zIndex: col.vendors.length - idx }} />
+                  ))}
+                </div>
                 <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
                   <div className="flex gap-1.5 mb-3">
                     {col.thumbs.map((thumb, i) => (

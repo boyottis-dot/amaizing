@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Heart, MessageCircle, Bookmark, Send, MoreVertical } from "lucide-react";
 import CommentBar from "./CommentBar";
 
@@ -31,7 +32,9 @@ const FeaturedPostCard = ({
   verified = true,
   price,
   onAvatarClick,
-}: PostProps) => (
+}: PostProps) => {
+  const [saved, setSaved] = useState(false);
+  return (
   <div>
     <div className="rounded-[20px] overflow-hidden relative aspect-square shadow-2xl active:scale-[0.98] transition-transform duration-200">
       {/* Full-bleed image */}
@@ -58,9 +61,12 @@ const FeaturedPostCard = ({
           <span className="text-[10px] text-white font-semibold">{formatCount(comments)}</span>
         </button>
         <div className="w-6 h-px bg-white/15" />
-        <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
-          <Bookmark size={22} className="text-white/80" />
-          <span className="text-[10px] text-white/60">save</span>
+        <button
+          onClick={(e) => { e.stopPropagation(); setSaved(!saved); }}
+          className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200"
+        >
+          <Bookmark size={22} className={saved ? "text-rose-400 fill-rose-400" : "text-white/80"} />
+          <span className={`text-[10px] ${saved ? "text-rose-400 font-semibold" : "text-white/60"}`}>{saved ? "saved" : "save"}</span>
         </button>
         <div className="w-6 h-px bg-white/15" />
         <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
@@ -102,5 +108,6 @@ const FeaturedPostCard = ({
     <CommentBar />
   </div>
 );
+};
 
 export default FeaturedPostCard;
