@@ -109,25 +109,20 @@ const Profile = () => {
       {/* Stats row */}
       <div className="px-4 pt-3 pb-1">
         <div className="flex items-center justify-around rounded-[18px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.06)] py-3.5">
-          <button onClick={() => navigate("/my-orders")} className="text-center flex-1">
-            <div className="text-lg font-bold text-foreground">{profileData.totalOrders}</div>
-            <div className="text-[10px] text-muted-foreground font-medium">Orders</div>
-          </button>
-          <div className="w-px h-8 bg-border/40" />
-          <button onClick={() => navigate("/wishlist")} className="text-center flex-1">
-            <div className="text-lg font-bold text-foreground">{profileData.wishlistCount}</div>
-            <div className="text-[10px] text-muted-foreground font-medium">Wishlist</div>
-          </button>
-          <div className="w-px h-8 bg-border/40" />
-          <button onClick={() => navigate("/following")} className="text-center flex-1">
-            <div className="text-lg font-bold text-foreground">{profileData.following}</div>
-            <div className="text-[10px] text-muted-foreground font-medium">Following</div>
-          </button>
-          <div className="w-px h-8 bg-border/40" />
-          <button onClick={() => navigate("/customer-profile")} className="text-center flex-1">
-            <div className="text-lg font-bold text-foreground">{profileData.reviews}</div>
-            <div className="text-[10px] text-muted-foreground font-medium">Reviews</div>
-          </button>
+          {[
+            { label: "Orders", value: profileData.totalOrders, route: "/my-orders" },
+            { label: "Wishlist", value: profileData.wishlistCount, route: "/wishlist" },
+            { label: "Following", value: profileData.following, route: "/following" },
+            { label: "Reviews", value: profileData.reviews, route: "/customer-profile" },
+          ].map((stat, i, arr) => (
+            <React.Fragment key={stat.label}>
+              <button onClick={() => navigate(stat.route)} className="text-center flex-1 active:scale-90 transition-transform duration-150">
+                <div className="text-lg font-bold text-foreground">{stat.value}</div>
+                <div className="text-[10px] text-muted-foreground font-medium">{stat.label}</div>
+              </button>
+              {i < arr.length - 1 && <div className="w-px h-8 bg-border/40" />}
+            </React.Fragment>
+          ))}
         </div>
       </div>
 
