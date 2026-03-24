@@ -32,7 +32,9 @@ const FeaturedPostCard = ({
   verified = true,
   price,
   onAvatarClick,
-}: PostProps) => (
+}: PostProps) => {
+  const [saved, setSaved] = useState(false);
+  return (
   <div>
     <div className="rounded-[20px] overflow-hidden relative aspect-square shadow-2xl active:scale-[0.98] transition-transform duration-200">
       {/* Full-bleed image */}
