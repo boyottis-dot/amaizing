@@ -146,11 +146,19 @@ const VendorProfile = () => {
         ))}
       </nav>
 
-      {activeTab === "Videos" && (
+      {activeTab === "Products" && (
         <section className="py-4 px-3">
-          <div className="grid grid-cols-2 gap-3">
-            {products.map((item) => <ProductCard key={item.id} item={item} />)}
-          </div>
+          {productCategories.map((category) => (
+            <div key={category.name} className="mb-6">
+              <div className="flex items-center gap-2 mb-3 px-1">
+                <h3 className="text-sm font-bold text-foreground">{category.name}</h3>
+                <span className="text-[10px] font-semibold text-muted-foreground bg-secondary/80 rounded-full px-2 py-0.5">{category.items.length}</span>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                {category.items.map((item) => <ProductCard key={item.id} item={item} />)}
+              </div>
+            </div>
+          ))}
         </section>
       )}
 
