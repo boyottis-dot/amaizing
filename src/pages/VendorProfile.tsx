@@ -205,22 +205,22 @@ const VendorProfile = () => {
                 <span className="text-white text-xs font-semibold">Buy Now</span>
               </button>
               <div className="absolute right-3 top-4 flex flex-col items-center gap-1 bg-white/10 backdrop-blur-xl border border-white/20 rounded-[18px] px-2.5 py-4 z-10">
-                <button className="flex flex-col items-center gap-0.5 py-1.5">
+                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
                   <Heart size={22} className="text-rose-400 fill-rose-400" />
                   <span className="text-[10px] text-white font-semibold">{formatCount(post.likes)}</span>
                 </button>
                 <div className="w-6 h-px bg-white/15" />
-                <button className="flex flex-col items-center gap-0.5 py-1.5">
+                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
                   <MessageCircle size={22} className="text-white/80" />
                   <span className="text-[10px] text-white font-semibold">{formatCount(post.comments)}</span>
                 </button>
                 <div className="w-6 h-px bg-white/15" />
-                <button className="flex flex-col items-center gap-0.5 py-1.5">
+                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
                   <Bookmark size={22} className="text-white/80" />
                   <span className="text-[10px] text-white/60">save</span>
                 </button>
                 <div className="w-6 h-px bg-white/15" />
-                <button className="flex flex-col items-center gap-0.5 py-1.5">
+                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
                   <Send size={22} className="text-white/80" />
                   <span className="text-[10px] text-white font-semibold">{formatCount(post.shares)}</span>
                 </button>
