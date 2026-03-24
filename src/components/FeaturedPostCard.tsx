@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Heart, MessageCircle, Bookmark, Send, MoreVertical } from "lucide-react";
 import CommentBar from "./CommentBar";
 
