@@ -84,7 +84,7 @@ const VendorProfile = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const vendor = vendorMap[id || ""] || defaultVendor;
-  const [activeTab, setActiveTab] = useState("Videos");
+  const [activeTab, setActiveTab] = useState("Products");
   const [selectedPost, setSelectedPost] = useState<PostDetailData | null>(null);
 
   const stats = [
