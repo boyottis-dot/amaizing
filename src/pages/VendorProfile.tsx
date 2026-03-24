@@ -44,9 +44,9 @@ const productCategories = [
 ];
 
 const collections = [
-  { id: 1, title: "Summer Essentials", likes: 1240, main: "https://picsum.photos/seed/vcol1/600/600", thumbs: ["https://picsum.photos/seed/vcol1a/200/200", "https://picsum.photos/seed/vcol1b/200/200", "https://picsum.photos/seed/vcol1c/200/200"] },
-  { id: 2, title: "Handmade Picks", likes: 876, main: "https://picsum.photos/seed/vcol2/600/600", thumbs: ["https://picsum.photos/seed/vcol2a/200/200", "https://picsum.photos/seed/vcol2b/200/200", "https://picsum.photos/seed/vcol2c/200/200"] },
-  { id: 3, title: "Street Style", likes: 2100, main: "https://picsum.photos/seed/vcol3/600/600", thumbs: ["https://picsum.photos/seed/vcol3a/200/200", "https://picsum.photos/seed/vcol3b/200/200", "https://picsum.photos/seed/vcol3c/200/200"] },
+  { id: 1, title: "Summer Essentials", likes: 1240, main: "https://picsum.photos/seed/vcol1/600/600", thumbs: ["https://picsum.photos/seed/vcol1a/200/200", "https://picsum.photos/seed/vcol1b/200/200", "https://picsum.photos/seed/vcol1c/200/200"], vendors: ["https://i.pravatar.cc/40?img=32", "https://i.pravatar.cc/40?img=9", "https://i.pravatar.cc/40?img=15"] },
+  { id: 2, title: "Handmade Picks", likes: 876, main: "https://picsum.photos/seed/vcol2/600/600", thumbs: ["https://picsum.photos/seed/vcol2a/200/200", "https://picsum.photos/seed/vcol2b/200/200", "https://picsum.photos/seed/vcol2c/200/200"], vendors: ["https://i.pravatar.cc/40?img=15"] },
+  { id: 3, title: "Street Style", likes: 2100, main: "https://picsum.photos/seed/vcol3/600/600", thumbs: ["https://picsum.photos/seed/vcol3a/200/200", "https://picsum.photos/seed/vcol3b/200/200", "https://picsum.photos/seed/vcol3c/200/200"], vendors: ["https://i.pravatar.cc/40?img=25", "https://i.pravatar.cc/40?img=44"] },
 ];
 
 const savedItems = [
