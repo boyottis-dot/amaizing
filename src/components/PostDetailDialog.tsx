@@ -119,8 +119,8 @@ const PostDetailDialog = ({ open, onClose, post }: PostDetailProps) => {
                 onClick={(e) => { e.stopPropagation(); setSaved(!saved); }}
                 className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200"
               >
-                <Bookmark size={22} className={saved ? "text-amber-400 fill-amber-400" : "text-white/80"} />
-                <span className="text-[10px] text-white/60">{saved ? "saved" : "save"}</span>
+                <Bookmark size={22} className={saved ? "text-rose-400 fill-rose-400" : "text-white/80"} />
+                <span className={`text-[10px] ${saved ? "text-rose-400 font-semibold" : "text-white/60"}`}>{saved ? "saved" : "save"}</span>
               </button>
               <div className="w-6 h-px bg-white/15" />
               <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
