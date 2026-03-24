@@ -16,7 +16,7 @@ const CollectionsRow = () => {
     <div className="py-4">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-baseline gap-1">
-          <span className="text-lg font-bold text-foreground">​Best weekend collections      </span>
+          <span className="text-lg font-bold text-foreground">​Best Budget Collections      </span>
           <span className="text-[10px] text-muted-foreground align-super">{collections.length}</span>
         </div>
         <button
