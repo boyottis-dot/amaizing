@@ -124,10 +124,10 @@ const Profile = () => {
             <div className="text-[10px] text-muted-foreground font-medium">Following</div>
           </button>
           <div className="w-px h-8 bg-border/40" />
-          <div className="text-center flex-1">
+          <button onClick={() => navigate("/customer-profile")} className="text-center flex-1">
             <div className="text-lg font-bold text-foreground">{profileData.reviews}</div>
             <div className="text-[10px] text-muted-foreground font-medium">Reviews</div>
-          </div>
+          </button>
         </div>
       </div>
 

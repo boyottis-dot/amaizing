@@ -15,15 +15,32 @@ const vendorMap: Record<string, { name: string; handle: string; avatar: string; 
 
 const defaultVendor = { name: "Katty Abrahams", handle: "@kattyabrahams", avatar: "https://i.pravatar.cc/400?img=32", bio: "I'm delighted to introduce myself as a professional model 🥳", followers: "567 K", posts: "166" };
 
-const tabs = ["Videos", "Posts", "Collections", "Saved"];
+const tabs = ["Products", "Posts", "Collections", "Saved"];
 
-const products = [
-  { id: 1, name: "Handmade Earrings", price: "$24", image: "https://picsum.photos/seed/near1/400/400" },
-  { id: 2, name: "Organic Soap Set", price: "$18", image: "https://picsum.photos/seed/near2/400/400" },
-  { id: 3, name: "Ceramic Mug", price: "$32", image: "https://picsum.photos/seed/near3/400/400" },
-  { id: 4, name: "Woven Basket", price: "$45", image: "https://picsum.photos/seed/near4/400/400" },
-  { id: 5, name: "Gold Necklace", price: "$120", image: "https://picsum.photos/seed/p2/400/400" },
-  { id: 6, name: "Silk Dress", price: "$89", image: "https://picsum.photos/seed/p1/400/400" },
+const productCategories = [
+  {
+    name: "Electronics",
+    items: [
+      { id: 1, name: "Handmade Earrings", price: "$24", image: "https://picsum.photos/seed/near1/400/400" },
+      { id: 2, name: "Organic Soap Set", price: "$18", image: "https://picsum.photos/seed/near2/400/400" },
+      { id: 3, name: "Ceramic Mug", price: "$32", image: "https://picsum.photos/seed/near3/400/400" },
+      { id: 4, name: "Woven Basket", price: "$45", image: "https://picsum.photos/seed/near4/400/400" },
+    ],
+  },
+  {
+    name: "Fashion",
+    items: [
+      { id: 5, name: "Gold Necklace", price: "$120", image: "https://picsum.photos/seed/p2/400/400" },
+      { id: 6, name: "Silk Dress", price: "$89", image: "https://picsum.photos/seed/p1/400/400" },
+    ],
+  },
+  {
+    name: "Home & Living",
+    items: [
+      { id: 7, name: "Scented Candle", price: "$22", image: "https://picsum.photos/seed/p10/400/400" },
+      { id: 8, name: "Art Print", price: "$28", image: "https://picsum.photos/seed/p7/400/400" },
+    ],
+  },
 ];
 
 const collections = [
@@ -67,7 +84,7 @@ const VendorProfile = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const vendor = vendorMap[id || ""] || defaultVendor;
-  const [activeTab, setActiveTab] = useState("Videos");
+  const [activeTab, setActiveTab] = useState("Products");
   const [selectedPost, setSelectedPost] = useState<PostDetailData | null>(null);
 
   const stats = [
@@ -114,7 +131,7 @@ const VendorProfile = () => {
       </div>
 
       <div className="mt-6 flex items-center justify-between gap-2 px-4">
-        {["Follow", "Message", "Insight"].map((label) => (
+        {["Follow", "Message", "Reviews"].map((label) => (
           <button key={label} className="flex-1 rounded-2xl bg-secondary px-4 py-2.5 text-sm font-semibold text-secondary-foreground">
             {label}
           </button>
@@ -129,11 +146,19 @@ const VendorProfile = () => {
         ))}
       </nav>
 
-      {activeTab === "Videos" && (
+      {activeTab === "Products" && (
         <section className="py-4 px-3">
-          <div className="grid grid-cols-2 gap-3">
-            {products.map((item) => <ProductCard key={item.id} item={item} />)}
-          </div>
+          {productCategories.map((category) => (
+            <div key={category.name} className="mb-6">
+              <div className="flex items-center gap-2 mb-3 px-1">
+                <h3 className="text-sm font-bold text-foreground">{category.name}</h3>
+                <span className="text-[10px] font-semibold text-muted-foreground bg-secondary/80 rounded-full px-2 py-0.5">{category.items.length}</span>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                {category.items.map((item) => <ProductCard key={item.id} item={item} />)}
+              </div>
+            </div>
+          ))}
         </section>
       )}
 
@@ -180,22 +205,22 @@ const VendorProfile = () => {
                 <span className="text-white text-xs font-semibold">Buy Now</span>
               </button>
               <div className="absolute right-3 top-4 flex flex-col items-center gap-1 bg-white/10 backdrop-blur-xl border border-white/20 rounded-[18px] px-2.5 py-4 z-10">
-                <button className="flex flex-col items-center gap-0.5 py-1.5">
+                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
                   <Heart size={22} className="text-rose-400 fill-rose-400" />
                   <span className="text-[10px] text-white font-semibold">{formatCount(post.likes)}</span>
                 </button>
                 <div className="w-6 h-px bg-white/15" />
-                <button className="flex flex-col items-center gap-0.5 py-1.5">
+                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
                   <MessageCircle size={22} className="text-white/80" />
                   <span className="text-[10px] text-white font-semibold">{formatCount(post.comments)}</span>
                 </button>
                 <div className="w-6 h-px bg-white/15" />
-                <button className="flex flex-col items-center gap-0.5 py-1.5">
+                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
                   <Bookmark size={22} className="text-white/80" />
                   <span className="text-[10px] text-white/60">save</span>
                 </button>
                 <div className="w-6 h-px bg-white/15" />
-                <button className="flex flex-col items-center gap-0.5 py-1.5">
+                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
                   <Send size={22} className="text-white/80" />
                   <span className="text-[10px] text-white font-semibold">{formatCount(post.shares)}</span>
                 </button>
