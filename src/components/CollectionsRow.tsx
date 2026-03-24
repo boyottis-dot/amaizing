@@ -2,9 +2,9 @@ import { Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const collections = [
-{ id: 1, title: "Summer Essentials", likes: 1240, main: "https://picsum.photos/seed/col1/600/600", thumbs: ["https://picsum.photos/seed/col1a/200/200", "https://picsum.photos/seed/col1b/200/200", "https://picsum.photos/seed/col1c/200/200"] },
-{ id: 2, title: "Handmade Picks", likes: 876, main: "https://picsum.photos/seed/col2/600/600", thumbs: ["https://picsum.photos/seed/col2a/200/200", "https://picsum.photos/seed/col2b/200/200", "https://picsum.photos/seed/col2c/200/200"] },
-{ id: 3, title: "Street Style", likes: 2100, main: "https://picsum.photos/seed/col3/600/600", thumbs: ["https://picsum.photos/seed/col3a/200/200", "https://picsum.photos/seed/col3b/200/200", "https://picsum.photos/seed/col3c/200/200"] }];
+{ id: 1, title: "Summer Essentials", likes: 1240, main: "https://picsum.photos/seed/col1/600/600", thumbs: ["https://picsum.photos/seed/col1a/200/200", "https://picsum.photos/seed/col1b/200/200", "https://picsum.photos/seed/col1c/200/200"], vendors: ["https://i.pravatar.cc/40?img=32", "https://i.pravatar.cc/40?img=9", "https://i.pravatar.cc/40?img=15"] },
+{ id: 2, title: "Handmade Picks", likes: 876, main: "https://picsum.photos/seed/col2/600/600", thumbs: ["https://picsum.photos/seed/col2a/200/200", "https://picsum.photos/seed/col2b/200/200", "https://picsum.photos/seed/col2c/200/200"], vendors: ["https://i.pravatar.cc/40?img=15"] },
+{ id: 3, title: "Street Style", likes: 2100, main: "https://picsum.photos/seed/col3/600/600", thumbs: ["https://picsum.photos/seed/col3a/200/200", "https://picsum.photos/seed/col3b/200/200", "https://picsum.photos/seed/col3c/200/200"], vendors: ["https://i.pravatar.cc/40?img=25", "https://i.pravatar.cc/40?img=44"] }];
 
 
 const formatCount = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
