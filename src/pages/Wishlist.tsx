@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Heart, Share2, Edit3, X } from "lucide-react";
+import { ArrowLeft, Heart, Share2, Edit3, X, Gift, Cake, PartyPopper, ShoppingBag, Check } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 
@@ -13,10 +13,130 @@ const initialItems = [
   { id: 6, name: "Candle Trio", price: "$38", image: "https://picsum.photos/seed/wish6/400/400" },
 ];
 
+const wishlistTypes = [
+  { id: "general", label: "General Wishlist", icon: Heart, description: "A personal collection of items you love" },
+  { id: "birthday", label: "Birthday Wishlist", icon: Cake, description: "Share what you'd love for your birthday" },
+  { id: "wedding", label: "Wedding Registry", icon: PartyPopper, description: "Build your dream wedding registry" },
+  { id: "gift", label: "Gift Ideas", icon: Gift, description: "Curate gift ideas for friends & family" },
+  { id: "shopping", label: "Shopping List", icon: ShoppingBag, description: "Items you plan to buy soon" },
+];
+
+const ShareSheet = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  const [selectedType, setSelectedType] = useState("general");
+  const [title, setTitle] = useState("My Wishlist");
+  const [note, setNote] = useState("");
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[100]"
+          onClick={onClose}
+        >
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          <motion.div
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute bottom-0 left-0 right-0 max-h-[85vh] rounded-t-[28px] bg-background border-t border-border/30 shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Handle */}
+            <div className="flex justify-center pt-3 pb-1">
+              <div className="w-10 h-1 rounded-full bg-muted-foreground/20" />
+            </div>
+
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 pb-3">
+              <h2 className="text-base font-bold text-foreground">Share Wishlist</h2>
+              <button onClick={onClose} className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center active:scale-90 transition-transform">
+                <X size={14} className="text-foreground" />
+              </button>
+            </div>
+
+            <div className="overflow-y-auto max-h-[70vh] px-5 pb-8">
+              {/* Title input */}
+              <div className="mb-4">
+                <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5 block">Wishlist Name</label>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="w-full rounded-2xl bg-secondary/60 border border-border/30 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:border-primary/50 transition-colors"
+                  placeholder="e.g. Birthday Wishes"
+                />
+              </div>
+
+              {/* Type selection */}
+              <div className="mb-4">
+                <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2 block">Wishlist Type</label>
+                <div className="flex flex-col gap-2">
+                  {wishlistTypes.map((type) => (
+                    <button
+                      key={type.id}
+                      onClick={() => setSelectedType(type.id)}
+                      className={`flex items-center gap-3 rounded-2xl p-3.5 border transition-all duration-200 active:scale-[0.98] ${
+                        selectedType === type.id
+                          ? "bg-primary/10 border-primary/30"
+                          : "bg-secondary/40 border-border/30"
+                      }`}
+                    >
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
+                        selectedType === type.id ? "bg-primary/20" : "bg-secondary"
+                      }`}>
+                        <type.icon size={18} className={selectedType === type.id ? "text-primary" : "text-muted-foreground"} />
+                      </div>
+                      <div className="flex-1 text-left min-w-0">
+                        <p className={`text-sm font-semibold ${selectedType === type.id ? "text-foreground" : "text-foreground/80"}`}>{type.label}</p>
+                        <p className="text-[10px] text-muted-foreground truncate">{type.description}</p>
+                      </div>
+                      {selectedType === type.id && (
+                        <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center shrink-0">
+                          <Check size={12} className="text-primary-foreground" />
+                        </div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Note */}
+              <div className="mb-5">
+                <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5 block">Add a Note (optional)</label>
+                <textarea
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  rows={3}
+                  className="w-full rounded-2xl bg-secondary/60 border border-border/30 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none resize-none focus:border-primary/50 transition-colors"
+                  placeholder="Add a personal message..."
+                />
+              </div>
+
+              {/* Share button */}
+              <button
+                onClick={onClose}
+                className="w-full rounded-full bg-foreground text-background py-3.5 text-sm font-bold active:scale-95 transition-transform duration-150"
+              >
+                Share Wishlist
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const Wishlist = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState(initialItems);
   const [isEditing, setIsEditing] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
 
   const removeItem = (id: number) => setItems((prev) => prev.filter((i) => i.id !== id));
 
@@ -32,7 +152,7 @@ const Wishlist = () => {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={() => {}} className="flex items-center justify-center h-9 w-9 rounded-full bg-background/60 backdrop-blur-xl shadow-[0_2px_12px_-2px_hsl(var(--foreground)/0.08)] border border-border/30 active:scale-90 transition-transform duration-150">
+          <button onClick={() => setShareOpen(true)} className="flex items-center justify-center h-9 w-9 rounded-full bg-background/60 backdrop-blur-xl shadow-[0_2px_12px_-2px_hsl(var(--foreground)/0.08)] border border-border/30 active:scale-90 transition-transform duration-150">
             <Share2 size={14} className="text-foreground" />
           </button>
           <button onClick={() => setIsEditing(!isEditing)} className={`flex items-center justify-center h-9 w-9 rounded-full backdrop-blur-xl shadow-[0_2px_12px_-2px_hsl(var(--foreground)/0.08)] border border-border/30 active:scale-90 transition-transform duration-150 ${isEditing ? "bg-foreground" : "bg-background/60"}`}>
@@ -88,6 +208,7 @@ const Wishlist = () => {
         )}
       </main>
 
+      <ShareSheet open={shareOpen} onClose={() => setShareOpen(false)} />
       <BottomNav />
     </div>
   );
