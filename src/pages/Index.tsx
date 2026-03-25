@@ -89,26 +89,32 @@ const Index = () => {
       <StoriesRow />
       <CategoryPills />
 
-      <div onClick={() => setSelectedPost(featuredPosts[0])} className="cursor-pointer">
-        <FeaturedPostCard
-          vendorName="Amara Okafor"
-          vendorHandle="@amara.style"
-          vendorAvatar="https://i.pravatar.cc/40?img=32"
-          image="https://picsum.photos/seed/feat1/600/600"
-          likes={234}
-          comments={18}
-          shares={12}
-          caption="New collection just dropped 🔥 Handmade silk pieces inspired by West African textiles. Each piece tells a story. #handmade #fashion #africanprint"
-          price="$89"
-          onAvatarClick={() => navigate("/vendor/amara")}
-        />
+      <div className="mt-6" onClick={() => setSelectedPost(featuredPosts[0])}>
+        <div className="cursor-pointer">
+          <FeaturedPostCard
+            vendorName="Amara Okafor"
+            vendorHandle="@amara.style"
+            vendorAvatar="https://i.pravatar.cc/40?img=32"
+            image="https://picsum.photos/seed/feat1/600/600"
+            likes={234}
+            comments={18}
+            shares={12}
+            caption="New collection just dropped 🔥 Handmade silk pieces inspired by West African textiles. Each piece tells a story. #handmade #fashion #africanprint"
+            price="$89"
+            onAvatarClick={() => navigate("/vendor/amara")}
+          />
+        </div>
       </div>
 
-      <FlashSaleSection />
+      <div className="mt-8">
+        <FlashSaleSection />
+      </div>
 
-      <ProductGrid title="Quick Picks" count={24} products={postsGrid1} />
+      <div className="mt-8">
+        <ProductGrid title="Quick Picks" count={24} products={postsGrid1} />
+      </div>
 
-      <div className="mt-4" onClick={() => setSelectedPost(featuredPosts[1])}>
+      <div className="mt-8" onClick={() => setSelectedPost(featuredPosts[1])}>
         <div className="cursor-pointer">
           <FeaturedPostCard
             vendorName="Jessica M."
@@ -127,12 +133,20 @@ const Index = () => {
         </div>
       </div>
 
-      <TrendingVendorsRow />
-      <ProductGrid title="Posts" count={48} products={postsGrid1} />
-      <CollectionsRow />
-      <ProductGrid title="Trending Products" count={32} products={postsGrid2} />
+      <div className="mt-8">
+        <TrendingVendorsRow />
+      </div>
+      <div className="mt-8">
+        <ProductGrid title="Posts" count={48} products={postsGrid1} />
+      </div>
+      <div className="mt-8">
+        <CollectionsRow />
+      </div>
+      <div className="mt-8">
+        <ProductGrid title="Trending Products" count={32} products={postsGrid2} />
+      </div>
 
-      <div className="mt-4" onClick={() => setSelectedPost(featuredPosts[2])}>
+      <div className="mt-8" onClick={() => setSelectedPost(featuredPosts[2])}>
         <div className="cursor-pointer">
           <FeaturedPostCard
             vendorName="David K."
@@ -151,10 +165,11 @@ const Index = () => {
         </div>
       </div>
 
-      
-      <StackedCards />
+      <div className="mt-8">
+        <StackedCards />
+      </div>
 
-      <div className="mt-4" onClick={() => setSelectedPost(featuredPosts[3])}>
+      <div className="mt-8" onClick={() => setSelectedPost(featuredPosts[3])}>
         <div className="cursor-pointer">
           <FeaturedPostCard
             vendorName="Kofi Mensah"
