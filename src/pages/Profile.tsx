@@ -77,10 +77,10 @@ const Profile = () => {
           </div>
           <button
             type="button"
-            onClick={() => navigate("/settings/personal-details")}
+            onClick={() => navigate("/settings")}
             className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-xl border border-white/20 active:scale-90 transition-transform duration-150"
           >
-            <Edit3 size={16} className="text-white" />
+            <Settings size={16} className="text-white" />
           </button>
         </div>
 
@@ -99,6 +99,13 @@ const Profile = () => {
                   <span>{profileData.location}</span>
                 </div>
               </div>
+              <button
+                type="button"
+                onClick={() => navigate("/settings/personal-details")}
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-secondary/80 active:scale-90 transition-transform duration-150 shrink-0"
+              >
+                <Edit3 size={14} className="text-foreground" />
+              </button>
             </div>
           </div>
         </div>
@@ -114,7 +121,7 @@ const Profile = () => {
             { label: "Orders", value: profileData.totalOrders, route: "/my-orders" },
             { label: "Wishlist", value: profileData.wishlistCount, route: "/wishlist" },
             { label: "Following", value: profileData.following, route: "/following" },
-            { label: "Reviews", value: profileData.reviews, route: "/customer-profile" },
+            { label: "Reviews", value: profileData.reviews, route: "/customer/me" },
           ].map((stat, i, arr) => (
             <React.Fragment key={stat.label}>
               <button onClick={() => navigate(stat.route)} className="text-center flex-1 active:scale-90 transition-transform duration-150">
@@ -127,31 +134,8 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* Quick actions */}
-      <div className="px-4 pt-3 pb-2">
-        <div className="grid grid-cols-4 gap-2">
-          {[
-            { label: "Orders", icon: Package, route: "/my-orders" },
-            { label: "Wishlist", icon: Heart, route: "/wishlist" },
-            { label: "Following", icon: Users, route: "/following" },
-            { label: "Settings", icon: Settings, route: "/settings" },
-          ].map((action) => (
-            <button
-              key={action.label}
-              onClick={() => navigate(action.route)}
-              className="flex flex-col items-center gap-1.5 py-3 rounded-[16px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.06)] active:scale-95 transition-transform duration-150"
-            >
-              <div className="w-10 h-10 rounded-full bg-secondary/80 flex items-center justify-center">
-                <action.icon size={17} className="text-foreground" />
-              </div>
-              <span className="text-[10px] font-semibold text-foreground">{action.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* Recent orders */}
-      <div className="px-4 pt-2 pb-2">
+      <div className="px-4 pt-4 pb-2">
         <div className="flex items-center justify-between mb-2">
           <h2 className="text-sm font-bold text-foreground">Recent Orders</h2>
           <button
@@ -194,7 +178,7 @@ const Profile = () => {
       </div>
 
       {/* Saved address + Payment row */}
-      <div className="px-4 pt-2 pb-2 grid grid-cols-2 gap-2">
+      <div className="px-4 pt-3 pb-2 grid grid-cols-2 gap-2">
         <div className="rounded-[18px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.06)] p-3.5">
           <div className="w-9 h-9 rounded-full bg-secondary/80 flex items-center justify-center mb-2">
             <MapPin size={15} className="text-foreground" />
@@ -224,7 +208,7 @@ const Profile = () => {
       </div>
 
       {/* Member badge */}
-      <div className="px-4 pt-2 pb-2">
+      <div className="px-4 pt-3 pb-2">
         <div className="rounded-[18px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.06)] p-4 flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-amber-500/15 flex items-center justify-center shrink-0">
             <Star size={16} className="text-amber-500" />
@@ -237,7 +221,7 @@ const Profile = () => {
       </div>
 
       {/* Logout */}
-      <div className="px-4 pt-2 pb-8">
+      <div className="px-4 pt-3 pb-8">
         <button className="w-full flex items-center justify-center gap-2 rounded-full bg-destructive/10 py-3.5 text-sm font-semibold text-destructive active:scale-95 transition-transform duration-150">
           <LogOut size={16} />
           Log Out

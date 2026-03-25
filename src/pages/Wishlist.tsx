@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Heart, Share2, Edit3, X, Gift, Cake, PartyPopper, ShoppingBag, Check } from "lucide-react";
+import { ArrowLeft, Heart, Share2, Edit3, X, Gift, Cake, PartyPopper, ShoppingBag, Check, Search, UserPlus } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 
@@ -21,10 +21,43 @@ const wishlistTypes = [
   { id: "shopping", label: "Shopping List", icon: ShoppingBag, description: "Items you plan to buy soon" },
 ];
 
+const followingPeople = [
+  { id: 1, name: "Amara Okafor", handle: "@amara.style", avatar: "https://i.pravatar.cc/80?img=32", isFollowing: true },
+  { id: 2, name: "Kofi Mensah", handle: "@kofi.craft", avatar: "https://i.pravatar.cc/80?img=15", isFollowing: true },
+  { id: 3, name: "Jessica M.", handle: "@jess.reviews", avatar: "https://i.pravatar.cc/80?img=44", isFollowing: true },
+  { id: 4, name: "Lina Park", handle: "@lina.jewels", avatar: "https://i.pravatar.cc/80?img=9", isFollowing: true },
+  { id: 5, name: "David K.", handle: "@david.foodie", avatar: "https://i.pravatar.cc/80?img=52", isFollowing: true },
+];
+
+const suggestedPeople = [
+  { id: 6, name: "Maya Carter", handle: "@maya.beauty", avatar: "https://i.pravatar.cc/80?img=25", isFollowing: false },
+  { id: 7, name: "Liam Chen", handle: "@liam.eats", avatar: "https://i.pravatar.cc/80?img=11", isFollowing: false },
+  { id: 8, name: "Sofia Glow", handle: "@sofia.glow", avatar: "https://i.pravatar.cc/80?img=33", isFollowing: false },
+];
+
 const ShareSheet = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  const [step, setStep] = useState<"details" | "people">("details");
   const [selectedType, setSelectedType] = useState("general");
   const [title, setTitle] = useState("My Wishlist");
   const [note, setNote] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedPeople, setSelectedPeople] = useState<number[]>([]);
+
+  const togglePerson = (id: number) => {
+    setSelectedPeople((prev) => prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]);
+  };
+
+  const allPeople = [...followingPeople, ...suggestedPeople];
+  const filteredPeople = searchQuery
+    ? allPeople.filter((p) => p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.handle.toLowerCase().includes(searchQuery.toLowerCase()))
+    : null;
+
+  const handleClose = () => {
+    setStep("details");
+    setSelectedPeople([]);
+    setSearchQuery("");
+    onClose();
+  };
 
   return (
     <AnimatePresence>
@@ -35,7 +68,7 @@ const ShareSheet = ({ open, onClose }: { open: boolean; onClose: () => void }) =
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
           className="fixed inset-0 z-[100]"
-          onClick={onClose}
+          onClick={handleClose}
         >
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
           <motion.div
@@ -43,7 +76,7 @@ const ShareSheet = ({ open, onClose }: { open: boolean; onClose: () => void }) =
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute bottom-0 left-0 right-0 max-h-[85vh] rounded-t-[28px] bg-background border-t border-border/30 shadow-2xl overflow-hidden"
+            className="absolute bottom-0 left-0 right-0 max-h-[88vh] rounded-t-[28px] bg-background border-t border-border/30 shadow-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Handle */}
@@ -53,84 +86,225 @@ const ShareSheet = ({ open, onClose }: { open: boolean; onClose: () => void }) =
 
             {/* Header */}
             <div className="flex items-center justify-between px-5 pb-3">
-              <h2 className="text-base font-bold text-foreground">Share Wishlist</h2>
-              <button onClick={onClose} className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center active:scale-90 transition-transform">
+              <h2 className="text-base font-bold text-foreground">
+                {step === "details" ? "Share Wishlist" : "Share With"}
+              </h2>
+              <button onClick={handleClose} className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center active:scale-90 transition-transform">
                 <X size={14} className="text-foreground" />
               </button>
             </div>
 
-            <div className="overflow-y-auto max-h-[70vh] px-5 pb-8">
-              {/* Title input */}
-              <div className="mb-4">
-                <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5 block">Wishlist Name</label>
-                <input
-                  type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="w-full rounded-2xl bg-secondary/60 border border-border/30 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:border-primary/50 transition-colors"
-                  placeholder="e.g. Birthday Wishes"
-                />
-              </div>
+            <AnimatePresence mode="wait">
+              {step === "details" && (
+                <motion.div
+                  key="details"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.2 }}
+                  className="overflow-y-auto max-h-[72vh] px-5 pb-8"
+                >
+                  {/* Title input */}
+                  <div className="mb-4">
+                    <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5 block">Wishlist Name</label>
+                    <input
+                      type="text"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      className="w-full rounded-2xl bg-secondary/60 border border-border/30 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:border-primary/50 transition-colors"
+                      placeholder="e.g. Birthday Wishes"
+                    />
+                  </div>
 
-              {/* Type selection */}
-              <div className="mb-4">
-                <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2 block">Wishlist Type</label>
-                <div className="flex flex-col gap-2">
-                  {wishlistTypes.map((type) => (
-                    <button
-                      key={type.id}
-                      onClick={() => setSelectedType(type.id)}
-                      className={`flex items-center gap-3 rounded-2xl p-3.5 border transition-all duration-200 active:scale-[0.98] ${
-                        selectedType === type.id
-                          ? "bg-primary/10 border-primary/30"
-                          : "bg-secondary/40 border-border/30"
-                      }`}
-                    >
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
-                        selectedType === type.id ? "bg-primary/20" : "bg-secondary"
-                      }`}>
-                        <type.icon size={18} className={selectedType === type.id ? "text-primary" : "text-muted-foreground"} />
+                  {/* Type selection */}
+                  <div className="mb-4">
+                    <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2 block">Wishlist Type</label>
+                    <div className="flex flex-col gap-2">
+                      {wishlistTypes.map((type) => (
+                        <button
+                          key={type.id}
+                          onClick={() => setSelectedType(type.id)}
+                          className={`flex items-center gap-3 rounded-2xl p-3.5 border transition-all duration-200 active:scale-[0.98] ${
+                            selectedType === type.id
+                              ? "bg-primary/10 border-primary/30"
+                              : "bg-secondary/40 border-border/30"
+                          }`}
+                        >
+                          <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
+                            selectedType === type.id ? "bg-primary/20" : "bg-secondary"
+                          }`}>
+                            <type.icon size={18} className={selectedType === type.id ? "text-primary" : "text-muted-foreground"} />
+                          </div>
+                          <div className="flex-1 text-left min-w-0">
+                            <p className={`text-sm font-semibold ${selectedType === type.id ? "text-foreground" : "text-foreground/80"}`}>{type.label}</p>
+                            <p className="text-[10px] text-muted-foreground truncate">{type.description}</p>
+                          </div>
+                          {selectedType === type.id && (
+                            <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center shrink-0">
+                              <Check size={12} className="text-primary-foreground" />
+                            </div>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Note */}
+                  <div className="mb-5">
+                    <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5 block">Add a Note (optional)</label>
+                    <textarea
+                      value={note}
+                      onChange={(e) => setNote(e.target.value)}
+                      rows={3}
+                      className="w-full rounded-2xl bg-secondary/60 border border-border/30 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none resize-none focus:border-primary/50 transition-colors"
+                      placeholder="Add a personal message..."
+                    />
+                  </div>
+
+                  {/* Next button */}
+                  <button
+                    onClick={() => setStep("people")}
+                    className="w-full rounded-full bg-foreground text-background py-3.5 text-sm font-bold active:scale-95 transition-transform duration-150"
+                  >
+                    Next — Choose People
+                  </button>
+                </motion.div>
+              )}
+
+              {step === "people" && (
+                <motion.div
+                  key="people"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.2 }}
+                  className="overflow-y-auto max-h-[72vh] px-5 pb-8"
+                >
+                  {/* Search */}
+                  <div className="mb-4">
+                    <div className="flex items-center gap-2 rounded-2xl bg-secondary/60 border border-border/30 px-3.5 py-2.5">
+                      <Search size={15} className="text-muted-foreground shrink-0" />
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search people..."
+                        className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Selected chips */}
+                  {selectedPeople.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {selectedPeople.map((id) => {
+                        const person = allPeople.find((p) => p.id === id);
+                        if (!person) return null;
+                        return (
+                          <motion.button
+                            key={id}
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.8, opacity: 0 }}
+                            onClick={() => togglePerson(id)}
+                            className="flex items-center gap-1.5 rounded-full bg-primary/10 border border-primary/20 pl-1 pr-2.5 py-1 active:scale-95 transition-transform"
+                          >
+                            <img src={person.avatar} alt="" className="w-5 h-5 rounded-full object-cover" />
+                            <span className="text-[11px] font-semibold text-foreground">{person.name.split(" ")[0]}</span>
+                            <X size={10} className="text-muted-foreground" />
+                          </motion.button>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* Search results */}
+                  {filteredPeople ? (
+                    <div className="mb-4">
+                      <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2 block">Results</label>
+                      <div className="flex flex-col gap-1.5">
+                        {filteredPeople.length === 0 && (
+                          <p className="text-sm text-muted-foreground text-center py-6">No people found</p>
+                        )}
+                        {filteredPeople.map((person) => (
+                          <PersonRow key={person.id} person={person} selected={selectedPeople.includes(person.id)} onToggle={() => togglePerson(person.id)} />
+                        ))}
                       </div>
-                      <div className="flex-1 text-left min-w-0">
-                        <p className={`text-sm font-semibold ${selectedType === type.id ? "text-foreground" : "text-foreground/80"}`}>{type.label}</p>
-                        <p className="text-[10px] text-muted-foreground truncate">{type.description}</p>
-                      </div>
-                      {selectedType === type.id && (
-                        <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center shrink-0">
-                          <Check size={12} className="text-primary-foreground" />
+                    </div>
+                  ) : (
+                    <>
+                      {/* Following */}
+                      <div className="mb-5">
+                        <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2 block">People You Follow</label>
+                        <div className="flex flex-col gap-1.5">
+                          {followingPeople.map((person) => (
+                            <PersonRow key={person.id} person={person} selected={selectedPeople.includes(person.id)} onToggle={() => togglePerson(person.id)} />
+                          ))}
                         </div>
-                      )}
+                      </div>
+
+                      {/* Suggested */}
+                      <div className="mb-5">
+                        <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2 block">Suggested</label>
+                        <div className="flex flex-col gap-1.5">
+                          {suggestedPeople.map((person) => (
+                            <PersonRow key={person.id} person={person} selected={selectedPeople.includes(person.id)} onToggle={() => togglePerson(person.id)} />
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {/* Share button */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setStep("details")}
+                      className="flex-1 rounded-full bg-secondary border border-border/30 text-foreground py-3.5 text-sm font-bold active:scale-95 transition-transform duration-150"
+                    >
+                      Back
                     </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Note */}
-              <div className="mb-5">
-                <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5 block">Add a Note (optional)</label>
-                <textarea
-                  value={note}
-                  onChange={(e) => setNote(e.target.value)}
-                  rows={3}
-                  className="w-full rounded-2xl bg-secondary/60 border border-border/30 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none resize-none focus:border-primary/50 transition-colors"
-                  placeholder="Add a personal message..."
-                />
-              </div>
-
-              {/* Share button */}
-              <button
-                onClick={onClose}
-                className="w-full rounded-full bg-foreground text-background py-3.5 text-sm font-bold active:scale-95 transition-transform duration-150"
-              >
-                Share Wishlist
-              </button>
-            </div>
+                    <button
+                      onClick={handleClose}
+                      disabled={selectedPeople.length === 0}
+                      className="flex-[2] rounded-full bg-foreground text-background py-3.5 text-sm font-bold active:scale-95 transition-transform duration-150 disabled:opacity-40"
+                    >
+                      Share with {selectedPeople.length || ""} {selectedPeople.length === 1 ? "person" : selectedPeople.length > 1 ? "people" : ""}
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
   );
 };
+
+const PersonRow = ({ person, selected, onToggle }: { person: { id: number; name: string; handle: string; avatar: string; isFollowing: boolean }; selected: boolean; onToggle: () => void }) => (
+  <button
+    onClick={onToggle}
+    className={`flex items-center gap-3 rounded-2xl p-3 border transition-all duration-200 active:scale-[0.98] ${
+      selected ? "bg-primary/10 border-primary/30" : "bg-secondary/30 border-border/20"
+    }`}
+  >
+    <img src={person.avatar} alt={person.name} className="w-10 h-10 rounded-full object-cover shrink-0" />
+    <div className="flex-1 text-left min-w-0">
+      <p className="text-sm font-semibold text-foreground truncate">{person.name}</p>
+      <p className="text-[10px] text-muted-foreground">{person.handle}</p>
+    </div>
+    {!person.isFollowing && (
+      <span className="text-[10px] font-semibold text-primary flex items-center gap-0.5 shrink-0">
+        <UserPlus size={10} /> Follow
+      </span>
+    )}
+    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
+      selected ? "bg-primary border-primary" : "border-border"
+    }`}>
+      {selected && <Check size={12} className="text-primary-foreground" />}
+    </div>
+  </button>
+);
 
 const Wishlist = () => {
   const navigate = useNavigate();
