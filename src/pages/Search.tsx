@@ -143,7 +143,7 @@ const VendorRow = () => {
 };
 
 const FeaturedBanner = () => (
-  <section className="pt-6 px-4">
+  <section className="pt-10 px-4">
     <div className="relative rounded-[24px] overflow-hidden min-h-[220px]">
       <img src={featuredBannerImage} alt="Featured marketplace collection" className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(var(--foreground)/0.08),transparent_28%,hsl(var(--foreground)/0.72))]" />
