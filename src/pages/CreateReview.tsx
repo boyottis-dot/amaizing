@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, Camera, ChevronRight, Image, Star, Video } from "lucide-react";
+import { ArrowLeft, Camera, ChevronRight, Crop, Image, Pencil, RotateCcw, Star, Trash2, X } from "lucide-react";
 
 const eligibleProducts = [
   { id: 1, name: "Silk Dress", vendor: "Amara Okafor", image: "https://picsum.photos/seed/ord1/200/200", orderId: 1001 },
   { id: 2, name: "Organic Soap Set", vendor: "Sofia Glow", image: "https://picsum.photos/seed/ord2/200/200", orderId: 1002 },
+];
+
+const placeholderImages = [
+  "https://picsum.photos/seed/review1/400/400",
+  "https://picsum.photos/seed/review2/400/400",
+  "https://picsum.photos/seed/review3/400/400",
+  "https://picsum.photos/seed/review4/400/400",
 ];
 
 const steps = ["Select Product", "Add Media", "Write Caption", "Rate", "Preview"] as const;
@@ -16,13 +23,25 @@ const CreateReview = () => {
   const [selectedProduct, setSelectedProduct] = useState<typeof eligibleProducts[0] | null>(null);
   const [caption, setCaption] = useState("");
   const [rating, setRating] = useState(0);
-  const [mediaCount, setMediaCount] = useState(0);
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+  const [selectedImageIdx, setSelectedImageIdx] = useState<number | null>(null);
 
   const canProceed = () => {
     if (step === 0) return !!selectedProduct;
     if (step === 2) return caption.length > 0 && caption.length <= 300;
     if (step === 3) return rating > 0;
     return true;
+  };
+
+  const addImage = () => {
+    if (uploadedImages.length < 4) {
+      setUploadedImages([...uploadedImages, placeholderImages[uploadedImages.length]]);
+    }
+  };
+
+  const removeImage = (idx: number) => {
+    setUploadedImages(uploadedImages.filter((_, i) => i !== idx));
+    setSelectedImageIdx(null);
   };
 
   return (
@@ -80,28 +99,111 @@ const CreateReview = () => {
         {/* Step 2: Media */}
         {step === 1 && (
           <div className="space-y-4">
-            <h3 className="text-sm font-bold text-foreground">Upload photos or video</h3>
-            <p className="text-xs text-muted-foreground">Add 1-4 photos or a short video of the product</p>
-            <div className="grid grid-cols-2 gap-3">
-              {[1, 2, 3, 4].map((i) => (
-                <button
-                  key={i}
-                  onClick={() => setMediaCount(Math.min(4, mediaCount + 1))}
-                  className="aspect-square rounded-[18px] border-2 border-dashed border-border/40 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform"
-                >
-                  {i <= mediaCount ? (
-                    <div className="w-full h-full rounded-[16px] bg-secondary/50 flex items-center justify-center">
-                      <Image size={24} className="text-muted-foreground" />
-                    </div>
-                  ) : (
-                    <>
-                      <Camera size={20} className="text-muted-foreground/40" />
-                      <span className="text-[10px] text-muted-foreground/40">Add photo</span>
-                    </>
-                  )}
-                </button>
-              ))}
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-bold text-foreground">Upload photos or video</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">Add 1-4 photos or a short video</p>
+              </div>
+              {/* Image counter badge */}
+              <div className="flex items-center gap-1.5 bg-foreground/5 rounded-full px-3 py-1.5 border border-border/30">
+                <Image size={13} className="text-foreground" />
+                <span className="text-xs font-bold text-foreground">{uploadedImages.length}</span>
+                <span className="text-[10px] text-muted-foreground">/ 4</span>
+              </div>
             </div>
+
+            {/* Uploaded images with edit controls */}
+            {uploadedImages.length > 0 && (
+              <div className="space-y-3">
+                {/* Main selected image preview */}
+                <div className="relative rounded-[20px] overflow-hidden aspect-[4/3] bg-secondary/30">
+                  <img
+                    src={uploadedImages[selectedImageIdx ?? 0]}
+                    alt="Selected"
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Edit toolbar overlay */}
+                  <div className="absolute top-3 right-3 flex gap-1.5 z-10">
+                    <button className="w-9 h-9 rounded-full bg-black/40 backdrop-blur-xl border border-white/20 flex items-center justify-center active:scale-90 transition-transform">
+                      <Crop size={15} className="text-white" />
+                    </button>
+                    <button className="w-9 h-9 rounded-full bg-black/40 backdrop-blur-xl border border-white/20 flex items-center justify-center active:scale-90 transition-transform">
+                      <Pencil size={15} className="text-white" />
+                    </button>
+                    <button className="w-9 h-9 rounded-full bg-black/40 backdrop-blur-xl border border-white/20 flex items-center justify-center active:scale-90 transition-transform">
+                      <RotateCcw size={15} className="text-white" />
+                    </button>
+                    <button
+                      onClick={() => removeImage(selectedImageIdx ?? 0)}
+                      className="w-9 h-9 rounded-full bg-red-500/60 backdrop-blur-xl border border-white/20 flex items-center justify-center active:scale-90 transition-transform"
+                    >
+                      <Trash2 size={15} className="text-white" />
+                    </button>
+                  </div>
+                  {/* Image number badge */}
+                  <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-xl rounded-full px-2.5 py-1 border border-white/20">
+                    <span className="text-[10px] font-bold text-white">{(selectedImageIdx ?? 0) + 1} / {uploadedImages.length}</span>
+                  </div>
+                </div>
+
+                {/* Thumbnail strip */}
+                <div className="flex gap-2">
+                  {uploadedImages.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedImageIdx(idx)}
+                      className={`relative w-16 h-16 rounded-[12px] overflow-hidden shrink-0 transition-all active:scale-90 ${
+                        (selectedImageIdx ?? 0) === idx
+                          ? "ring-2 ring-foreground ring-offset-2 ring-offset-background"
+                          : "opacity-60"
+                      }`}
+                    >
+                      <img src={img} alt="" className="w-full h-full object-cover" />
+                      <button
+                        onClick={(e) => { e.stopPropagation(); removeImage(idx); }}
+                        className="absolute -top-0.5 -right-0.5 w-5 h-5 rounded-full bg-destructive flex items-center justify-center z-10"
+                      >
+                        <X size={10} className="text-white" />
+                      </button>
+                    </button>
+                  ))}
+                  {/* Add more button in thumbnail strip */}
+                  {uploadedImages.length < 4 && (
+                    <button
+                      onClick={addImage}
+                      className="w-16 h-16 rounded-[12px] border-2 border-dashed border-border/40 flex flex-col items-center justify-center gap-0.5 active:scale-90 transition-transform shrink-0"
+                    >
+                      <Camera size={16} className="text-muted-foreground/50" />
+                      <span className="text-[8px] text-muted-foreground/50">Add</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Empty state grid when no images uploaded */}
+            {uploadedImages.length === 0 && (
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  onClick={addImage}
+                  className="aspect-square rounded-[18px] border-2 border-dashed border-foreground/20 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform bg-foreground/[0.02]"
+                >
+                  <div className="w-12 h-12 rounded-full bg-foreground/5 flex items-center justify-center">
+                    <Camera size={22} className="text-foreground/40" />
+                  </div>
+                  <span className="text-[11px] font-medium text-muted-foreground">Take Photo</span>
+                </button>
+                <button
+                  onClick={addImage}
+                  className="aspect-square rounded-[18px] border-2 border-dashed border-foreground/20 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform bg-foreground/[0.02]"
+                >
+                  <div className="w-12 h-12 rounded-full bg-foreground/5 flex items-center justify-center">
+                    <Image size={22} className="text-foreground/40" />
+                  </div>
+                  <span className="text-[11px] font-medium text-muted-foreground">From Gallery</span>
+                </button>
+              </div>
+            )}
           </div>
         )}
 
@@ -156,20 +258,29 @@ const CreateReview = () => {
           <div className="space-y-4">
             <h3 className="text-sm font-bold text-foreground">Preview your review</h3>
             <div className="rounded-[20px] overflow-hidden relative aspect-square">
-              <img src={selectedProduct.image} alt="" className="w-full h-full object-cover" />
+              <img src={uploadedImages[0] || selectedProduct.image} alt="" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              {/* Image count indicator */}
+              {uploadedImages.length > 1 && (
+                <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/40 backdrop-blur-xl rounded-full px-2.5 py-1 border border-white/20">
+                  <Image size={10} className="text-white" />
+                  <span className="text-[10px] font-bold text-white">1/{uploadedImages.length}</span>
+                </div>
+              )}
               <div className="absolute top-3 left-3 flex items-center gap-1 bg-emerald-500/20 backdrop-blur-xl border border-emerald-500/30 rounded-full px-2.5 py-1">
                 <span className="text-[10px] font-bold text-emerald-400">✓ Verified Purchase</span>
-              </div>
-              <div className="absolute top-3 right-3 flex items-center gap-0.5 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full px-2.5 py-1">
-                <Star size={10} className="fill-amber-400 text-amber-400" />
-                <span className="text-[10px] font-bold text-white">{rating}</span>
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <img src="https://i.pravatar.cc/160?img=47" alt="" className="w-8 h-8 rounded-full object-cover border border-white/30" />
                   <div>
-                    <p className="text-xs font-bold text-white">Aria Collins</p>
+                    <div className="flex items-center gap-1.5">
+                      <p className="text-xs font-bold text-white">Aria Collins</p>
+                      <div className="flex items-center gap-0.5 bg-white/10 backdrop-blur-xl rounded-full px-1.5 py-0.5 border border-white/15">
+                        <Star size={8} className="fill-amber-400 text-amber-400" />
+                        <span className="text-[9px] font-bold text-white">{rating}</span>
+                      </div>
+                    </div>
                     <p className="text-[10px] text-white/50">@aria.collins</p>
                   </div>
                 </div>

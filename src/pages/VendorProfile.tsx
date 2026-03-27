@@ -1,4 +1,4 @@
-import { ArrowLeft, Search, Heart, Bookmark, MessageCircle, Send } from "lucide-react";
+import { ArrowLeft, Search, Heart, Bookmark, MessageCircle, Send, Plus, X } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import BottomNav from "@/components/BottomNav";
@@ -56,6 +56,14 @@ const savedItems = [
   { id: 4, name: "Wool Scarf", price: "$42", image: "https://picsum.photos/seed/saved4/400/400" },
 ];
 
+const discoverVendors = [
+  { id: "v1", name: "Lina Jewels", handle: "@lina.jewels", avatar: "https://i.pravatar.cc/400?img=9", followers: "1.5K", pills: ["Jewelry", "Accessories", "Gifts"] },
+  { id: "v2", name: "Sofia Glow", handle: "@sofia.glow", avatar: "https://i.pravatar.cc/400?img=25", followers: "2.8K", pills: ["Skincare", "Beauty", "Organic"] },
+  { id: "v3", name: "Marco Optics", handle: "@marco.optics", avatar: "https://i.pravatar.cc/400?img=12", followers: "980", pills: ["Eyewear", "Fashion"] },
+  { id: "v4", name: "Priya Art", handle: "@priya.art", avatar: "https://i.pravatar.cc/400?img=23", followers: "3.1K", pills: ["Art", "Prints", "Home Decor"] },
+  { id: "v5", name: "Chen Home", handle: "@chen.home", avatar: "https://i.pravatar.cc/400?img=33", followers: "1.2K", pills: ["Home", "Candles", "Decor"] },
+];
+
 const formatCount = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
 
 const ProductCard = ({ item, onOpen }: { item: { id: number; name: string; price: string; image: string }; onOpen?: () => void }) => (
@@ -86,6 +94,7 @@ const VendorProfile = () => {
   const vendor = vendorMap[id || ""] || defaultVendor;
   const [activeTab, setActiveTab] = useState("Products");
   const [selectedPost, setSelectedPost] = useState<PostDetailData | null>(null);
+  const [showDiscover, setShowDiscover] = useState(false);
 
   const stats = [
     { label: "Followers", value: vendor.followers },
@@ -130,12 +139,18 @@ const VendorProfile = () => {
         ))}
       </div>
 
-      <div className="mt-6 flex items-center justify-between gap-2 px-4">
+      <div className="mt-6 flex items-center gap-2 px-4">
         {["Follow", "Message", "Reviews"].map((label) => (
           <button key={label} className="flex-1 rounded-2xl bg-secondary px-4 py-2.5 text-sm font-semibold text-secondary-foreground">
             {label}
           </button>
         ))}
+        <button
+          onClick={() => setShowDiscover(true)}
+          className="w-11 h-11 rounded-2xl bg-foreground flex items-center justify-center shrink-0 active:scale-90 transition-transform duration-150"
+        >
+          <Plus size={18} className="text-background" />
+        </button>
       </div>
 
       <nav className="mt-8 flex items-center justify-around border-b border-border/50 px-4">
@@ -277,6 +292,56 @@ const VendorProfile = () => {
 
       {selectedPost && (
         <PostDetailDialog open={!!selectedPost} onClose={() => setSelectedPost(null)} post={selectedPost} />
+      )}
+
+      {/* Discover Vendors Popup */}
+      {showDiscover && (
+        <div className="fixed inset-0 z-[60] flex items-end justify-center" onClick={() => setShowDiscover(false)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-md bg-background/90 backdrop-blur-xl border-t border-border/30 rounded-t-[28px] shadow-[0_-8px_40px_-8px_hsl(var(--foreground)/0.2)] animate-slide-in-right p-5 pb-10"
+            style={{ animation: "slide-up 0.3s ease-out" }}
+          >
+            <div className="flex items-center justify-between mb-5">
+              <h3 className="text-lg font-bold text-foreground">Discover Vendors</h3>
+              <button onClick={() => setShowDiscover(false)} className="w-9 h-9 rounded-full bg-secondary/80 flex items-center justify-center active:scale-90 transition-transform">
+                <X size={16} className="text-foreground" />
+              </button>
+            </div>
+
+            {/* Vendor carousel */}
+            <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2 snap-x snap-mandatory -mx-1 px-1">
+              {discoverVendors.map((v) => (
+                <div
+                  key={v.id}
+                  onClick={() => { setShowDiscover(false); navigate(`/vendor/${v.id}`); }}
+                  className="shrink-0 w-[200px] rounded-[22px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-[0_4px_20px_-4px_hsl(var(--foreground)/0.08)] p-4 snap-start cursor-pointer active:scale-[0.97] transition-transform"
+                >
+                  <div className="flex flex-col items-center text-center">
+                    <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-border/20 shadow-lg mb-2.5">
+                      <img src={v.avatar} alt={v.name} className="w-full h-full object-cover" />
+                    </div>
+                    <p className="text-sm font-bold text-foreground truncate w-full">{v.name}</p>
+                    <p className="text-[10px] text-muted-foreground">{v.handle}</p>
+                    <p className="text-[10px] text-muted-foreground mt-0.5">{v.followers} followers</p>
+                  </div>
+                  {/* Category pills */}
+                  <div className="flex flex-wrap gap-1 mt-3 justify-center">
+                    {v.pills.map((pill) => (
+                      <span key={pill} className="px-2 py-0.5 rounded-full bg-foreground/5 border border-border/20 text-[9px] font-medium text-muted-foreground">
+                        {pill}
+                      </span>
+                    ))}
+                  </div>
+                  <button className="w-full mt-3 py-2 rounded-full bg-foreground text-background text-xs font-semibold active:scale-95 transition-transform">
+                    Follow
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -89,7 +89,7 @@ const Index = () => {
       <StoriesRow />
       <CategoryPills />
 
-      <div className="mt-6" onClick={() => setSelectedPost(featuredPosts[0])}>
+      <div className="mt-10" onClick={() => setSelectedPost(featuredPosts[0])}>
         <div className="cursor-pointer">
           <FeaturedPostCard
             vendorName="Amara Okafor"
@@ -106,15 +106,15 @@ const Index = () => {
         </div>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-10">
         <FlashSaleSection />
       </div>
 
-      <div className="mt-8">
+      <div className="mt-10">
         <ProductGrid title="Quick Picks" count={24} products={postsGrid1} />
       </div>
 
-      <div className="mt-8" onClick={() => setSelectedPost(featuredPosts[1])}>
+      <div className="mt-10" onClick={() => setSelectedPost(featuredPosts[1])}>
         <div className="cursor-pointer">
           <FeaturedPostCard
             vendorName="Jessica M."
@@ -133,20 +133,20 @@ const Index = () => {
         </div>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-10">
         <TrendingVendorsRow />
       </div>
-      <div className="mt-8">
+      <div className="mt-10">
         <ProductGrid title="Posts" count={48} products={postsGrid1} />
       </div>
-      <div className="mt-8">
+      <div className="mt-10">
         <CollectionsRow />
       </div>
-      <div className="mt-8">
+      <div className="mt-10">
         <ProductGrid title="Trending Products" count={32} products={postsGrid2} />
       </div>
 
-      <div className="mt-8" onClick={() => setSelectedPost(featuredPosts[2])}>
+      <div className="mt-10" onClick={() => setSelectedPost(featuredPosts[2])}>
         <div className="cursor-pointer">
           <FeaturedPostCard
             vendorName="David K."
@@ -165,11 +165,11 @@ const Index = () => {
         </div>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-10">
         <StackedCards />
       </div>
 
-      <div className="mt-8" onClick={() => setSelectedPost(featuredPosts[3])}>
+      <div className="mt-10" onClick={() => setSelectedPost(featuredPosts[3])}>
         <div className="cursor-pointer">
           <FeaturedPostCard
             vendorName="Kofi Mensah"
