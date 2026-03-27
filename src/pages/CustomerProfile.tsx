@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Heart, Bookmark, MessageCircle, Send, Star, Share2, Edit3 } from "lucide-react";
+import { ArrowLeft, Heart, Bookmark, MessageCircle, Send, Star, MapPin } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import PostDetailDialog, { PostDetailData } from "@/components/PostDetailDialog";
 
@@ -8,9 +8,10 @@ const customerData = {
   name: "Jessica M.",
   handle: "@jess.reviews",
   avatar: "https://i.pravatar.cc/160?img=44",
-  banner: "https://picsum.photos/seed/custbanner/800/400",
+  location: "Cape Town, SA",
   reviewCount: 12,
   favorites: 28,
+  following: 34,
 };
 
 const customerReviews = [
@@ -65,50 +66,55 @@ const CustomerProfile = () => {
 
   return (
     <div className="max-w-md mx-auto min-h-screen bg-background pb-28">
-      {/* Banner — matching profile page style */}
-      <div className="relative px-4 pt-4">
-        <div className="rounded-[24px] overflow-hidden relative" style={{ height: 200 }}>
-          <img src={customerData.banner} alt="Banner" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-black/30" />
-          <div className="relative z-10 flex items-center justify-between px-4 pt-4">
-            <button
-              onClick={() => navigate(-1)}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 active:scale-90 transition-transform duration-150"
-            >
-              <ArrowLeft size={18} className="text-white" />
-            </button>
+      {/* Header */}
+      <div className="sticky top-0 z-50 flex items-center gap-3 px-4 py-4 bg-background/80 backdrop-blur-xl">
+        <button
+          onClick={() => navigate(-1)}
+          className="w-10 h-10 flex items-center justify-center rounded-full bg-background/60 backdrop-blur-xl shadow-[0_2px_12px_-2px_hsl(var(--foreground)/0.08)] border border-border/30 active:scale-90 transition-transform duration-150"
+        >
+          <ArrowLeft size={16} className="text-foreground" />
+        </button>
+        <div className="flex-1" />
+        <div className="w-10" />
+      </div>
+
+      {/* Profile card — no banner, glassmorphic card */}
+      <div className="px-4 -mt-1">
+        <div className="rounded-[24px] bg-background/60 backdrop-blur-xl border border-border/30 shadow-[0_8px_32px_-8px_hsl(var(--foreground)/0.1)] p-5">
+          <div className="flex flex-col items-center text-center">
+            {/* Avatar */}
+            <div className="w-24 h-24 rounded-full overflow-hidden ring-[3px] ring-border/20 shadow-xl mb-3">
+              <img src={customerData.avatar} alt={customerData.name} className="w-full h-full object-cover" />
+            </div>
+            <h1 className="text-xl font-bold text-foreground">{customerData.name}</h1>
+            <p className="text-xs text-muted-foreground mt-0.5">{customerData.handle}</p>
+            <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
+              <MapPin size={10} />
+              <span>{customerData.location}</span>
+            </div>
+          </div>
+
+          {/* Stats row inside card */}
+          <div className="flex items-center justify-around mt-5 pt-4 border-t border-border/20">
+            {[
+              { label: "Reviews", value: customerData.reviewCount },
+              { label: "Favorites", value: customerData.favorites },
+              { label: "Following", value: customerData.following },
+            ].map((stat, i, arr) => (
+              <div key={stat.label} className="flex items-center gap-4">
+                <div className="text-center">
+                  <div className="text-lg font-bold text-foreground">{stat.value}</div>
+                  <div className="-mt-0.5 text-[10px] text-muted-foreground font-medium">{stat.label}</div>
+                </div>
+                {i < arr.length - 1 && <div className="w-px h-7 bg-border/30" />}
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Avatar */}
-      <div className="relative z-10 -mt-16 flex justify-center">
-        <div className="w-28 h-28 rounded-full border-4 border-background bg-secondary shadow-sm overflow-hidden">
-          <img src={customerData.avatar} alt={customerData.name} className="w-full h-full object-cover" />
-        </div>
-      </div>
-
-      {/* Info */}
-      <div className="mt-3 px-6 text-center">
-        <h1 className="text-xl font-bold text-foreground">{customerData.name}</h1>
-        <p className="mt-0.5 text-sm text-muted-foreground">{customerData.handle}</p>
-      </div>
-
-      {/* Stats */}
-      <div className="mt-4 flex items-center justify-center gap-8">
-        <div className="text-center">
-          <div className="text-lg font-bold text-foreground">{customerData.reviewCount}</div>
-          <div className="-mt-1 text-[11px] font-medium text-muted-foreground">Reviews</div>
-        </div>
-        <div className="w-px h-8 bg-border" />
-        <div className="text-center">
-          <div className="text-lg font-bold text-foreground">{customerData.favorites}</div>
-          <div className="-mt-1 text-[11px] font-medium text-muted-foreground">Favorites</div>
-        </div>
-      </div>
-
-      {/* Tab bar — pill style matching profile page */}
-      <div className="flex gap-2 px-4 py-4 justify-center">
+      {/* Tab bar */}
+      <div className="flex gap-2 px-4 py-5 justify-center">
         {tabs.map((tab) => (
           <button
             key={tab}
@@ -156,22 +162,22 @@ const CustomerProfile = () => {
 
               {/* Engagement */}
               <div className="absolute right-3 top-4 flex flex-col items-center gap-1 bg-white/10 backdrop-blur-xl border border-white/20 rounded-[18px] px-2.5 py-4 z-10">
-                <button className="flex flex-col items-center gap-0.5 py-1.5">
+                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
                   <Heart size={22} className="text-rose-400 fill-rose-400" />
                   <span className="text-[10px] text-white font-semibold">{formatCount(post.likes)}</span>
                 </button>
                 <div className="w-6 h-px bg-white/15" />
-                <button className="flex flex-col items-center gap-0.5 py-1.5">
+                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
                   <MessageCircle size={22} className="text-white/80" />
                   <span className="text-[10px] text-white font-semibold">{formatCount(post.comments)}</span>
                 </button>
                 <div className="w-6 h-px bg-white/15" />
-                <button className="flex flex-col items-center gap-0.5 py-1.5">
+                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
                   <Bookmark size={22} className="text-white/80" />
                   <span className="text-[10px] text-white/60">save</span>
                 </button>
                 <div className="w-6 h-px bg-white/15" />
-                <button className="flex flex-col items-center gap-0.5 py-1.5">
+                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
                   <Send size={22} className="text-white/80" />
                   <span className="text-[10px] text-white font-semibold">{formatCount(post.shares)}</span>
                 </button>
@@ -198,17 +204,22 @@ const CustomerProfile = () => {
         <section className="py-2 px-3">
           <div className="grid grid-cols-2 gap-3">
             {customerFavorites.map((item) => (
-              <div key={item.id} className="aspect-square rounded-[20px] overflow-hidden relative cursor-pointer active:scale-[0.97] transition-transform duration-200">
+              <div key={item.id} className="rounded-[20px] overflow-hidden relative cursor-pointer active:scale-[0.97] transition-transform duration-200" style={{ aspectRatio: "3 / 4" }}>
                 <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                 <button className="absolute top-3 left-3 w-9 h-9 rounded-full bg-white/15 backdrop-blur-xl flex items-center justify-center border border-white/15">
                   <Heart size={16} className="text-white fill-white" strokeWidth={1.5} />
                 </button>
-                <div className="absolute top-3 right-3 w-11 h-11 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center border border-white/10">
-                  <span className="text-white text-[11px] font-bold">{item.price}</span>
-                </div>
                 <div className="absolute bottom-3 left-3 right-3">
                   <div className="bg-white/15 backdrop-blur-xl rounded-[12px] px-3 py-2 border border-white/15">
-                    <span className="text-white text-[11px] font-semibold truncate block">{item.name}</span>
+                    <div className="flex items-center justify-between">
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-white text-[11px] font-semibold truncate">{item.name}</span>
+                        <span className="text-white/70 text-[10px] font-bold">{item.price}</span>
+                      </div>
+                      <button className="shrink-0 w-7 h-7 rounded-full bg-white flex items-center justify-center ml-2">
+                        <span className="text-foreground text-sm font-bold leading-none">+</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
