@@ -94,6 +94,7 @@ const VendorProfile = () => {
   const vendor = vendorMap[id || ""] || defaultVendor;
   const [activeTab, setActiveTab] = useState("Products");
   const [selectedPost, setSelectedPost] = useState<PostDetailData | null>(null);
+  const [showDiscover, setShowDiscover] = useState(false);
 
   const stats = [
     { label: "Followers", value: vendor.followers },
