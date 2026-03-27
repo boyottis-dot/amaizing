@@ -89,7 +89,7 @@ const Index = () => {
       <StoriesRow />
       <CategoryPills />
 
-      <div className="mt-6" onClick={() => setSelectedPost(featuredPosts[0])}>
+      <div className="mt-10" onClick={() => setSelectedPost(featuredPosts[0])}>
         <div className="cursor-pointer">
           <FeaturedPostCard
             vendorName="Amara Okafor"
