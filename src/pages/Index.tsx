@@ -114,7 +114,7 @@ const Index = () => {
         <ProductGrid title="Quick Picks" count={24} products={postsGrid1} />
       </div>
 
-      <div className="mt-8" onClick={() => setSelectedPost(featuredPosts[1])}>
+      <div className="mt-10" onClick={() => setSelectedPost(featuredPosts[1])}>
         <div className="cursor-pointer">
           <FeaturedPostCard
             vendorName="Jessica M."
