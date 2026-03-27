@@ -96,6 +96,7 @@ const Index = () => {
             vendorHandle="@amara.style"
             vendorAvatar="https://i.pravatar.cc/40?img=32"
             image="https://picsum.photos/seed/feat1/600/600"
+            images={["https://picsum.photos/seed/feat1/600/600", "https://picsum.photos/seed/feat1b/600/600", "https://picsum.photos/seed/feat1c/600/600"]}
             likes={234}
             comments={18}
             shares={12}
