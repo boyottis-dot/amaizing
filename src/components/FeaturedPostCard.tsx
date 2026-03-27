@@ -80,9 +80,9 @@ const FeaturedPostCard = ({
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
-        {/* Carousel counter badge - bottom right */}
+        {/* Carousel counter badge - bottom right circle matching Buy button glassmorphism */}
         {isCarousel && (
-          <div className="absolute bottom-[88px] right-3 bg-black/30 backdrop-blur-xl rounded-full px-2.5 py-1 border border-white/15 z-10">
+          <div className="absolute bottom-4 right-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full w-10 h-10 flex items-center justify-center z-10">
             <span className="text-[10px] font-bold text-white">{currentIdx + 1}/{allImages.length}</span>
           </div>
         )}
