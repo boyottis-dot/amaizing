@@ -56,6 +56,14 @@ const savedItems = [
   { id: 4, name: "Wool Scarf", price: "$42", image: "https://picsum.photos/seed/saved4/400/400" },
 ];
 
+const discoverVendors = [
+  { id: "v1", name: "Lina Jewels", handle: "@lina.jewels", avatar: "https://i.pravatar.cc/400?img=9", followers: "1.5K", pills: ["Jewelry", "Accessories", "Gifts"] },
+  { id: "v2", name: "Sofia Glow", handle: "@sofia.glow", avatar: "https://i.pravatar.cc/400?img=25", followers: "2.8K", pills: ["Skincare", "Beauty", "Organic"] },
+  { id: "v3", name: "Marco Optics", handle: "@marco.optics", avatar: "https://i.pravatar.cc/400?img=12", followers: "980", pills: ["Eyewear", "Fashion"] },
+  { id: "v4", name: "Priya Art", handle: "@priya.art", avatar: "https://i.pravatar.cc/400?img=23", followers: "3.1K", pills: ["Art", "Prints", "Home Decor"] },
+  { id: "v5", name: "Chen Home", handle: "@chen.home", avatar: "https://i.pravatar.cc/400?img=33", followers: "1.2K", pills: ["Home", "Candles", "Decor"] },
+];
+
 const formatCount = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
 
 const ProductCard = ({ item, onOpen }: { item: { id: number; name: string; price: string; image: string }; onOpen?: () => void }) => (
