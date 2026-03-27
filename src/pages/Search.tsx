@@ -80,8 +80,8 @@ const ProductCard = ({ item }: { item: ProductItem }) => (
             <span className="text-white text-[11px] font-semibold truncate">{item.name}</span>
             <span className="text-white/70 text-[10px] font-bold">{item.price}</span>
           </div>
-          <button type="button" aria-label={`Add ${item.name}`} className="shrink-0 w-7 h-7 rounded-full bg-background flex items-center justify-center ml-2">
-            <span className="text-foreground text-sm font-bold leading-none">+</span>
+          <button type="button" aria-label={`Add ${item.name}`} className="shrink-0 w-7 h-7 rounded-full bg-foreground flex items-center justify-center ml-2">
+            <span className="text-background text-sm font-bold leading-none">+</span>
           </button>
         </div>
       </div>
@@ -104,7 +104,7 @@ const SectionHeader = ({ title, count }: { title: string; count: number }) => (
 const ProductCarousel = ({ title, items }: { title: string; items: ReadonlyArray<ProductItem> }) => {
   if (items.length === 0) return null;
   return (
-    <section className="pt-10">
+    <section className="pt-8">
       <SectionHeader title={title} count={items.length} />
       <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1 snap-x snap-mandatory scroll-pl-4 overscroll-x-contain" style={{ WebkitOverflowScrolling: "touch" }}>
         {items.map((item) => <ProductCard key={item.id} item={item} />)}
@@ -116,7 +116,7 @@ const ProductCarousel = ({ title, items }: { title: string; items: ReadonlyArray
 const VendorRow = () => {
   const navigate = useNavigate();
   return (
-    <section className="pt-10">
+    <section className="pt-8">
       <SectionHeader title="Shop by Vendor" count={vendors.length} />
       <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1 snap-x snap-mandatory scroll-pl-4 overscroll-x-contain" style={{ WebkitOverflowScrolling: "touch" }}>
         {vendors.map((vendor) => (
@@ -143,7 +143,7 @@ const VendorRow = () => {
 };
 
 const FeaturedBanner = () => (
-  <section className="pt-10 px-4">
+  <section className="pt-8 px-4">
     <div className="relative rounded-[24px] overflow-hidden min-h-[220px]">
       <img src={featuredBannerImage} alt="Featured marketplace collection" className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(var(--foreground)/0.08),transparent_28%,hsl(var(--foreground)/0.72))]" />
@@ -235,13 +235,13 @@ const Search = () => {
         {!activeFilter && <VendorRow />}
         <ProductCarousel title="Continue Browsing" items={filteredProducts} />
         {!activeFilter && (
-          <div className="px-4 mt-10">
+          <div className="px-4 mt-8">
             <StackedCards />
           </div>
         )}
         <ProductCarousel title="Fresh Finds" items={filteredRelated} />
         {!activeFilter && (
-          <div className="px-4 mt-10">
+          <div className="px-4 mt-8">
             <StackedCards />
           </div>
         )}

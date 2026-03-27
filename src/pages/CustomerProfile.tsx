@@ -204,7 +204,7 @@ const CustomerProfile = () => {
         <section className="py-2 px-3">
           <div className="grid grid-cols-2 gap-3">
             {customerFavorites.map((item) => (
-              <div key={item.id} className="rounded-[20px] overflow-hidden relative cursor-pointer active:scale-[0.97] transition-transform duration-200" style={{ aspectRatio: "3 / 4" }}>
+              <div key={item.id} className="aspect-square rounded-[18px] overflow-hidden relative cursor-pointer active:scale-[0.97] transition-transform duration-200">
                 <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                 <button className="absolute top-3 left-3 w-9 h-9 rounded-full bg-white/15 backdrop-blur-xl flex items-center justify-center border border-white/15">
                   <Heart size={16} className="text-white fill-white" strokeWidth={1.5} />
@@ -216,8 +216,8 @@ const CustomerProfile = () => {
                         <span className="text-white text-[11px] font-semibold truncate">{item.name}</span>
                         <span className="text-white/70 text-[10px] font-bold">{item.price}</span>
                       </div>
-                      <button className="shrink-0 w-7 h-7 rounded-full bg-white flex items-center justify-center ml-2">
-                        <span className="text-foreground text-sm font-bold leading-none">+</span>
+                      <button className="shrink-0 w-7 h-7 rounded-full bg-foreground flex items-center justify-center ml-2">
+                        <span className="text-background text-sm font-bold leading-none">+</span>
                       </button>
                     </div>
                   </div>
