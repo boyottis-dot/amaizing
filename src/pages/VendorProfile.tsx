@@ -1,4 +1,4 @@
-import { ArrowLeft, Search, Heart, Bookmark, MessageCircle, Send } from "lucide-react";
+import { ArrowLeft, Search, Heart, Bookmark, MessageCircle, Send, Plus, X } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import BottomNav from "@/components/BottomNav";
