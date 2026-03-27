@@ -176,7 +176,7 @@ const CreateReview = () => {
                   {/* Add more button in thumbnail strip */}
                   {uploadedImages.length < 4 && (
                     <button
-                      onClick={addImage}
+                      onClick={() => addImages(1)}
                       className="w-16 h-16 rounded-[12px] border-2 border-dashed border-border/40 flex flex-col items-center justify-center gap-0.5 active:scale-90 transition-transform shrink-0"
                     >
                       <Camera size={16} className="text-muted-foreground/50" />
@@ -191,7 +191,7 @@ const CreateReview = () => {
             {uploadedImages.length === 0 && (
               <div className="grid grid-cols-2 gap-3">
                 <button
-                  onClick={addImage}
+                  onClick={() => addImages(1)}
                   className="aspect-square rounded-[18px] border-2 border-dashed border-foreground/20 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform bg-foreground/[0.02]"
                 >
                   <div className="w-12 h-12 rounded-full bg-foreground/5 flex items-center justify-center">
@@ -200,7 +200,7 @@ const CreateReview = () => {
                   <span className="text-[11px] font-medium text-muted-foreground">Take Photo</span>
                 </button>
                 <button
-                  onClick={addImage}
+                  onClick={() => addImages(3)}
                   className="aspect-square rounded-[18px] border-2 border-dashed border-foreground/20 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform bg-foreground/[0.02]"
                 >
                   <div className="w-12 h-12 rounded-full bg-foreground/5 flex items-center justify-center">
