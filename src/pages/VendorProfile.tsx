@@ -2,6 +2,7 @@ import { ArrowLeft, Search, Heart, Bookmark, MessageCircle, Send, Plus, X } from
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import BottomNav from "@/components/BottomNav";
+import StoriesRow from "@/components/StoriesRow";
 import PostDetailDialog, { PostDetailData } from "@/components/PostDetailDialog";
 
 const vendorMap: Record<string, { name: string; handle: string; avatar: string; bio: string; followers: string; posts: string }> = {
@@ -153,7 +154,11 @@ const VendorProfile = () => {
         </button>
       </div>
 
-      <nav className="mt-8 flex items-center justify-around border-b border-border/50 px-4">
+      <div className="px-4 mt-6">
+        <StoriesRow />
+      </div>
+
+      <nav className="mt-4 flex items-center justify-around border-b border-border/50 px-4">
         {tabs.map((tab) => (
           <button key={tab} onClick={() => setActiveTab(tab)} className={`flex-1 flex flex-col items-center pb-3 ${activeTab === tab ? "border-b-2 border-foreground" : ""}`}>
             <span className={`text-sm font-semibold ${activeTab === tab ? "text-foreground" : "text-muted-foreground"}`}>{tab}</span>

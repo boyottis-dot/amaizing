@@ -161,9 +161,18 @@ const FeaturedBanner = () => (
   </section>
 );
 
+const recentSearches = [
+  "Silk scarves",
+  "Handmade jewelry",
+  "Amara Okafor",
+  "Leather bags",
+  "Ceramic mugs",
+];
+
 const Search = () => {
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
+  const [showSearchPopup, setShowSearchPopup] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { cartCount } = useCart();
@@ -187,9 +196,16 @@ const Search = () => {
       <header className="sticky top-0 z-50 px-4 pt-4 pb-3">
         <div className="flex items-center gap-2 bg-background/50 backdrop-blur-xl shadow-[0_2px_12px_-2px_hsl(var(--foreground)/0.08)] rounded-2xl h-12 px-2 border border-border/30 w-full">
           <SearchIcon size={15} className="text-muted-foreground shrink-0 ml-2" />
-          <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search products, vendors..." className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none min-w-0" autoFocus />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setShowSearchPopup(true)}
+            placeholder="Search products, vendors..."
+            className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none min-w-0"
+          />
           {query && (
-            <button type="button" onClick={() => setQuery("")} className="shrink-0">
+            <button type="button" onClick={() => { setQuery(""); setShowSearchPopup(false); }} className="shrink-0">
               <X size={14} className="text-muted-foreground" />
             </button>
           )}
@@ -228,6 +244,36 @@ const Search = () => {
           ))}
         </div>
       </div>
+
+      {/* Recent search popup */}
+      {showSearchPopup && (
+        <div className="fixed inset-0 z-40" onClick={() => setShowSearchPopup(false)}>
+          <div className="absolute inset-0 bg-background/60 backdrop-blur-sm" />
+          <div onClick={(e) => e.stopPropagation()} className="relative max-w-md mx-auto mt-[72px] mx-4 px-4">
+            <div className="bg-background/80 backdrop-blur-xl rounded-[20px] border border-border/30 shadow-[0_8px_40px_-8px_hsl(var(--foreground)/0.15)] p-4">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm font-bold text-foreground">Recent Searches</h3>
+                <button type="button" onClick={() => setShowSearchPopup(false)} className="text-xs font-semibold text-primary">
+                  Clear All
+                </button>
+              </div>
+              <div className="flex flex-col gap-1">
+                {recentSearches.map((term) => (
+                  <button
+                    key={term}
+                    type="button"
+                    onClick={() => { setQuery(term); setShowSearchPopup(false); }}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-[12px] hover:bg-foreground/5 active:bg-foreground/10 transition-colors text-left"
+                  >
+                    <SearchIcon size={14} className="text-muted-foreground shrink-0" />
+                    <span className="text-sm text-foreground">{term}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="pb-28">
         {!activeFilter && <FeaturedBanner />}
