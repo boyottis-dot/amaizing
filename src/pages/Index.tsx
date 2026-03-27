@@ -10,6 +10,7 @@ import ProductGrid from "@/components/ProductGrid";
 
 import CollectionsRow from "@/components/CollectionsRow";
 import FlashSaleSection from "@/components/FlashSaleSection";
+import YouMightBeLookingFor from "@/components/YouMightBeLookingFor";
 
 import StackedCards from "@/components/StackedCards";
 import PostDetailDialog, { PostDetailData } from "@/components/PostDetailDialog";
@@ -113,6 +114,10 @@ const Index = () => {
 
       <div className="mt-6">
         <ProductGrid title="Quick Picks" count={24} products={postsGrid1} />
+      </div>
+
+      <div className="mt-6">
+        <YouMightBeLookingFor />
       </div>
 
       <div className="mt-6" onClick={() => setSelectedPost(featuredPosts[1])}>

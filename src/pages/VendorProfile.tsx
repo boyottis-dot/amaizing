@@ -2,7 +2,6 @@ import { ArrowLeft, Search, Heart, Bookmark, MessageCircle, Send, Plus, X } from
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import BottomNav from "@/components/BottomNav";
-import StoriesRow from "@/components/StoriesRow";
 import PostDetailDialog, { PostDetailData } from "@/components/PostDetailDialog";
 
 const vendorMap: Record<string, { name: string; handle: string; avatar: string; bio: string; followers: string; posts: string }> = {
@@ -16,7 +15,15 @@ const vendorMap: Record<string, { name: string; handle: string; avatar: string; 
 
 const defaultVendor = { name: "Katty Abrahams", handle: "@kattyabrahams", avatar: "https://i.pravatar.cc/400?img=32", bio: "I'm delighted to introduce myself as a professional model 🥳", followers: "567 K", posts: "166" };
 
-const tabs = ["Products", "Posts", "Collections", "Saved"];
+const tabs = ["Products", "Collections", "Saved"];
+
+const vendorPosts = [
+  { id: 1, post: "https://picsum.photos/seed/post1/200/200", caption: "New collection dropping this weekend! Stay tuned 🔥", likes: 2340, comments: 128, shares: 45 },
+  { id: 2, post: "https://picsum.photos/seed/post2/200/200", caption: "Behind the scenes of our latest photoshoot ✨", likes: 1890, comments: 96, shares: 32 },
+  { id: 3, post: "https://picsum.photos/seed/post3/200/200", caption: "Summer vibes with our best-selling pieces 🌊", likes: 3100, comments: 215, shares: 78 },
+  { id: 4, post: "https://picsum.photos/seed/post4/200/200", caption: "Handcrafted with love ❤️", likes: 1200, comments: 64, shares: 20 },
+  { id: 5, post: "https://picsum.photos/seed/post5/200/200", caption: "Limited edition pieces available now 🎯", likes: 980, comments: 42, shares: 15 },
+];
 
 const productCategories = [
   {
@@ -67,8 +74,8 @@ const discoverVendors = [
 
 const formatCount = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
 
-const ProductCard = ({ item, onOpen }: { item: { id: number; name: string; price: string; image: string }; onOpen?: () => void }) => (
-  <div onClick={onOpen} className="aspect-square rounded-[18px] overflow-hidden relative cursor-pointer active:scale-[0.97] transition-transform">
+const ProductCard = ({ item }: { item: { id: number; name: string; price: string; image: string } }) => (
+  <div className="aspect-square rounded-[18px] overflow-hidden relative cursor-pointer active:scale-[0.97] transition-transform">
     <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
     <button className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/15 backdrop-blur-xl flex items-center justify-center border border-white/15">
       <Heart size={16} className="text-white" strokeWidth={1.5} />
@@ -154,8 +161,48 @@ const VendorProfile = () => {
         </button>
       </div>
 
+      {/* Vendor Posts as Stories (no "Your Story" button) */}
       <div className="px-4 mt-6">
-        <StoriesRow />
+        <div className="pt-4 pb-2">
+          <div className="flex items-baseline gap-1 mb-3">
+            <span className="text-lg font-bold text-foreground">Posts</span>
+            <span className="text-[10px] text-muted-foreground align-super">{vendorPosts.length}</span>
+          </div>
+          <div className="flex gap-3 overflow-x-auto no-scrollbar -mx-4 px-4 pt-1">
+            {vendorPosts.map((p) => (
+              <div
+                key={p.id}
+                className="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 transition-transform duration-150"
+                onClick={() => setSelectedPost({
+                  image: p.post.replace("/200/200", "/600/600"),
+                  name: vendor.name,
+                  caption: p.caption,
+                  likes: p.likes,
+                  comments: p.comments,
+                  shares: p.shares,
+                  vendorName: vendor.name,
+                  vendorAvatar: vendor.avatar,
+                  vendorHandle: vendor.handle,
+                })}
+              >
+                <div className="relative">
+                  <div className="absolute -inset-[3px] rounded-[21px] bg-gradient-to-br from-amber-400 via-rose-500 to-purple-600" />
+                  <div className="relative w-[72px] h-[90px] rounded-[18px] overflow-hidden bg-secondary">
+                    <img src={p.post} alt="Post" className="w-full h-full object-cover" />
+                    <div className="absolute bottom-1 left-1/2 -translate-x-1/2">
+                      <img
+                        src={vendor.avatar}
+                        alt={vendor.name}
+                        className="w-6 h-6 rounded-full object-cover border-2 border-white/30 backdrop-blur-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <span className="text-[10px] font-medium text-muted-foreground truncate w-[72px] text-center">Post {p.id}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <nav className="mt-4 flex items-center justify-around border-b border-border/50 px-4">
@@ -216,55 +263,6 @@ const VendorProfile = () => {
         </section>
       )}
 
-      {activeTab === "Posts" && (
-        <section className="py-4 px-3 flex flex-col gap-4">
-          {[
-            { image: "https://picsum.photos/seed/post1/600/600", caption: "New collection dropping this weekend! Stay tuned 🔥", likes: 2340, comments: 128, shares: 45 },
-            { image: "https://picsum.photos/seed/post2/600/600", caption: "Behind the scenes of our latest photoshoot ✨", likes: 1890, comments: 96, shares: 32 },
-            { image: "https://picsum.photos/seed/post3/600/600", caption: "Summer vibes with our best-selling pieces 🌊", likes: 3100, comments: 215, shares: 78 },
-          ].map((post, i) => (
-            <div key={i} onClick={() => setSelectedPost({ image: post.image, name: vendor.name, caption: post.caption, likes: post.likes, comments: post.comments, shares: post.shares, vendorName: vendor.name, vendorAvatar: vendor.avatar, vendorHandle: vendor.handle })} className="rounded-[20px] overflow-hidden relative aspect-square shadow-2xl cursor-pointer active:scale-[0.97] transition-transform">
-              <img src={post.image} alt="Post" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-              <button className="absolute top-4 left-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full px-5 py-2 z-10">
-                <span className="text-white text-xs font-semibold">Buy Now</span>
-              </button>
-              <div className="absolute right-3 top-4 flex flex-col items-center gap-1 bg-white/10 backdrop-blur-xl border border-white/20 rounded-[18px] px-2.5 py-4 z-10">
-                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
-                  <Heart size={22} className="text-rose-400 fill-rose-400" />
-                  <span className="text-[10px] text-white font-semibold">{formatCount(post.likes)}</span>
-                </button>
-                <div className="w-6 h-px bg-white/15" />
-                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
-                  <MessageCircle size={22} className="text-white/80" />
-                  <span className="text-[10px] text-white font-semibold">{formatCount(post.comments)}</span>
-                </button>
-                <div className="w-6 h-px bg-white/15" />
-                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
-                  <Bookmark size={22} className="text-white/80" />
-                  <span className="text-[10px] text-white/60">save</span>
-                </button>
-                <div className="w-6 h-px bg-white/15" />
-                <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
-                  <Send size={22} className="text-white/80" />
-                  <span className="text-[10px] text-white font-semibold">{formatCount(post.shares)}</span>
-                </button>
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-                <div className="flex items-center gap-2.5 mb-2">
-                  <img src={vendor.avatar} alt={vendor.name} className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
-                  <div className="flex flex-col">
-                    <span className="text-sm font-bold text-white">{vendor.name}</span>
-                    <span className="text-[11px] text-white/50">{vendor.handle}</span>
-                  </div>
-                </div>
-                <p className="text-[12px] text-white/70 leading-relaxed line-clamp-2 pr-14">{post.caption}</p>
-              </div>
-            </div>
-          ))}
-        </section>
-      )}
-
       {activeTab === "Saved" && (
         <section className="py-4 px-3">
           <div className="grid grid-cols-2 gap-3">
@@ -299,7 +297,6 @@ const VendorProfile = () => {
         <PostDetailDialog open={!!selectedPost} onClose={() => setSelectedPost(null)} post={selectedPost} />
       )}
 
-      {/* Discover Vendors Popup */}
       {showDiscover && (
         <div className="fixed inset-0 z-[60] flex items-end justify-center" onClick={() => setShowDiscover(false)}>
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
@@ -314,8 +311,6 @@ const VendorProfile = () => {
                 <X size={16} className="text-foreground" />
               </button>
             </div>
-
-            {/* Vendor carousel */}
             <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2 snap-x snap-mandatory -mx-1 px-1">
               {discoverVendors.map((v) => (
                 <div
@@ -331,7 +326,6 @@ const VendorProfile = () => {
                     <p className="text-[10px] text-muted-foreground">{v.handle}</p>
                     <p className="text-[10px] text-muted-foreground mt-0.5">{v.followers} followers</p>
                   </div>
-                  {/* Category pills */}
                   <div className="flex flex-wrap gap-1 mt-3 justify-center">
                     {v.pills.map((pill) => (
                       <span key={pill} className="px-2 py-0.5 rounded-full bg-foreground/5 border border-border/20 text-[9px] font-medium text-muted-foreground">
