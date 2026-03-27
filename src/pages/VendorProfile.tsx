@@ -276,8 +276,8 @@ const VendorProfile = () => {
                         <span className="text-white text-[11px] font-semibold truncate">{item.name}</span>
                         <span className="text-white/70 text-[10px] font-bold">{item.price}</span>
                       </div>
-                      <button className="shrink-0 w-7 h-7 rounded-full bg-white flex items-center justify-center ml-2">
-                        <span className="text-foreground text-sm font-bold leading-none">+</span>
+                      <button className="shrink-0 w-7 h-7 rounded-full bg-foreground flex items-center justify-center ml-2">
+                        <span className="text-background text-sm font-bold leading-none">+</span>
                       </button>
                     </div>
                   </div>
