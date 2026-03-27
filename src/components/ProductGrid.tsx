@@ -46,7 +46,7 @@ const ProductCard = ({ p, onOpen }: { p: Product; onOpen?: () => void }) => {
       onClick={onOpen}
       onTouchStart={handleSwipe}
       className="rounded-[20px] overflow-hidden bg-secondary relative cursor-pointer active:scale-[0.97] transition-transform"
-      style={{ aspectRatio: "3 / 4" }}
+      style={{ aspectRatio: "1 / 1" }}
     >
       <img src={images[currentIdx]} alt={p.name} className="w-full h-full object-cover transition-opacity duration-200" />
       <img src={p.avatar} alt="" className="absolute top-2.5 left-2.5 w-7 h-7 rounded-full border-2 border-white/30 backdrop-blur-sm object-cover" />
