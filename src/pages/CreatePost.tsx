@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Camera, Hash, MapPin, Package, ChevronDown, X, Check, Search } from "lucide-react";
+import { ArrowLeft, Camera, Crop, Hash, MapPin, Package, ChevronDown, Pencil, RotateCcw, Trash2, X, Check, Search } from "lucide-react";
 
 const products = [
   { id: 1, name: "Silk Dress", vendor: "@amara.style", image: "https://picsum.photos/seed/p1/100/100" },
@@ -81,15 +81,31 @@ const CreatePost = () => {
         {/* Step 2: Details */}
         {step === 2 && uploadedImage && (
           <div className="space-y-4 pt-2">
-            {/* Preview */}
+          {/* Preview */}
             <div className="rounded-[20px] overflow-hidden relative aspect-[4/5]">
               <img src={uploadedImage} alt="Upload" className="w-full h-full object-cover" />
-              <button
-                onClick={() => { setUploadedImage(null); setStep(1); }}
-                className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/40 backdrop-blur-xl flex items-center justify-center border border-white/10 active:scale-90 transition-transform duration-150"
-              >
-                <X size={14} className="text-white" />
-              </button>
+              {/* Edit toolbar */}
+              <div className="absolute top-3 right-3 flex gap-1.5 z-10">
+                <button className="w-9 h-9 rounded-full bg-black/40 backdrop-blur-xl border border-white/20 flex items-center justify-center active:scale-90 transition-transform">
+                  <Crop size={15} className="text-white" />
+                </button>
+                <button className="w-9 h-9 rounded-full bg-black/40 backdrop-blur-xl border border-white/20 flex items-center justify-center active:scale-90 transition-transform">
+                  <Pencil size={15} className="text-white" />
+                </button>
+                <button className="w-9 h-9 rounded-full bg-black/40 backdrop-blur-xl border border-white/20 flex items-center justify-center active:scale-90 transition-transform">
+                  <RotateCcw size={15} className="text-white" />
+                </button>
+                <button
+                  onClick={() => { setUploadedImage(null); setStep(1); }}
+                  className="w-9 h-9 rounded-full bg-red-500/60 backdrop-blur-xl border border-white/20 flex items-center justify-center active:scale-90 transition-transform"
+                >
+                  <Trash2 size={14} className="text-white" />
+                </button>
+              </div>
+              {/* Image counter badge */}
+              <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-xl rounded-full px-2.5 py-1 border border-white/20">
+                <span className="text-[10px] font-bold text-white">1 / 1</span>
+              </div>
             </div>
 
             {/* Caption */}

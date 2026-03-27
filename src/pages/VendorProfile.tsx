@@ -67,7 +67,7 @@ const discoverVendors = [
 const formatCount = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
 
 const ProductCard = ({ item, onOpen }: { item: { id: number; name: string; price: string; image: string }; onOpen?: () => void }) => (
-  <div onClick={onOpen} className="aspect-square rounded-[20px] overflow-hidden relative cursor-pointer active:scale-[0.97] transition-transform">
+  <div onClick={onOpen} className="aspect-square rounded-[18px] overflow-hidden relative cursor-pointer active:scale-[0.97] transition-transform">
     <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
     <button className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/15 backdrop-blur-xl flex items-center justify-center border border-white/15">
       <Heart size={16} className="text-white" strokeWidth={1.5} />
@@ -79,8 +79,8 @@ const ProductCard = ({ item, onOpen }: { item: { id: number; name: string; price
             <span className="text-white text-[11px] font-semibold truncate">{item.name}</span>
             <span className="text-white/70 text-[10px] font-bold">{item.price}</span>
           </div>
-          <button className="shrink-0 w-7 h-7 rounded-full bg-white flex items-center justify-center ml-2">
-            <span className="text-foreground text-sm font-bold leading-none">+</span>
+          <button className="shrink-0 w-7 h-7 rounded-full bg-foreground flex items-center justify-center ml-2">
+            <span className="text-background text-sm font-bold leading-none">+</span>
           </button>
         </div>
       </div>
