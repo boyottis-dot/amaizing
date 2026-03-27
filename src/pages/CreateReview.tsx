@@ -33,9 +33,15 @@ const CreateReview = () => {
     return true;
   };
 
-  const addImage = () => {
-    if (uploadedImages.length < 4) {
-      setUploadedImages([...uploadedImages, placeholderImages[uploadedImages.length]]);
+  const addImages = (count: number = 1) => {
+    const remaining = 4 - uploadedImages.length;
+    const toAdd = Math.min(count, remaining);
+    const newImages: string[] = [];
+    for (let i = 0; i < toAdd; i++) {
+      newImages.push(placeholderImages[uploadedImages.length + i]);
+    }
+    if (newImages.length > 0) {
+      setUploadedImages([...uploadedImages, ...newImages]);
     }
   };
 
