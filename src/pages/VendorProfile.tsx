@@ -139,12 +139,18 @@ const VendorProfile = () => {
         ))}
       </div>
 
-      <div className="mt-6 flex items-center justify-between gap-2 px-4">
+      <div className="mt-6 flex items-center gap-2 px-4">
         {["Follow", "Message", "Reviews"].map((label) => (
           <button key={label} className="flex-1 rounded-2xl bg-secondary px-4 py-2.5 text-sm font-semibold text-secondary-foreground">
             {label}
           </button>
         ))}
+        <button
+          onClick={() => setShowDiscover(true)}
+          className="w-11 h-11 rounded-2xl bg-foreground flex items-center justify-center shrink-0 active:scale-90 transition-transform duration-150"
+        >
+          <Plus size={18} className="text-background" />
+        </button>
       </div>
 
       <nav className="mt-8 flex items-center justify-around border-b border-border/50 px-4">
