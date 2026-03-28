@@ -130,7 +130,10 @@ const FeaturedPostCard = ({
             />
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
-                <span className="text-sm font-bold text-white">{vendorName}</span>
+                <span
+                  className="text-sm font-bold text-white cursor-pointer active:opacity-70 transition-opacity"
+                  onClick={(e) => { e.stopPropagation(); onAvatarClick?.(); }}
+                >{vendorName}</span>
                 {verified && (
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="10" fill="#3B82F6" />
