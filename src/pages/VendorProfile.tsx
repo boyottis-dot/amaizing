@@ -1,8 +1,9 @@
 import { ArrowLeft, Search, Heart, Bookmark, MessageCircle, Send, Plus, X } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
-import PostDetailDialog, { PostDetailData } from "@/components/PostDetailDialog";
+import CommentBar from "@/components/CommentBar";
 
 const vendorMap: Record<string, { name: string; handle: string; avatar: string; bio: string; followers: string; posts: string }> = {
   amara: { name: "Amara Okafor", handle: "@amara.style", avatar: "https://i.pravatar.cc/400?img=32", bio: "West African silk & textile designer 🧵✨", followers: "2.3 K", posts: "89" },
@@ -101,7 +102,7 @@ const VendorProfile = () => {
   const { id } = useParams<{ id: string }>();
   const vendor = vendorMap[id || ""] || defaultVendor;
   const [activeTab, setActiveTab] = useState("Products");
-  const [selectedPost, setSelectedPost] = useState<PostDetailData | null>(null);
+  const [selectedPostIndex, setSelectedPostIndex] = useState<number | null>(null);
   const [showDiscover, setShowDiscover] = useState(false);
 
   const stats = [
@@ -173,17 +174,7 @@ const VendorProfile = () => {
               <div
                 key={p.id}
                 className="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 transition-transform duration-150"
-                onClick={() => setSelectedPost({
-                  image: p.post.replace("/200/200", "/600/600"),
-                  name: vendor.name,
-                  caption: p.caption,
-                  likes: p.likes,
-                  comments: p.comments,
-                  shares: p.shares,
-                  vendorName: vendor.name,
-                  vendorAvatar: vendor.avatar,
-                  vendorHandle: vendor.handle,
-                })}
+                onClick={() => setSelectedPostIndex(vendorPosts.indexOf(p))}
               >
                 <div className="relative">
                   <div className="absolute -inset-[3px] rounded-[21px] bg-gradient-to-br from-amber-400 via-rose-500 to-purple-600" />
@@ -293,8 +284,101 @@ const VendorProfile = () => {
 
       <BottomNav />
 
-      {selectedPost && (
-        <PostDetailDialog open={!!selectedPost} onClose={() => setSelectedPost(null)} post={selectedPost} />
+      {selectedPostIndex !== null && (
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black"
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setSelectedPostIndex(null)}
+              className="absolute top-6 right-4 z-50 w-10 h-10 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center"
+            >
+              <X size={18} className="text-white" />
+            </button>
+
+            {/* Progress dots */}
+            <div className="absolute top-4 left-0 w-full px-4 flex gap-1.5 z-40">
+              {vendorPosts.map((_, i) => (
+                <div
+                  key={i}
+                  className={`h-[3px] flex-1 rounded-full transition-colors ${
+                    i === selectedPostIndex ? "bg-white" : "bg-white/30"
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Full screen image */}
+            <img
+              src={vendorPosts[selectedPostIndex].post.replace("/200/200", "/800/1200")}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/70" />
+
+            {/* Tap zones for prev/next */}
+            <div
+              className="absolute inset-0 z-30 flex"
+              onClick={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                if (x < rect.width / 2) {
+                  setSelectedPostIndex(prev => prev !== null && prev > 0 ? prev - 1 : prev);
+                } else {
+                  setSelectedPostIndex(prev =>
+                    prev !== null && prev < vendorPosts.length - 1 ? prev + 1 : null
+                  );
+                }
+              }}
+            />
+
+            {/* Vendor info header */}
+            <div className="absolute top-8 left-4 z-40 flex items-center gap-3">
+              <img src={vendor.avatar} alt={vendor.name} className="w-10 h-10 rounded-full object-cover border-2 border-white/30" />
+              <div>
+                <p className="text-sm font-bold text-white">{vendor.name}</p>
+                <p className="text-[11px] text-white/50">{vendor.handle}</p>
+              </div>
+            </div>
+
+            {/* Right engagement panel */}
+            <div className="absolute right-3 bottom-32 flex flex-col items-center gap-1 bg-white/10 backdrop-blur-xl border border-white/20 rounded-[18px] px-2.5 py-4 z-40">
+              <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
+                <Heart size={22} className="text-rose-400 fill-rose-400" />
+                <span className="text-[10px] text-white font-semibold">{formatCount(vendorPosts[selectedPostIndex].likes)}</span>
+              </button>
+              <div className="w-6 h-px bg-white/15" />
+              <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
+                <MessageCircle size={22} className="text-white/80" />
+                <span className="text-[10px] text-white font-semibold">{formatCount(vendorPosts[selectedPostIndex].comments)}</span>
+              </button>
+              <div className="w-6 h-px bg-white/15" />
+              <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
+                <Bookmark size={22} className="text-white/80" />
+                <span className="text-[10px] text-white/60">save</span>
+              </button>
+              <div className="w-6 h-px bg-white/15" />
+              <button className="flex flex-col items-center gap-0.5 py-1.5 active:scale-[0.7] transition-transform duration-200">
+                <Send size={22} className="text-white/80" />
+                <span className="text-[10px] text-white font-semibold">{formatCount(vendorPosts[selectedPostIndex].shares)}</span>
+              </button>
+            </div>
+
+            {/* Caption */}
+            <div className="absolute bottom-20 left-0 right-16 px-4 z-40">
+              <p className="text-[13px] text-white/80 leading-relaxed">{vendorPosts[selectedPostIndex].caption}</p>
+            </div>
+
+            {/* Comment bar */}
+            <div className="absolute bottom-0 left-0 right-0 z-40">
+              <CommentBar />
+            </div>
+          </motion.div>
+        </AnimatePresence>
       )}
 
       {showDiscover && (
