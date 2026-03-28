@@ -104,32 +104,36 @@ const CategoryPills = () => {
       </div>
 
       {/* Category pills */}
-      <div className="flex gap-2 overflow-x-auto no-scrollbar pb-3 pt-1 -mx-4 px-4">
-        {categories.map((cat) => (
-          <div key={cat.label} className="relative shrink-0">
-            <button
-              onClick={() => handlePillClick(cat)}
-              className={`shrink-0 flex items-center gap-1.5 pl-[3px] pr-3 py-[3px] rounded-full text-[12px] font-semibold transition-all duration-200 backdrop-blur-xl active:scale-95 ${
-                activeCategory === cat.label || openDropdown === cat.label
-                  ? "bg-foreground text-background"
-                  : "bg-background/60 text-muted-foreground hover:bg-background/80 shadow-sm"
-              }`}
-            >
-              <img
-                src={cat.image}
-                alt={cat.label}
-                className="w-8 h-8 rounded-full object-cover ring-1 ring-border/30"
-              />
-              {cat.label}
-              {cat.subcategories && (
-                <ChevronDown
-                  size={12}
-                  className={`ml-0.5 transition-transform duration-200 ${openDropdown === cat.label ? "rotate-180" : ""}`}
+      <div className="relative">
+        <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
+        <div className="flex gap-2 overflow-x-auto no-scrollbar pb-3 pt-1 -mx-4 px-4">
+          {categories.map((cat) => (
+            <div key={cat.label} className="relative shrink-0">
+              <button
+                onClick={() => handlePillClick(cat)}
+                className={`shrink-0 flex items-center gap-1.5 pl-[3px] pr-3 py-[3px] rounded-full text-[12px] font-semibold transition-all duration-200 backdrop-blur-xl active:scale-95 ${
+                  activeCategory === cat.label || openDropdown === cat.label
+                    ? "bg-foreground text-background"
+                    : "bg-background/60 text-muted-foreground hover:bg-background/80 shadow-sm"
+                }`}
+              >
+                <img
+                  src={cat.image}
+                  alt={cat.label}
+                  className="w-8 h-8 rounded-full object-cover ring-1 ring-border/30"
                 />
-              )}
-            </button>
-          </div>
-        ))}
+                {cat.label}
+                {cat.subcategories && (
+                  <ChevronDown
+                    size={12}
+                    className={`ml-0.5 transition-transform duration-200 ${openDropdown === cat.label ? "rotate-180" : ""}`}
+                  />
+                )}
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Subcategory popup */}

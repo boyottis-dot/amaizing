@@ -63,52 +63,56 @@ const FlashSaleSection = () => {
       </div>
 
       {/* Cards */}
-      <div
-        className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory overscroll-x-contain pb-1"
-        style={{ WebkitOverflowScrolling: "touch" }}>
-        
-        {flashItems.map((item) =>
+      <div className="relative -mx-4">
+        <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
         <div
-          key={item.id}
-          className="shrink-0 w-[180px] snap-start cursor-pointer active:scale-[0.97] transition-all duration-200 flex flex-col">
+          className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory overscroll-x-contain pb-1 px-4"
+          style={{ WebkitOverflowScrolling: "touch" }}>
           
-            {/* Image area */}
-            <div className="relative aspect-square rounded-[20px] overflow-hidden mb-2.5">
-              <img
-              src={item.image}
-              alt={item.name}
-              className="w-full h-full object-cover"
-              loading="lazy" />
+          {flashItems.map((item) =>
+          <div
+            key={item.id}
+            className="shrink-0 w-[180px] snap-start cursor-pointer active:scale-[0.97] transition-all duration-200 flex flex-col">
             
-              <button
-              type="button"
-              aria-label={`Save ${item.name}`}
-              className="absolute top-2.5 left-2.5 w-9 h-9 rounded-full bg-[hsl(var(--background)/0.15)] backdrop-blur-xl flex items-center justify-center border border-[hsl(var(--background)/0.15)] active:scale-90 transition-transform duration-150">
+              {/* Image area */}
+              <div className="relative aspect-square rounded-[20px] overflow-hidden mb-2.5">
+                <img
+                src={item.image}
+                alt={item.name}
+                className="w-full h-full object-cover"
+                loading="lazy" />
               
-                <Heart size={16} className="text-[hsl(var(--background))]" strokeWidth={1.5} />
-              </button>
-            </div>
-
-            {/* Info bar */}
-            <div className="bg-background/60 backdrop-blur-xl rounded-[16px] p-3 border border-border/30 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.08)]">
-              <h3 className="text-foreground font-semibold text-sm mb-0.5 truncate">{item.name}</h3>
-              <p className="text-[hsl(0,75%,35%)] text-xs font-bold">{item.discount}</p>
-              <div className="mt-2 flex items-center justify-between">
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-foreground font-bold text-base">{item.price}</span>
-                  <span className="text-muted-foreground text-[10px] line-through">{item.originalPrice}</span>
-                </div>
                 <button
                 type="button"
-                aria-label={`Add ${item.name}`}
-                className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+                aria-label={`Save ${item.name}`}
+                className="absolute top-2.5 left-2.5 w-9 h-9 rounded-full bg-[hsl(var(--background)/0.15)] backdrop-blur-xl flex items-center justify-center border border-[hsl(var(--background)/0.15)] active:scale-90 transition-transform duration-150">
                 
-                  <Plus size={14} className="text-background" strokeWidth={2.5} />
+                  <Heart size={16} className="text-[hsl(var(--background))]" strokeWidth={1.5} />
                 </button>
               </div>
+
+              {/* Info bar */}
+              <div className="bg-background/60 backdrop-blur-xl rounded-[16px] p-3 border border-border/30 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.08)]">
+                <h3 className="text-foreground font-semibold text-sm mb-0.5 truncate">{item.name}</h3>
+                <p className="text-[hsl(0,75%,35%)] text-xs font-bold">{item.discount}</p>
+                <div className="mt-2 flex items-center justify-between">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-foreground font-bold text-base">{item.price}</span>
+                    <span className="text-muted-foreground text-[10px] line-through">{item.originalPrice}</span>
+                  </div>
+                  <button
+                  type="button"
+                  aria-label={`Add ${item.name}`}
+                  className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+                  
+                    <Plus size={14} className="text-background" strokeWidth={2.5} />
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </section>);
 

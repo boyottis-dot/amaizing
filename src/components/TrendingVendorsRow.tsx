@@ -22,29 +22,33 @@ const TrendingVendorsRow = () => {
           View All
         </button>
       </div>
-      <div className="flex gap-3 overflow-x-auto no-scrollbar -mx-4 px-4">
-        {vendors.map((v) =>
-        <div
-          key={v.id}
-          onClick={() => navigate(`/vendor/${v.id}`)}
-          className="shrink-0 w-[150px] h-[180px] rounded-[18px] overflow-hidden relative cursor-pointer active:scale-95 transition-transform">
-          
-            <img src={v.img} alt="" className="absolute inset-0 w-full h-full object-cover scale-125 blur-xl opacity-90 saturate-200" />
-            <div className="absolute inset-0 bg-black/5" />
-            <div className="absolute top-2.5 left-3 right-3 z-10">
-              <p className="text-white text-sm font-bold truncate drop-shadow-md">{v.name}</p>
-              <p className="text-white/60 text-[10px] font-medium mt-0.5">{v.followers} followers</p>
+      <div className="relative -mx-4">
+        <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
+        <div className="flex gap-3 overflow-x-auto no-scrollbar px-4">
+          {vendors.map((v) =>
+          <div
+            key={v.id}
+            onClick={() => navigate(`/vendor/${v.id}`)}
+            className="shrink-0 w-[150px] h-[180px] rounded-[18px] overflow-hidden relative cursor-pointer active:scale-95 transition-transform">
+            
+              <img src={v.img} alt="" className="absolute inset-0 w-full h-full object-cover scale-125 blur-xl opacity-90 saturate-200" />
+              <div className="absolute inset-0 bg-black/5" />
+              <div className="absolute top-2.5 left-3 right-3 z-10">
+                <p className="text-white text-sm font-bold truncate drop-shadow-md">{v.name}</p>
+                <p className="text-white/60 text-[10px] font-medium mt-0.5">{v.followers} followers</p>
+              </div>
+              <div className="absolute top-[50px] left-0 right-0 flex items-center justify-center z-10">
+                <img src={v.img} alt={v.name} className="w-[76px] h-[76px] rounded-full object-cover border-[3px] border-white/30 shadow-xl" />
+              </div>
+              <div className="absolute bottom-2.5 left-3 right-3 z-10">
+                <button className="w-full py-1.5 rounded-full bg-white/15 backdrop-blur-xl text-white text-xs font-semibold border border-white/20 hover:bg-white/25 transition-colors">
+                  Follow
+                </button>
+              </div>
             </div>
-            <div className="absolute top-[50px] left-0 right-0 flex items-center justify-center z-10">
-              <img src={v.img} alt={v.name} className="w-[76px] h-[76px] rounded-full object-cover border-[3px] border-white/30 shadow-xl" />
-            </div>
-            <div className="absolute bottom-2.5 left-3 right-3 z-10">
-              <button className="w-full py-1.5 rounded-full bg-white/15 backdrop-blur-xl text-white text-xs font-semibold border border-white/20 hover:bg-white/25 transition-colors">
-                Follow
-              </button>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>);
 
