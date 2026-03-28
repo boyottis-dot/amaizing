@@ -19,47 +19,48 @@ const StoriesRow = () => {
       <span className="text-[10px] text-muted-foreground align-super">{stories.length}</span>
     </div>
 
-    <div className="flex gap-3 overflow-x-auto no-scrollbar -mx-4 px-4 pt-1">
-      {stories.map((s) =>
-        <div key={s.id} className="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 transition-transform duration-150" onClick={() => s.isYou ? navigate("/create-post") : navigate(`/story/${s.id}`)}>
-          <div className="relative">
-            {/* Gradient ring for unwatched stories */}
-            {!s.isYou &&
-            <div
-              className={`absolute -inset-[3px] rounded-[21px] ${
-              s.watched ?
-              "bg-muted-foreground/30" :
-              "bg-gradient-to-br from-amber-400 via-rose-500 to-purple-600"}`
-              } />
-
-            }
-            <div className="relative w-[72px] h-[90px] rounded-[18px] overflow-hidden bg-secondary">
-              {s.isYou ?
-              <>
-                  <img src={s.img} alt={s.name} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                    <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center">
-                      <Plus size={16} className="text-primary-foreground" strokeWidth={2.5} />
-                    </div>
-                  </div>
-                </> :
-
-              <>
-                  <img src={s.post} alt={s.name} className="w-full h-full object-cover" />
-                  <div className="absolute bottom-1 left-1/2 -translate-x-1/2">
-                    <img
-                    src={s.img}
-                    alt={s.name}
-                    className="w-6 h-6 rounded-full object-cover border-2 border-white/30 backdrop-blur-sm" />
-                  
-                  </div>
-                </>
+    <div className="relative">
+      <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+      <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
+      <div className="flex gap-3 overflow-x-auto no-scrollbar -mx-4 px-4 pt-1">
+        {stories.map((s) =>
+          <div key={s.id} className="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 transition-transform duration-150" onClick={() => s.isYou ? navigate("/create-post") : navigate(`/story/${s.id}`)}>
+            <div className="relative">
+              {/* Gradient ring for unwatched stories */}
+              {!s.isYou &&
+              <div
+                className={`absolute -inset-[3px] rounded-[21px] ${
+                s.watched ?
+                "bg-muted-foreground/30" :
+                "bg-gradient-to-br from-amber-400 via-rose-500 to-purple-600"}`
+                } />
               }
+              <div className="relative w-[72px] h-[90px] rounded-[18px] overflow-hidden bg-secondary">
+                {s.isYou ?
+                <>
+                    <img src={s.img} alt={s.name} className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                      <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center">
+                        <Plus size={16} className="text-primary-foreground" strokeWidth={2.5} />
+                      </div>
+                    </div>
+                  </> :
+                <>
+                    <img src={s.post} alt={s.name} className="w-full h-full object-cover" />
+                    <div className="absolute bottom-1 left-1/2 -translate-x-1/2">
+                      <img
+                      src={s.img}
+                      alt={s.name}
+                      className="w-6 h-6 rounded-full object-cover border-2 border-white/30 backdrop-blur-sm" />
+                    </div>
+                  </>
+                }
+              </div>
             </div>
+            <span className="text-[10px] font-medium text-muted-foreground">{s.name}</span>
           </div>
-          <span className="text-[10px] font-medium text-muted-foreground">{s.name}</span>
-        </div>
-        )}
+          )}
+      </div>
     </div>
   </div>);
 

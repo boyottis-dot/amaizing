@@ -26,34 +26,38 @@ const CollectionsRow = () => {
           View All
         </button>
       </div>
-      <div className="flex gap-3 overflow-x-auto no-scrollbar -mx-4 px-4">
-        {collections.map((col) =>
-        <div key={col.id} className="shrink-0 w-[270px] aspect-square rounded-[20px] overflow-hidden relative cursor-pointer active:scale-[0.97] transition-transform duration-200">
-            <img src={col.main} alt={col.title} className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-            <div className="absolute top-3 left-3 flex items-center -space-x-2 z-10">
-              {col.vendors.map((av, idx) => (
-                <img key={idx} src={av} alt="" className="w-8 h-8 rounded-full object-cover border-2 border-white/40" style={{ zIndex: col.vendors.length - idx }} />
-              ))}
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-              <div className="flex gap-1.5 mb-3">
-                {col.thumbs.map((thumb, i) =>
-              <div key={i} className="w-11 h-11 rounded-[10px] overflow-hidden border-2 border-white/30">
-                    <img src={thumb} alt="" className="w-full h-full object-cover" />
-                  </div>
-              )}
+      <div className="relative -mx-4">
+        <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
+        <div className="flex gap-3 overflow-x-auto no-scrollbar px-4">
+          {collections.map((col) =>
+          <div key={col.id} className="shrink-0 w-[270px] aspect-square rounded-[20px] overflow-hidden relative cursor-pointer active:scale-[0.97] transition-transform duration-200">
+              <img src={col.main} alt={col.title} className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute top-3 left-3 flex items-center -space-x-2 z-10">
+                {col.vendors.map((av, idx) => (
+                  <img key={idx} src={av} alt="" className="w-8 h-8 rounded-full object-cover border-2 border-white/40" style={{ zIndex: col.vendors.length - idx }} />
+                ))}
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-bold text-white truncate mr-2">{col.title}</span>
-                <button className="flex items-center gap-2 bg-white/10 backdrop-blur-xl rounded-full px-4 py-2 border border-white/20 hover:bg-white/25 transition-all duration-300 ease-out">
-                  <Heart size={20} className="text-rose-400 fill-rose-400" />
-                  <span className="text-sm text-white font-semibold">{formatCount(col.likes)}</span>
-                </button>
+              <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
+                <div className="flex gap-1.5 mb-3">
+                  {col.thumbs.map((thumb, i) =>
+                <div key={i} className="w-11 h-11 rounded-[10px] overflow-hidden border-2 border-white/30">
+                      <img src={thumb} alt="" className="w-full h-full object-cover" />
+                    </div>
+                )}
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-bold text-white truncate mr-2">{col.title}</span>
+                  <button className="flex items-center gap-2 bg-white/10 backdrop-blur-xl rounded-full px-4 py-2 border border-white/20 hover:bg-white/25 transition-all duration-300 ease-out">
+                    <Heart size={20} className="text-rose-400 fill-rose-400" />
+                    <span className="text-sm text-white font-semibold">{formatCount(col.likes)}</span>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>);
 

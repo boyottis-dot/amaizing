@@ -106,8 +106,12 @@ const ProductCarousel = ({ title, items }: { title: string; items: ReadonlyArray
   return (
     <section className="pt-6">
       <SectionHeader title={title} count={items.length} />
-      <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1 snap-x snap-mandatory scroll-pl-4 overscroll-x-contain" style={{ WebkitOverflowScrolling: "touch" }}>
-        {items.map((item) => <ProductCard key={item.id} item={item} />)}
+      <div className="relative">
+        <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
+        <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1 snap-x snap-mandatory scroll-pl-4 overscroll-x-contain" style={{ WebkitOverflowScrolling: "touch" }}>
+          {items.map((item) => <ProductCard key={item.id} item={item} />)}
+        </div>
       </div>
     </section>
   );
@@ -118,25 +122,29 @@ const VendorRow = () => {
   return (
     <section className="pt-6">
       <SectionHeader title="Shop by Vendor" count={vendors.length} />
-      <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1 snap-x snap-mandatory scroll-pl-4 overscroll-x-contain" style={{ WebkitOverflowScrolling: "touch" }}>
-        {vendors.map((vendor) => (
-          <div key={vendor.id} onClick={() => navigate(`/vendor/${vendor.id}`)} className="shrink-0 w-[150px] h-[180px] rounded-[18px] overflow-hidden relative cursor-pointer active:scale-95 transition-transform">
-            <img src={vendor.img} alt="" className="absolute inset-0 w-full h-full object-cover scale-125 blur-xl opacity-90 saturate-200" loading="lazy" />
-            <div className="absolute inset-0 bg-[hsl(var(--foreground)/0.05)]" />
-            <div className="absolute top-3 left-3 right-3 z-10">
-              <p className="text-[hsl(var(--background))] text-sm font-bold truncate drop-shadow-md">{vendor.name}</p>
-              <p className="text-[hsl(var(--background)/0.6)] text-[10px] font-medium">{vendor.category}</p>
+      <div className="relative">
+        <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
+        <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1 snap-x snap-mandatory scroll-pl-4 overscroll-x-contain" style={{ WebkitOverflowScrolling: "touch" }}>
+          {vendors.map((vendor) => (
+            <div key={vendor.id} onClick={() => navigate(`/vendor/${vendor.id}`)} className="shrink-0 w-[150px] h-[180px] rounded-[18px] overflow-hidden relative cursor-pointer active:scale-95 transition-transform">
+              <img src={vendor.img} alt="" className="absolute inset-0 w-full h-full object-cover scale-125 blur-xl opacity-90 saturate-200" loading="lazy" />
+              <div className="absolute inset-0 bg-[hsl(var(--foreground)/0.05)]" />
+              <div className="absolute top-3 left-3 right-3 z-10">
+                <p className="text-[hsl(var(--background))] text-sm font-bold truncate drop-shadow-md">{vendor.name}</p>
+                <p className="text-[hsl(var(--background)/0.6)] text-[10px] font-medium">{vendor.category}</p>
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center z-10">
+                <img src={vendor.img} alt={vendor.name} className="w-[80px] h-[80px] rounded-full object-cover border-[3px] border-[hsl(var(--background)/0.3)] shadow-xl" loading="lazy" />
+              </div>
+              <div className="absolute bottom-2.5 left-3 right-3 z-10">
+                <button type="button" className="w-full py-1.5 rounded-full bg-[hsl(var(--background)/0.15)] backdrop-blur-xl text-[hsl(var(--background))] text-xs font-semibold border border-[hsl(var(--background)/0.2)] hover:bg-[hsl(var(--background)/0.25)] transition-colors">
+                  Follow
+                </button>
+              </div>
             </div>
-            <div className="absolute inset-0 flex items-center justify-center z-10">
-              <img src={vendor.img} alt={vendor.name} className="w-[80px] h-[80px] rounded-full object-cover border-[3px] border-[hsl(var(--background)/0.3)] shadow-xl" loading="lazy" />
-            </div>
-            <div className="absolute bottom-2.5 left-3 right-3 z-10">
-              <button type="button" className="w-full py-1.5 rounded-full bg-[hsl(var(--background)/0.15)] backdrop-blur-xl text-[hsl(var(--background))] text-xs font-semibold border border-[hsl(var(--background)/0.2)] hover:bg-[hsl(var(--background)/0.25)] transition-colors">
-                Follow
-              </button>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -226,22 +234,26 @@ const Search = () => {
       </header>
 
       <div className="px-4 pt-2 pb-3">
-        <div className="-mx-4 flex gap-2 overflow-x-auto no-scrollbar px-4 py-1">
-          {categories.map((cat) => (
-            <button
-              key={cat.label}
-              type="button"
-              onClick={() => setActiveFilter(activeFilter === cat.label ? null : cat.label)}
-              className={`shrink-0 flex items-center gap-1.5 pl-[3px] pr-3 py-[3px] rounded-full text-[12px] font-semibold transition-all backdrop-blur-xl ${
-                activeFilter === cat.label
-                  ? "bg-foreground text-background"
-                  : "bg-background/60 text-muted-foreground hover:bg-background/80 shadow-[0_2px_8px_-1px_hsl(var(--foreground)/0.08)]"
-              }`}
-            >
-              <img src={cat.image} alt={cat.label} className="w-8 h-8 rounded-full object-cover ring-1 ring-border/30" loading="lazy" />
-              {cat.label}
-            </button>
-          ))}
+        <div className="relative -mx-4">
+          <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+          <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
+          <div className="flex gap-2 overflow-x-auto no-scrollbar px-4 py-1">
+            {categories.map((cat) => (
+              <button
+                key={cat.label}
+                type="button"
+                onClick={() => setActiveFilter(activeFilter === cat.label ? null : cat.label)}
+                className={`shrink-0 flex items-center gap-1.5 pl-[3px] pr-3 py-[3px] rounded-full text-[12px] font-semibold transition-all backdrop-blur-xl ${
+                  activeFilter === cat.label
+                    ? "bg-foreground text-background"
+                    : "bg-background/60 text-muted-foreground hover:bg-background/80 shadow-[0_2px_8px_-1px_hsl(var(--foreground)/0.08)]"
+                }`}
+              >
+                <img src={cat.image} alt={cat.label} className="w-8 h-8 rounded-full object-cover ring-1 ring-border/30" loading="lazy" />
+                {cat.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
