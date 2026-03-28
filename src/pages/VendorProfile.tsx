@@ -1,8 +1,9 @@
 import { ArrowLeft, Search, Heart, Bookmark, MessageCircle, Send, Plus, X } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
-import PostDetailDialog, { PostDetailData } from "@/components/PostDetailDialog";
+import CommentBar from "@/components/CommentBar";
 
 const vendorMap: Record<string, { name: string; handle: string; avatar: string; bio: string; followers: string; posts: string }> = {
   amara: { name: "Amara Okafor", handle: "@amara.style", avatar: "https://i.pravatar.cc/400?img=32", bio: "West African silk & textile designer 🧵✨", followers: "2.3 K", posts: "89" },
