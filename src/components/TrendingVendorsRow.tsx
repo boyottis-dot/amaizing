@@ -9,7 +9,7 @@ const vendors = [
 const TrendingVendorsRow = () => {
   const navigate = useNavigate();
   return (
-    <div className="py-4">
+    <div>
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-baseline gap-1">
           <span className="text-lg font-bold text-foreground">Popular Vendors </span>
@@ -22,9 +22,7 @@ const TrendingVendorsRow = () => {
           View All
         </button>
       </div>
-      <div className="relative -mx-4">
-        <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
-        <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
+      <div className="-mx-4">
         <div className="flex gap-3 overflow-x-auto no-scrollbar px-4">
           {vendors.map((v) =>
           <div
