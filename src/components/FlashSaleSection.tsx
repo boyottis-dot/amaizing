@@ -63,7 +63,9 @@ const FlashSaleSection = () => {
       </div>
 
       {/* Cards */}
-      <div className="-mx-4">
+      <div className="relative -mx-4">
+        <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
         <div
           className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory overscroll-x-contain pb-1 px-4"
           style={{ WebkitOverflowScrolling: "touch" }}>
