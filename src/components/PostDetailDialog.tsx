@@ -138,15 +138,12 @@ const PostDetailDialog = ({ open, onClose, post }: PostDetailProps) => {
                     <div className="flex items-center gap-1.5">
                       <span className="truncate text-[15px] font-bold text-white">{post.vendorName}</span>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="shrink-0">
-                        <circle cx="12" cy="12" r="10" fill="hsl(var(--primary))" />
+                        <circle cx="12" cy="12" r="10" fill="#3B82F6" />
                         <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
                     {post.vendorHandle && <span className="text-[11px] text-white/50">{post.vendorHandle}</span>}
                   </div>
-                  <button className="ml-auto inline-flex h-11 min-w-[96px] shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/16 px-5 text-center backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]">
-                    <span className="w-full text-center text-[12px] font-semibold leading-none text-white">Follow</span>
-                  </button>
                 </div>
               )}
               {post.caption && (

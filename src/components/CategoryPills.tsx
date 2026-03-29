@@ -104,8 +104,10 @@ const CategoryPills = () => {
       </div>
 
       {/* Category pills */}
-      <div>
-        <div className="flex gap-2 overflow-x-auto no-scrollbar pb-3 pt-1 -mx-4 px-4">
+      <div className="relative -mx-4">
+        <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
+        <div className="flex gap-2 overflow-x-auto no-scrollbar pb-3 pt-1 px-4">
           {categories.map((cat) => (
             <div key={cat.label} className="relative shrink-0">
               <button

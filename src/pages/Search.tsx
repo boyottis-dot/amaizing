@@ -106,7 +106,9 @@ const ProductCarousel = ({ title, items }: { title: string; items: ReadonlyArray
   return (
     <section className="pt-6">
       <SectionHeader title={title} count={items.length} />
-      <div>
+      <div className="relative">
+        <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
         <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1 snap-x snap-mandatory scroll-pl-4 overscroll-x-contain" style={{ WebkitOverflowScrolling: "touch" }}>
           {items.map((item) => <ProductCard key={item.id} item={item} />)}
         </div>
@@ -120,7 +122,9 @@ const VendorRow = () => {
   return (
     <section className="pt-6">
       <SectionHeader title="Shop by Vendor" count={vendors.length} />
-      <div>
+      <div className="relative">
+        <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
         <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-1 snap-x snap-mandatory scroll-pl-4 overscroll-x-contain" style={{ WebkitOverflowScrolling: "touch" }}>
           {vendors.map((vendor) => (
             <div key={vendor.id} onClick={() => navigate(`/vendor/${vendor.id}`)} className="shrink-0 w-[150px] h-[180px] rounded-[18px] overflow-hidden relative cursor-pointer active:scale-95 transition-transform">
@@ -230,7 +234,9 @@ const Search = () => {
       </header>
 
       <div className="px-4 pt-2 pb-3">
-        <div className="-mx-4">
+        <div className="relative -mx-4">
+          <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+          <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
           <div className="flex gap-2 overflow-x-auto no-scrollbar px-4 py-1">
             {categories.map((cat) => (
               <button

@@ -354,7 +354,7 @@ const VendorProfile = () => {
                       </div>
                     </div>
                   </div>
-                  <span className="text-[10px] font-medium text-muted-foreground truncate w-[72px] text-center">Post {p.id}</span>
+                  <span className="text-[10px] font-medium text-muted-foreground truncate w-[72px] text-center">{vendor.name.split(" ")[0]}</span>
                 </div>
               ))}
             </div>
@@ -372,23 +372,28 @@ const VendorProfile = () => {
 
       {activeTab === "Products" && (
         <section className="py-4 px-3">
-          {/* Category pills filter */}
-          <div className="relative mb-4">
-            <div className="absolute left-0 top-0 bottom-0 w-6 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
-            <div className="absolute right-0 top-0 bottom-0 w-6 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
-            <div className="flex gap-2 overflow-x-auto no-scrollbar px-1 py-1">
+          {/* Category pills filter with circle images */}
+          <div className="relative -mx-3 mb-4">
+            <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+            <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
+            <div className="flex gap-2 overflow-x-auto no-scrollbar px-4 py-1">
               {productCategories.map((cat) => (
                 <button
                   key={cat.name}
                   onClick={() => setActiveProductCat(cat.name)}
-                  className={`shrink-0 px-4 py-2 rounded-full text-[12px] font-semibold transition-all duration-200 active:scale-95 ${
+                  className={`shrink-0 flex items-center gap-1.5 pl-[3px] pr-3 py-[3px] rounded-full text-[12px] font-semibold transition-all duration-200 active:scale-95 ${
                     activeProductCat === cat.name
                       ? "bg-foreground text-background"
-                      : "bg-secondary/60 text-muted-foreground hover:bg-secondary/80 border border-border/20"
+                      : "bg-background/60 text-muted-foreground hover:bg-background/80 shadow-sm border border-border/20"
                   }`}
                 >
+                  <img
+                    src={`https://picsum.photos/seed/vcat-${cat.name.toLowerCase().replace(/\s/g, '')}/80/80`}
+                    alt={cat.name}
+                    className="w-8 h-8 rounded-full object-cover ring-1 ring-border/30"
+                  />
                   {cat.name}
-                  <span className="ml-1 text-[10px] opacity-60">{cat.name === "All" ? productCategories[0].items.length : cat.items.length}</span>
+                  <span className="text-[10px] opacity-60">{cat.name === "All" ? productCategories[0].items.length : cat.items.length}</span>
                 </button>
               ))}
             </div>
@@ -467,17 +472,14 @@ const VendorProfile = () => {
       {currentPost && selectedPostIndex !== null && (
         <AnimatePresence>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] bg-black">
-            {/* Close */}
-            <button onClick={() => setSelectedPostIndex(null)} className="absolute top-6 right-4 z-50 w-10 h-10 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center">
-              <X size={18} className="text-white" />
-            </button>
+            {/* No X close button - back arrow in header is sufficient */}
 
-            {/* Progress bars */}
-            <div className="absolute top-4 left-0 w-full px-4 flex gap-1.5 z-40">
-              {vendorPosts.map((_, i) => (
-                <div key={i} className={`h-[3px] flex-1 rounded-full transition-colors ${i === selectedPostIndex ? "bg-white" : i < selectedPostIndex ? "bg-white/60" : "bg-white/30"}`} />
-              ))}
-            </div>
+            {/* Progress bars with auto-advance */}
+            <VendorStoryProgress
+              total={vendorPosts.length}
+              current={selectedPostIndex!}
+              onAdvance={() => setSelectedPostIndex(prev => prev !== null && prev < vendorPosts.length - 1 ? prev + 1 : null)}
+            />
 
             {/* Full screen image */}
             <img src={currentPost.post.replace("/200/200", "/800/1200")} alt="" className="absolute inset-0 w-full h-full object-cover" />
