@@ -121,6 +121,45 @@ const fakeComments = [
   { id: 5, user: "Priya D.", avatar: "https://i.pravatar.cc/32?img=23", text: "Stunning piece! 💎 The detail is incredible", time: "12h", likes: 21, replies: 4 },
 ];
 
+/* ─── Auto-advancing progress bars for vendor stories ─── */
+const VendorStoryProgress = ({ total, current, onAdvance }: { total: number; current: number; onAdvance: () => void }) => {
+  const [progress, setProgress] = useState(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    setProgress(0);
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    const startTime = Date.now();
+    const duration = 3500; // 3.5 seconds
+    intervalRef.current = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const pct = Math.min(elapsed / duration, 1);
+      setProgress(pct);
+      if (pct >= 1) {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        onAdvance();
+      }
+    }, 50);
+    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+  }, [current]);
+
+  return (
+    <div className="absolute top-4 left-0 w-full px-4 flex gap-1.5 z-40">
+      {Array.from({ length: total }).map((_, i) => (
+        <div key={i} className="h-[3px] flex-1 rounded-full bg-white/30 overflow-hidden">
+          <div
+            className="h-full rounded-full transition-none"
+            style={{
+              width: i < current ? "100%" : i === current ? `${progress * 100}%` : "0%",
+              backgroundColor: i <= current ? "white" : "transparent",
+            }}
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const formatCount = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
 
 /* ─── CommentsSheet (matching StoryViewer) ─── */
