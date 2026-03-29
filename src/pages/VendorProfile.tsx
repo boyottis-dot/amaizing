@@ -1,6 +1,6 @@
 import { ArrowLeft, Search, Heart, Bookmark, MessageCircle, Send, Plus, X, Star, Eye, Paperclip, MoreHorizontal, Reply } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 
