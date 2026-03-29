@@ -13,7 +13,7 @@ const stories = [
 const StoriesRow = () => {
   const navigate = useNavigate();
   return (
-    <div className="pt-4 pb-2">
+    <div>
     <div className="flex items-baseline gap-1 mb-3">
       <span className="text-lg font-bold text-foreground">Stories</span>
       <span className="text-[10px] text-muted-foreground align-super">{stories.length}</span>

@@ -9,7 +9,7 @@ const vendors = [
 const TrendingVendorsRow = () => {
   const navigate = useNavigate();
   return (
-    <div className="py-4">
+    <div>
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-baseline gap-1">
           <span className="text-lg font-bold text-foreground">Popular Vendors </span>

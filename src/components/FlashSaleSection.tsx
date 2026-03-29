@@ -41,7 +41,7 @@ const FlashSaleSection = () => {
   const { h, m, s } = useCountdown(12);
 
   return (
-    <section className="py-5">
+    <section>
       {/* Header */}
       <div className="flex items-center justify-between pb-3">
         <div className="flex items-center gap-2">
