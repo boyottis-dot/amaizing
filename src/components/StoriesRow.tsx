@@ -19,8 +19,10 @@ const StoriesRow = () => {
       <span className="text-[10px] text-muted-foreground align-super">{stories.length}</span>
     </div>
 
-    <div>
-      <div className="flex gap-3 overflow-x-auto no-scrollbar -mx-4 px-4 pt-1">
+    <div className="relative -mx-4">
+      <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent" />
+      <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent" />
+      <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 pt-1">
         {stories.map((s) =>
           <div key={s.id} className="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 transition-transform duration-150" onClick={() => s.isYou ? navigate("/create-post") : navigate(`/story/${s.id}`)}>
             <div className="relative">
